@@ -1,0 +1,88 @@
+[gd_scene load_steps=2 format=3 uid="uid://ps43w3j1l7po"]
+
+[ext_resource type="PackedScene" uid="uid://dt56k3v28b016" path="res://cube_stuff/triangle.tscn" id="1_jbd7x"]
+
+[node name="Cube" type="Node3D"]
+
+[node name="Side 1" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" parent="Side 1" instance=ExtResource("1_jbd7x")]
+
+[node name="MeshInstance3D2" parent="Side 1" instance=ExtResource("1_jbd7x")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="MeshInstance3D3" parent="Side 1" instance=ExtResource("1_jbd7x")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="MeshInstance3D4" parent="Side 1" instance=ExtResource("1_jbd7x")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 0, 0, 0)
+
+[node name="Side 2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Side 2" instance=ExtResource("1_jbd7x")]
+
+[node name="MeshInstance3D2" parent="Side 2" instance=ExtResource("1_jbd7x")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="MeshInstance3D3" parent="Side 2" instance=ExtResource("1_jbd7x")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="MeshInstance3D4" parent="Side 2" instance=ExtResource("1_jbd7x")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 0, 0, 0)
+
+[node name="Side 3" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Side 3" instance=ExtResource("1_jbd7x")]
+
+[node name="MeshInstance3D2" parent="Side 3" instance=ExtResource("1_jbd7x")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="MeshInstance3D3" parent="Side 3" instance=ExtResource("1_jbd7x")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="MeshInstance3D4" parent="Side 3" instance=ExtResource("1_jbd7x")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 0, 0, 0)
+
+[node name="Side 4" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1.1924881e-08, 1, 0, -1, 1.1924881e-08, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Side 4" instance=ExtResource("1_jbd7x")]
+
+[node name="MeshInstance3D2" parent="Side 4" instance=ExtResource("1_jbd7x")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="MeshInstance3D3" parent="Side 4" instance=ExtResource("1_jbd7x")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="MeshInstance3D4" parent="Side 4" instance=ExtResource("1_jbd7x")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 0, 0, 0)
+
+[node name="Side 5" type="Node3D" parent="."]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Side 5" instance=ExtResource("1_jbd7x")]
+
+[node name="MeshInstance3D2" parent="Side 5" instance=ExtResource("1_jbd7x")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="MeshInstance3D3" parent="Side 5" instance=ExtResource("1_jbd7x")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="MeshInstance3D4" parent="Side 5" instance=ExtResource("1_jbd7x")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 0, 0, 0)
+
+[node name="Side 6" type="Node3D" parent="."]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Side 6" instance=ExtResource("1_jbd7x")]
+
+[node name="MeshInstance3D2" parent="Side 6" instance=ExtResource("1_jbd7x")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="MeshInstance3D3" parent="Side 6" instance=ExtResource("1_jbd7x")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="MeshInstance3D4" parent="Side 6" instance=ExtResource("1_jbd7x")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 0, 0, 0)

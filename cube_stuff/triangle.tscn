@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dt56k3v28b016"]
+
+[ext_resource type="Material" uid="uid://bocnmpy33r0nj" path="res://cube_stuff/main_material.material" id="1_4roi2"]
+[ext_resource type="ArrayMesh" uid="uid://bj7julw2fxli" path="res://cube_stuff/triangle_upward.mesh" id="2_6snes"]
+
+[node name="MeshInstance3D" type="MeshInstance3D"]
+material_override = ExtResource("1_4roi2")
+mesh = ExtResource("2_6snes")
