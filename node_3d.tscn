@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://cwr1kqp4enxs7"]
+
+[ext_resource type="Script" uid="uid://lpxtsnnwwx3a" path="res://node_3d.gd" id="1_a202f"]
+[ext_resource type="ArrayMesh" uid="uid://bj7julw2fxli" path="res://triangle_upward.mesh" id="2_noarx"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_noarx"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.9755806, 0.2196419, 0, -0.2196419, 0.9755806, 0, 0, 0)
+
+[node name="Node3D" type="Node3D" parent="."]
+script = ExtResource("1_a202f")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_noarx")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.7071068, -0.40860704, 0.5770964, 0, 0.8161376, 0.5778576, -0.7071068, -0.40860704, 0.5770964, 10, 10, 10)
+projection = 1
+size = 10.0
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+mesh = SubResource("BoxMesh_noarx")
