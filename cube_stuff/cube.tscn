@@ -3,38 +3,9 @@
 [ext_resource type="Script" uid="uid://6dhukb1n5p2n" path="res://cube_stuff/cube.gd" id="1_27dh6"]
 [ext_resource type="PackedScene" uid="uid://dt56k3v28b016" path="res://cube_stuff/triangle.tscn" id="1_jbd7x"]
 
-[node name="Cube" type="Node3D" node_paths=PackedStringArray("side_one", "side_two", "side_three", "side_four", "side_five", "side_six", "side_one_one", "side_one_two", "side_one_three", "side_one_four", "side_two_one", "side_two_two", "side_two_three", "side_two_four", "side_three_one", "side_three_two", "side_three_three", "side_three_four", "side_four_one", "side_four_two", "side_four_three", "side_four_four", "side_five_one", "side_five_two", "side_five_three", "side_five_four", "side_six_one", "side_six_two", "side_six_three", "side_six_four")]
+[node name="Cube" type="Node3D"]
 script = ExtResource("1_27dh6")
-side_one = NodePath("Side 1")
-side_two = NodePath("Side 2")
-side_three = NodePath("Side 3")
-side_four = NodePath("Side 4")
-side_five = NodePath("Side 5")
-side_six = NodePath("Side 6")
-side_one_one = NodePath("Side 1/MeshInstance3D")
-side_one_two = NodePath("Side 1/MeshInstance3D2")
-side_one_three = NodePath("Side 1/MeshInstance3D3")
-side_one_four = NodePath("Side 1/MeshInstance3D4")
-side_two_one = NodePath("Side 2/MeshInstance3D")
-side_two_two = NodePath("Side 2/MeshInstance3D2")
-side_two_three = NodePath("Side 2/MeshInstance3D3")
-side_two_four = NodePath("Side 2/MeshInstance3D4")
-side_three_one = NodePath("Side 3/MeshInstance3D")
-side_three_two = NodePath("Side 3/MeshInstance3D2")
-side_three_three = NodePath("Side 3/MeshInstance3D3")
-side_three_four = NodePath("Side 3/MeshInstance3D4")
-side_four_one = NodePath("Side 4/MeshInstance3D")
-side_four_two = NodePath("Side 4/MeshInstance3D2")
-side_four_three = NodePath("Side 4/MeshInstance3D3")
-side_four_four = NodePath("Side 4/MeshInstance3D4")
-side_five_one = NodePath("Side 5/MeshInstance3D")
-side_five_two = NodePath("Side 5/MeshInstance3D2")
-side_five_three = NodePath("Side 5/MeshInstance3D3")
-side_five_four = NodePath("Side 5/MeshInstance3D4")
-side_six_one = NodePath("Side 6/MeshInstance3D")
-side_six_two = NodePath("Side 6/MeshInstance3D2")
-side_six_three = NodePath("Side 6/MeshInstance3D3")
-side_six_four = NodePath("Side 6/MeshInstance3D4")
+priority = null
 
 [node name="Side 1" type="Node3D" parent="."]
 

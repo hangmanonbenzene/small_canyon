@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://jgs81v5axsbi"]
+
+[ext_resource type="Script" uid="uid://dbj8srffn778h" path="res://level_stuff/character.gd" id="1_f3v8f"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_65pkg"]
+no_depth_test = true
+albedo_color = Color(0.39083177, 0.9550316, 0.3226005, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_vu45j"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f3v8f"]
+no_depth_test = true
+albedo_color = Color(0.39083177, 0.9550316, 0.3226005, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_vu45j"]
+
+[node name="Character" type="Node3D"]
+script = ExtResource("1_f3v8f")
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 0.74, 0, 0, 0, 1, 0, 0.75, 0)
+material_override = SubResource("StandardMaterial3D_65pkg")
+mesh = SubResource("CylinderMesh_vu45j")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+material_override = SubResource("StandardMaterial3D_f3v8f")
+mesh = SubResource("SphereMesh_vu45j")
+skeleton = NodePath("../..")
