@@ -8,29 +8,87 @@ extends Node
 @export var point_c: Vector3
 @export var point_d: Vector3
 @export var point_e: Vector3
+@export var point_f: Vector3
+@export var point_g: Vector3
+@export var point_h: Vector3
+@export var point_i: Vector3
+@export var point_j: Vector3
+@export var point_k: Vector3
+@export var point_l: Vector3
+@export var point_m: Vector3
 
-@export var player: Node3D
+@export var player1: Node3D
+@export var player2: Node3D
+@export var player3: Node3D
+
+var a: bool = true
+var b: bool = true
+var c: bool = true
 
 func _ready():
-	# Start the movement sequence when the scene is ready
-	start_movement()
+	while true:
+		move_player_one_a()
+		move_player_two_a()
+		move_player_three_a()
+		while not (a and b and c):
+			await get_tree().create_timer(0.5).timeout
+		await get_tree().create_timer(0.5).timeout
+		move_player_one_b()
+		move_player_two_b()
+		move_player_three_b()
+		while not (a and b and c):
+			await get_tree().create_timer(0.5).timeout
+		await get_tree().create_timer(0.5).timeout
 
-func start_movement():
-	player.global_position = point_a
-	while(true):
-		await move_to_point(point_b, 5)
-		player.priority = 1
-		await move_to_point(point_c, 3)
-		await move_to_point(point_d, 1)
-		await move_to_point(point_e, 2)
-		await move_to_point(point_d, 2)
-		await move_to_point(point_c, 1)
-		await move_to_point(point_b, 3)
-		player.priority = 0
-		await move_to_point(point_a, 5)
+func move_player_one_a():
+	a = false
+	await move_to_point(player1, point_b, 5)
+	player1.priority = 1
+	await move_to_point(player1, point_c, 3)
+	await move_to_point(player1, point_d, 1)
+	await move_to_point(player1, point_e, 2)
+	a = true
+func move_player_one_b():
+	a = false
+	await move_to_point(player1, point_d, 2)
+	await move_to_point(player1, point_c, 1)
+	await move_to_point(player1, point_b, 3)
+	player1.priority = 0
+	await move_to_point(player1, point_a, 5)
+	a = true
+
+func move_player_two_a():
+	b = false
+	await move_to_point(player2, point_g, 5)
+	await move_to_point(player2, point_h, 6)
+	b = true
+func move_player_two_b():
+	b = false
+	await move_to_point(player2, point_g, 6)
+	await move_to_point(player2, point_f, 5)
+	b = true
+
+func move_player_three_a():
+	c = false
+	await move_to_point(player3, point_j, 1)
+	player3.priority = 1
+	await move_to_point(player3, point_k, 2)
+	player3.priority = 0
+	await move_to_point(player3, point_l, 2)
+	await move_to_point(player3, point_m, 6)
+	c = true
+func move_player_three_b():
+	c = false
+	await move_to_point(player3, point_l, 6)
+	await move_to_point(player3, point_k, 2)
+	player3.priority = 1
+	await move_to_point(player3, point_j, 2)
+	player3.priority = 0
+	await move_to_point(player3, point_i, 1)
+	c = true
 
 # Helper function for smooth movement
-func move_to_point(target: Vector3, tiles: float) -> Signal:
+func move_to_point(player: Node3D, target: Vector3, tiles: float) -> Signal:
 	var duration = tiles * time
 	var start = player.global_position
 	var time_passed = 0.0

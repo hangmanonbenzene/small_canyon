@@ -1,13 +1,41 @@
-[gd_scene load_steps=6 format=3 uid="uid://cwr1kqp4enxs7"]
+[gd_scene load_steps=14 format=3 uid="uid://cwr1kqp4enxs7"]
 
 [ext_resource type="PackedScene" uid="uid://ps43w3j1l7po" path="res://cube_stuff/cube.tscn" id="1_a202f"]
-[ext_resource type="PackedScene" uid="uid://jgs81v5axsbi" path="res://level_stuff/character.tscn" id="2_noarx"]
+[ext_resource type="Script" uid="uid://dbj8srffn778h" path="res://level_stuff/character.gd" id="2_6eogy"]
 [ext_resource type="Script" uid="uid://f1knvvm7bxqg" path="res://level_stuff/movement.gd" id="3_a0tk4"]
 [ext_resource type="Script" uid="uid://c1qugp6ftiv1m" path="res://level_stuff/camera.gd" id="4_6eogy"]
 
 [sub_resource type="Environment" id="Environment_krji3"]
 background_mode = 1
 background_color = Color(0.6624523, 0.66245234, 0.66245216, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6eogy"]
+no_depth_test = true
+albedo_color = Color(0.39215687, 1, 0.39215687, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_vu45j"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0vc4t"]
+no_depth_test = true
+albedo_color = Color(0.39215687, 1, 0.39215687, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_vu45j"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8r8w7"]
+no_depth_test = true
+albedo_color = Color(0.39215687, 0.39215687, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8jikh"]
+no_depth_test = true
+albedo_color = Color(0.39215687, 0.39215687, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_krfhj"]
+no_depth_test = true
+albedo_color = Color(1, 0.39215687, 0.39215687, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_llvct"]
+no_depth_test = true
+albedo_color = Color(1, 0.39215687, 0.39215687, 1)
 
 [node name="Level" type="Node3D"]
 
@@ -16,7 +44,7 @@ transform = Transform3D(0.7071068, -0.40860704, 0.5770964, 0, 0.8161376, 0.57785
 environment = SubResource("Environment_krji3")
 projection = 1
 current = true
-size = 10.0
+size = 8.0
 
 [node name="Camera3D2" type="Camera3D" parent="."]
 transform = Transform3D(-0.57357645, -0.5265407, 0.6275068, 0, 0.7660444, 0.6427875, -0.819152, 0.36868778, -0.43938503, 5, 7, -5)
@@ -82,17 +110,81 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -3, -4)
 [node name="Cube12" parent="Structure" instance=ExtResource("1_a202f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -3, -4)
 
-[node name="Character" parent="." instance=ExtResource("2_noarx")]
+[node name="Character" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -2.5, 1)
+script = ExtResource("2_6eogy")
 
-[node name="Node" type="Node" parent="." node_paths=PackedStringArray("player")]
+[node name="Node3D" type="Node3D" parent="Character"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Character/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 0.75, 0, 0, 0, 1, 0, 0.75, 0)
+material_override = SubResource("StandardMaterial3D_6eogy")
+mesh = SubResource("CylinderMesh_vu45j")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Character/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+material_override = SubResource("StandardMaterial3D_0vc4t")
+mesh = SubResource("SphereMesh_vu45j")
+skeleton = NodePath("../..")
+
+[node name="Character2" type="Node3D" parent="."]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -1.5, 2, 2)
+script = ExtResource("2_6eogy")
+
+[node name="Node3D" type="Node3D" parent="Character2"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Character2/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 0.75, 0, 0, 0, 1, 0, 0.75, 0)
+material_override = SubResource("StandardMaterial3D_8r8w7")
+mesh = SubResource("CylinderMesh_vu45j")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Character2/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+material_override = SubResource("StandardMaterial3D_8jikh")
+mesh = SubResource("SphereMesh_vu45j")
+skeleton = NodePath("../..")
+
+[node name="Character3" type="Node3D" parent="."]
+transform = Transform3D(1.9106855e-15, 4.371139e-08, 1, 1, -4.371139e-08, 0, 4.371139e-08, 1, -4.371139e-08, -3, -3, -3.5)
+script = ExtResource("2_6eogy")
+
+[node name="Node3D" type="Node3D" parent="Character3"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Character3/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 0.75, 0, 0, 0, 1, 0, 0.75, 0)
+material_override = SubResource("StandardMaterial3D_krfhj")
+mesh = SubResource("CylinderMesh_vu45j")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Character3/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+material_override = SubResource("StandardMaterial3D_llvct")
+mesh = SubResource("SphereMesh_vu45j")
+skeleton = NodePath("../..")
+
+[node name="Node" type="Node" parent="." node_paths=PackedStringArray("player1", "player2", "player3")]
 script = ExtResource("3_a0tk4")
 point_a = Vector3(-2, -2.5, 1)
 point_b = Vector3(-2, -2.5, -4)
 point_c = Vector3(-5, -2.5, -4)
 point_d = Vector3(0, 3.5, 2)
 point_e = Vector3(-2, 3.5, 2)
-player = NodePath("../Character")
+point_f = Vector3(-1.5, 2, 2)
+point_g = Vector3(-1.5, -3, 2)
+point_h = Vector3(-1.5, -3, -4)
+point_i = Vector3(-3, -3, -3.5)
+point_j = Vector3(-4, -3, -3.5)
+point_k = Vector3(0, 3, 2.5)
+point_l = Vector3(-2, 3, 2.5)
+point_m = Vector3(-2, -3, 2.5)
+player1 = NodePath("../Character")
+player2 = NodePath("../Character2")
+player3 = NodePath("../Character3")
 
 [node name="Node2" type="Node" parent="." node_paths=PackedStringArray("cam1", "cam2")]
 script = ExtResource("4_6eogy")
