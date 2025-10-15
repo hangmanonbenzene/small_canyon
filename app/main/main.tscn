@@ -1,0 +1,59 @@
+[gd_scene load_steps=3 format=3 uid="uid://cj1l6gmrktmob"]
+
+[ext_resource type="Script" uid="uid://bwfy1bk3qso2u" path="res://app/main/main.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://0p7qwmwduce" path="res://app/main/main_menu_buttons.gd" id="2_uehq1"]
+
+[node name="main" type="Node"]
+script = ExtResource("1_ig7tw")
+
+[node name="3d_world" type="Node3D" parent="."]
+
+[node name="main_menu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="main_menu_buttons" type="VBoxContainer" parent="main_menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -250.0
+offset_right = 250.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
+script = ExtResource("2_uehq1")
+
+[node name="level_button" type="Button" parent="main_menu/main_menu_buttons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Level"
+
+[node name="editor_button" type="Button" parent="main_menu/main_menu_buttons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Editor"
+
+[node name="exit_button" type="Button" parent="main_menu/main_menu_buttons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Exit"
+
+[connection signal="pressed" from="main_menu/main_menu_buttons/level_button" to="main_menu/main_menu_buttons" method="_on_level_button_pressed"]
+[connection signal="pressed" from="main_menu/main_menu_buttons/editor_button" to="main_menu/main_menu_buttons" method="_on_editor_button_pressed"]
+[connection signal="pressed" from="main_menu/main_menu_buttons/exit_button" to="main_menu/main_menu_buttons" method="_on_exit_button_pressed"]

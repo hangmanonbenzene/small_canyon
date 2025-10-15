@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="small canyon"
-run/main_scene="uid://cwr1kqp4enxs7"
+run/main_scene="uid://cj1l6gmrktmob"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
+
+[debug]
+
+gdscript/warnings/untyped_declaration=2
 
 [input]
 

@@ -4,11 +4,11 @@ var normal_cam: bool = true
 @export var cam1: Camera3D
 @export var cam2: Camera3D
 
-func _input(event) -> void:
+func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("toggle_cam"):
 		switch()
 
-func switch():
+func switch() -> void:
 	if normal_cam:
 		normal_cam = false
 		cam1.current = false

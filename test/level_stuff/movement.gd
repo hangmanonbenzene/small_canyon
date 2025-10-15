@@ -25,7 +25,7 @@ var a: bool = true
 var b: bool = true
 var c: bool = true
 
-func _ready():
+func _ready() -> void:
 	while true:
 		move_player_one_a()
 		move_player_two_a()
@@ -40,7 +40,7 @@ func _ready():
 			await get_tree().create_timer(0.5).timeout
 		await get_tree().create_timer(0.5).timeout
 
-func move_player_one_a():
+func move_player_one_a() -> void:
 	a = false
 	await move_to_point(player1, point_b, 5)
 	player1.priority = 1
@@ -48,7 +48,7 @@ func move_player_one_a():
 	await move_to_point(player1, point_d, 1)
 	await move_to_point(player1, point_e, 2)
 	a = true
-func move_player_one_b():
+func move_player_one_b() -> void:
 	a = false
 	await move_to_point(player1, point_d, 2)
 	await move_to_point(player1, point_c, 1)
@@ -57,18 +57,18 @@ func move_player_one_b():
 	await move_to_point(player1, point_a, 5)
 	a = true
 
-func move_player_two_a():
+func move_player_two_a() -> void:
 	b = false
 	await move_to_point(player2, point_g, 5)
 	await move_to_point(player2, point_h, 6)
 	b = true
-func move_player_two_b():
+func move_player_two_b() -> void:
 	b = false
 	await move_to_point(player2, point_g, 6)
 	await move_to_point(player2, point_f, 5)
 	b = true
 
-func move_player_three_a():
+func move_player_three_a() -> void:
 	c = false
 	await move_to_point(player3, point_j, 1)
 	player3.priority = 1
@@ -77,7 +77,7 @@ func move_player_three_a():
 	await move_to_point(player3, point_l, 2)
 	await move_to_point(player3, point_m, 6)
 	c = true
-func move_player_three_b():
+func move_player_three_b() -> void:
 	c = false
 	await move_to_point(player3, point_l, 6)
 	await move_to_point(player3, point_k, 2)
@@ -89,12 +89,12 @@ func move_player_three_b():
 
 # Helper function for smooth movement
 func move_to_point(player: Node3D, target: Vector3, tiles: float) -> Signal:
-	var duration = tiles * time
-	var start = player.global_position
-	var time_passed = 0.0
+	var duration: float = tiles * time
+	var start: Vector3 = player.global_position
+	var time_passed: float = 0.0
 
 	while time_passed < duration:
-		var t = time_passed / duration
+		var t: float = time_passed / duration
 		player.global_position = start.lerp(target, t)
 		await get_tree().process_frame
 		time_passed += get_process_delta_time()
