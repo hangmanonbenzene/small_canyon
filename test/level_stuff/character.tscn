@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://jgs81v5axsbi"]
 
-[ext_resource type="Script" uid="uid://dbj8srffn778h" path="res://level_stuff/character.gd" id="1_f3v8f"]
+[ext_resource type="Script" uid="uid://dbj8srffn778h" path="res://test/level_stuff/character.gd" id="1_f3v8f"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_65pkg"]
 no_depth_test = true

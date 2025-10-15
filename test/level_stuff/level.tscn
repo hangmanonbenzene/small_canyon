@@ -1,9 +1,9 @@
 [gd_scene load_steps=14 format=3 uid="uid://cwr1kqp4enxs7"]
 
-[ext_resource type="PackedScene" uid="uid://ps43w3j1l7po" path="res://cube_stuff/cube.tscn" id="1_a202f"]
-[ext_resource type="Script" uid="uid://dbj8srffn778h" path="res://level_stuff/character.gd" id="2_6eogy"]
-[ext_resource type="Script" uid="uid://f1knvvm7bxqg" path="res://level_stuff/movement.gd" id="3_a0tk4"]
-[ext_resource type="Script" uid="uid://c1qugp6ftiv1m" path="res://level_stuff/camera.gd" id="4_6eogy"]
+[ext_resource type="PackedScene" uid="uid://ps43w3j1l7po" path="res://test/cube_stuff/cube.tscn" id="1_a202f"]
+[ext_resource type="Script" uid="uid://dbj8srffn778h" path="res://test/level_stuff/character.gd" id="2_6eogy"]
+[ext_resource type="Script" uid="uid://f1knvvm7bxqg" path="res://test/level_stuff/movement.gd" id="3_a0tk4"]
+[ext_resource type="Script" uid="uid://c1qugp6ftiv1m" path="res://test/level_stuff/camera.gd" id="4_6eogy"]
 
 [sub_resource type="Environment" id="Environment_krji3"]
 background_mode = 1

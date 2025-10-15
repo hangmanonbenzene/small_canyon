@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dt56k3v28b016"]
 
-[ext_resource type="ArrayMesh" uid="uid://bj7julw2fxli" path="res://cube_stuff/triangle_upward.mesh" id="2_6snes"]
+[ext_resource type="ArrayMesh" uid="uid://bj7julw2fxli" path="res://test/cube_stuff/triangle_upward.mesh" id="2_6snes"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yhaio"]
 no_depth_test = true
