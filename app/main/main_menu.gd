@@ -1,12 +1,13 @@
-extends VBoxContainer
+extends Control
 
+@export var main_menu_buttons: Control
 
 func _on_level_button_pressed() -> void:
-	pass # Replace with function body.
+	main_menu_buttons.visible = false
 
 
 func _on_editor_button_pressed() -> void:
-	pass # Replace with function body.
+	main_menu_buttons.visible = false
 
 
 func _on_exit_button_pressed() -> void:
