@@ -16,8 +16,11 @@ editor_menu = NodePath("editor_menu")
 
 [node name="main_menu" type="Control" parent="menus"]
 layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="main_menu_buttons" type="VBoxContainer" parent="menus/main_menu"]
 layout_mode = 1
@@ -49,8 +52,11 @@ text = "Exit"
 [node name="level_menu" type="Control" parent="menus"]
 visible = false
 layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="menus/level_menu"]
 clip_contents = false
@@ -89,8 +95,11 @@ text = "X"
 [node name="editor_menu" type="Control" parent="menus"]
 visible = false
 layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="menus/editor_menu"]
 clip_contents = false
@@ -136,4 +145,5 @@ text = "X"
 [connection signal="pressed" from="menus/main_menu/main_menu_buttons/editor_button" to="menus" method="_on_editor_button_pressed"]
 [connection signal="pressed" from="menus/main_menu/main_menu_buttons/exit_button" to="menus" method="_on_exit_button_pressed"]
 [connection signal="pressed" from="menus/level_menu/Back" to="menus" method="_on_back_pressed"]
+[connection signal="pressed" from="menus/editor_menu/ScrollContainer/editor_buttons/new_button" to="menus" method="_on_new_button_pressed"]
 [connection signal="pressed" from="menus/editor_menu/Back" to="menus" method="_on_back_pressed"]
