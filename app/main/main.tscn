@@ -8,11 +8,9 @@ script = ExtResource("1_ig7tw")
 
 [node name="3d_world" type="Node3D" parent="."]
 
-[node name="menus" type="Node" parent="." node_paths=PackedStringArray("main_menu", "level_menu", "editor_menu")]
+[node name="menus" type="Node" parent="." node_paths=PackedStringArray("main_menu")]
 script = ExtResource("2_uehq1")
 main_menu = NodePath("main_menu")
-level_menu = NodePath("level_menu")
-editor_menu = NodePath("editor_menu")
 
 [node name="main_menu" type="Control" parent="menus"]
 layout_mode = 3
@@ -22,128 +20,56 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="main_menu_buttons" type="VBoxContainer" parent="menus/main_menu"]
+[node name="VBoxContainer" type="VBoxContainer" parent="menus/main_menu"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.3
-anchor_top = 0.1
-anchor_right = 0.7
-anchor_bottom = 0.9
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 10
-alignment = 1
-
-[node name="level_button" type="Button" parent="menus/main_menu/main_menu_buttons"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "Level"
-
-[node name="editor_button" type="Button" parent="menus/main_menu/main_menu_buttons"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "Editor"
-
-[node name="exit_button" type="Button" parent="menus/main_menu/main_menu_buttons"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "Exit"
-
-[node name="level_menu" type="Control" parent="menus"]
-visible = false
-layout_mode = 3
-anchors_preset = 15
+anchor_left = 0.6
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 60.0
+offset_right = -60.0
+offset_bottom = -60.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="ScrollContainer" type="ScrollContainer" parent="menus/level_menu"]
-clip_contents = false
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.3
-anchor_top = 0.1
-anchor_right = 0.7
-anchor_bottom = 0.9
-offset_right = 40.0
-horizontal_scroll_mode = 0
-
-[node name="level_buttons" type="VBoxContainer" parent="menus/level_menu/ScrollContainer"]
-layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="level_button" type="Button" parent="menus/level_menu/ScrollContainer/level_buttons"]
-custom_minimum_size = Vector2(460, 77)
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "Play Level"
-
-[node name="Back" type="Button" parent="menus/level_menu"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -87.0
-offset_top = 10.0
-offset_right = -10.0
-offset_bottom = 87.0
-grow_horizontal = 0
-theme_override_font_sizes/font_size = 50
-text = "X"
-
-[node name="editor_menu" type="Control" parent="menus"]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ScrollContainer" type="ScrollContainer" parent="menus/editor_menu"]
-clip_contents = false
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.3
-anchor_top = 0.1
-anchor_right = 0.7
-anchor_bottom = 0.9
-offset_right = 40.0
-horizontal_scroll_mode = 0
-
-[node name="editor_buttons" type="VBoxContainer" parent="menus/editor_menu/ScrollContainer"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="new_button" type="Button" parent="menus/editor_menu/ScrollContainer/editor_buttons"]
-custom_minimum_size = Vector2(460, 77)
+[node name="NewButton" type="Button" parent="menus/main_menu/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "New Level"
 
-[node name="editor_button" type="Button" parent="menus/editor_menu/ScrollContainer/editor_buttons"]
-custom_minimum_size = Vector2(460, 77)
+[node name="ScrollContainer" type="ScrollContainer" parent="menus/main_menu/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="menus/main_menu/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="menus/main_menu/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+alignment = 2
+
+[node name="Button" type="Button" parent="menus/main_menu/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 50
+text = "Name"
+
+[node name="Button2" type="Button" parent="menus/main_menu/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
-text = "Edit Level"
+text = "Edit"
 
-[node name="Back" type="Button" parent="menus/editor_menu"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -87.0
-offset_top = 10.0
-offset_right = -10.0
-offset_bottom = 87.0
-grow_horizontal = 0
+[node name="Button3" type="Button" parent="menus/main_menu/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(77, 0)
+layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "X"
 
-[connection signal="pressed" from="menus/main_menu/main_menu_buttons/level_button" to="menus" method="_on_level_button_pressed"]
-[connection signal="pressed" from="menus/main_menu/main_menu_buttons/editor_button" to="menus" method="_on_editor_button_pressed"]
-[connection signal="pressed" from="menus/main_menu/main_menu_buttons/exit_button" to="menus" method="_on_exit_button_pressed"]
-[connection signal="pressed" from="menus/level_menu/Back" to="menus" method="_on_back_pressed"]
-[connection signal="pressed" from="menus/editor_menu/ScrollContainer/editor_buttons/new_button" to="menus" method="_on_new_button_pressed"]
-[connection signal="pressed" from="menus/editor_menu/Back" to="menus" method="_on_back_pressed"]
+[connection signal="pressed" from="menus/main_menu/VBoxContainer/NewButton" to="menus" method="_on_new_button_pressed"]
