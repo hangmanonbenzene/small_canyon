@@ -11,13 +11,13 @@ func set_up(new_menu: Node, new_name: String) -> void:
 
 func _on_play_pressed() -> void:
 	if menu.has_method("_on_play_level_pressed"):
-		menu._on_play_level_pressed(self, level_name)
+		menu._on_play_level_pressed(level_name)
 	else:
 		level_name = "###ERROR###"
 
 func _on_edit_pressed() -> void:
 	if menu.has_method("_on_edit_level_pressed"):
-		menu._on_edit_level_pressed(self, level_name)
+		menu._on_edit_level_pressed(level_name)
 	else:
 		level_name = "###ERROR###"
 

@@ -10,11 +10,13 @@ menus = NodePath("menus")
 
 [node name="3d_world" type="Node3D" parent="."]
 
-[node name="menus" type="Node" parent="." node_paths=PackedStringArray("main_menu", "level_buttons")]
+[node name="menus" type="Node" parent="." node_paths=PackedStringArray("main_menu", "level_buttons", "are_you_sure", "are_you_sure_label")]
 script = ExtResource("2_uehq1")
 main_menu = NodePath("main_menu")
 level_buttons = NodePath("main_menu/VBoxContainer/ScrollContainer/VBoxContainer")
 level_button = ExtResource("3_2c3py")
+are_you_sure = NodePath("main_menu/are_you_sure")
+are_you_sure_label = NodePath("main_menu/are_you_sure/Label")
 
 [node name="main_menu" type="Control" parent="menus"]
 layout_mode = 3
@@ -39,6 +41,7 @@ theme_override_constants/separation = 10
 
 [node name="NewButton" type="Button" parent="menus/main_menu/VBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 theme_override_font_sizes/font_size = 50
 text = "New Level"
 
@@ -52,4 +55,69 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10
 
+[node name="are_you_sure" type="ColorRect" parent="menus/main_menu"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.27058825)
+
+[node name="Label" type="Label" parent="menus/main_menu/are_you_sure"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -163.5
+offset_top = -84.5
+offset_right = 163.5
+offset_bottom = -15.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 50
+text = "Delete"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="menus/main_menu/are_you_sure"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -110.0
+offset_top = 11.5
+offset_right = -10.0
+offset_bottom = 88.5
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 50
+text = "Yes"
+
+[node name="Button2" type="Button" parent="menus/main_menu/are_you_sure"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 10.0
+offset_top = 11.5
+offset_right = 110.0
+offset_bottom = 88.5
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 50
+text = "No"
+
 [connection signal="pressed" from="menus/main_menu/VBoxContainer/NewButton" to="menus" method="_on_new_button_pressed"]
+[connection signal="pressed" from="menus/main_menu/are_you_sure/Button" to="menus" method="_on_actually_delete_pressed"]
+[connection signal="pressed" from="menus/main_menu/are_you_sure/Button2" to="menus" method="_on_dont_delete_pressed"]
