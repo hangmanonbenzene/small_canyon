@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://jx6twfvue1m3"]
+
+[ext_resource type="Script" uid="uid://dx4wpgnneuoly" path="res://app/main/level_buttons.gd" id="1_debqk"]
+
+[node name="level_button" type="HBoxContainer" node_paths=PackedStringArray("name_button")]
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+alignment = 2
+script = ExtResource("1_debqk")
+name_button = NodePath("play")
+
+[node name="play" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 50
+text = "Name"
+
+[node name="edit" type="Button" parent="."]
+custom_minimum_size = Vector2(125, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Edit"
+
+[node name="delete" type="Button" parent="."]
+custom_minimum_size = Vector2(77, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "X"
+
+[connection signal="pressed" from="play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="edit" to="." method="_on_edit_pressed"]
+[connection signal="pressed" from="delete" to="." method="_on_delete_pressed"]

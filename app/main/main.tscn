@@ -1,16 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://cj1l6gmrktmob"]
+[gd_scene load_steps=4 format=3 uid="uid://cj1l6gmrktmob"]
 
 [ext_resource type="Script" uid="uid://bwfy1bk3qso2u" path="res://app/main/main.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://0p7qwmwduce" path="res://app/main/main_menu.gd" id="2_uehq1"]
+[ext_resource type="PackedScene" uid="uid://jx6twfvue1m3" path="res://app/main/level_button.tscn" id="3_2c3py"]
 
-[node name="main" type="Node"]
+[node name="main" type="Node" node_paths=PackedStringArray("menus")]
 script = ExtResource("1_ig7tw")
+menus = NodePath("menus")
 
 [node name="3d_world" type="Node3D" parent="."]
 
-[node name="menus" type="Node" parent="." node_paths=PackedStringArray("main_menu")]
+[node name="menus" type="Node" parent="." node_paths=PackedStringArray("main_menu", "level_buttons")]
 script = ExtResource("2_uehq1")
 main_menu = NodePath("main_menu")
+level_buttons = NodePath("main_menu/VBoxContainer/ScrollContainer/VBoxContainer")
+level_button = ExtResource("3_2c3py")
 
 [node name="main_menu" type="Control" parent="menus"]
 layout_mode = 3
@@ -47,29 +51,5 @@ horizontal_scroll_mode = 0
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10
-
-[node name="HBoxContainer" type="HBoxContainer" parent="menus/main_menu/VBoxContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 10
-alignment = 2
-
-[node name="Button" type="Button" parent="menus/main_menu/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 50
-text = "Name"
-
-[node name="Button2" type="Button" parent="menus/main_menu/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(125, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "Edit"
-
-[node name="Button3" type="Button" parent="menus/main_menu/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(77, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "X"
 
 [connection signal="pressed" from="menus/main_menu/VBoxContainer/NewButton" to="menus" method="_on_new_button_pressed"]
