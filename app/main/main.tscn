@@ -1,14 +1,151 @@
-[gd_scene load_steps=4 format=3 uid="uid://cj1l6gmrktmob"]
+[gd_scene load_steps=9 format=3 uid="uid://cj1l6gmrktmob"]
 
 [ext_resource type="Script" uid="uid://bwfy1bk3qso2u" path="res://app/main/main.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://b5xxv3ttcbnbp" path="res://app/main/3d_world.gd" id="2_3hrc4"]
 [ext_resource type="Script" uid="uid://0p7qwmwduce" path="res://app/main/main_menu.gd" id="2_uehq1"]
 [ext_resource type="PackedScene" uid="uid://jx6twfvue1m3" path="res://app/main/level_button.tscn" id="3_2c3py"]
+[ext_resource type="Script" uid="uid://b7a3pufhsrshv" path="res://app/main/camera_3d.gd" id="3_uttb8"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_3hrc4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3hrc4"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_uttb8"]
 
 [node name="main" type="Node" node_paths=PackedStringArray("menus")]
 script = ExtResource("1_ig7tw")
 menus = NodePath("menus")
 
 [node name="3d_world" type="Node3D" parent="."]
+script = ExtResource("2_3hrc4")
+
+[node name="camera_and_light" type="Node3D" parent="3d_world"]
+
+[node name="Camera3D" type="Camera3D" parent="3d_world/camera_and_light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 10, 10)
+projection = 1
+size = 7.0
+script = ExtResource("3_uttb8")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="3d_world/camera_and_light"]
+light_energy = 0.5
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="3d_world/camera_and_light"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+
+[node name="DirectionalLight3D3" type="DirectionalLight3D" parent="3d_world/camera_and_light"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+light_energy = 0.2
+
+[node name="main_menu" type="Node3D" parent="3d_world"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="3d_world/main_menu"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -3, 0)
+mesh = SubResource("BoxMesh_3hrc4")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_3hrc4")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="3d_world/main_menu"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -3, 1)
+mesh = SubResource("BoxMesh_3hrc4")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_3hrc4")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="3d_world/main_menu"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -3, 2)
+mesh = SubResource("BoxMesh_3hrc4")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_3hrc4")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="3d_world/main_menu"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -3, 3)
+mesh = SubResource("BoxMesh_3hrc4")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_3hrc4")
+
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="3d_world/main_menu"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -2, 3)
+mesh = SubResource("BoxMesh_3hrc4")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_3hrc4")
+
+[node name="MeshInstance3D9" type="MeshInstance3D" parent="3d_world/main_menu"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -1, 3)
+mesh = SubResource("BoxMesh_3hrc4")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_3hrc4")
+
+[node name="MeshInstance3D10" type="MeshInstance3D" parent="3d_world/main_menu"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 3)
+mesh = SubResource("BoxMesh_3hrc4")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_3hrc4")
+
+[node name="MeshInstance3D11" type="MeshInstance3D" parent="3d_world/main_menu"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1, 3)
+mesh = SubResource("BoxMesh_3hrc4")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_3hrc4")
+
+[node name="MeshInstance3D12" type="MeshInstance3D" parent="3d_world/main_menu"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2, 3)
+mesh = SubResource("BoxMesh_3hrc4")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_3hrc4")
+
+[node name="MeshInstance3D13" type="MeshInstance3D" parent="3d_world/main_menu"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 3, 3)
+mesh = SubResource("BoxMesh_3hrc4")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_3hrc4")
+
+[node name="MeshInstance3D14" type="MeshInstance3D" parent="3d_world/main_menu"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 3, 3)
+mesh = SubResource("BoxMesh_3hrc4")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_3hrc4")
+
+[node name="MeshInstance3D15" type="MeshInstance3D" parent="3d_world/main_menu"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 3, 3)
+mesh = SubResource("BoxMesh_3hrc4")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_3hrc4")
+
+[node name="MeshInstance3D16" type="MeshInstance3D" parent="3d_world/main_menu"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 3)
+mesh = SubResource("BoxMesh_3hrc4")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_3hrc4")
+
+[node name="MeshInstance3D17" type="MeshInstance3D" parent="3d_world/main_menu"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 3, 3)
+mesh = SubResource("BoxMesh_3hrc4")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_3hrc4")
+
+[node name="MeshInstance3D18" type="MeshInstance3D" parent="3d_world/main_menu"]
+transform = Transform3D(4.371139e-08, -3.821371e-15, 1, -8.742278e-08, -1, 0, 1, -8.742278e-08, -4.371139e-08, 2, 3, 3)
+mesh = SubResource("BoxMesh_uttb8")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_3hrc4")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="3d_world/main_menu"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -3, -1)
+mesh = SubResource("BoxMesh_3hrc4")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_3hrc4")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="3d_world/main_menu"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -3, -2)
+mesh = SubResource("BoxMesh_3hrc4")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_3hrc4")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="3d_world/main_menu"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -3, -3)
+mesh = SubResource("BoxMesh_3hrc4")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_3hrc4")
 
 [node name="menus" type="Node" parent="." node_paths=PackedStringArray("main_menu", "level_buttons", "are_you_sure", "are_you_sure_label")]
 script = ExtResource("2_uehq1")
