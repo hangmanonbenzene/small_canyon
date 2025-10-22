@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://jx6twfvue1m3"]
 
-[ext_resource type="Script" uid="uid://dx4wpgnneuoly" path="res://app/main/level_button.gd" id="1_debqk"]
+[ext_resource type="Script" uid="uid://dx4wpgnneuoly" path="res://app/main/menus/level_button.gd" id="1_debqk"]
 
 [node name="level_button" type="HBoxContainer" node_paths=PackedStringArray("name_button")]
 size_flags_horizontal = 3
