@@ -5,20 +5,22 @@ extends Node
 @export var level_button: PackedScene
 @export var are_you_sure: Control
 @export var are_you_sure_label: Label
+@export var world_3d: Node3D
 
 var button_to_delete: Control
 var level_to_delete: String
 
 func _on_new_button_pressed() -> void:
 	main_menu.visible = false
+	world_3d.open_new_level()
 
 func _on_play_level_pressed(level_name: String) -> void:
-	print("play " + level_name)
 	main_menu.visible = false
+	world_3d.open_level(level_name, false)
 
 func _on_edit_level_pressed(level_name: String) -> void:
-	print("edit " + level_name)
 	main_menu.visible = false
+	world_3d.open_level(level_name, true)
 
 func _on_delete_level_pressed(button: Control, level_name: String) -> void:
 	button_to_delete = button

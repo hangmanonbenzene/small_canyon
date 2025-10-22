@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://cj1l6gmrktmob"]
+[gd_scene load_steps=13 format=3 uid="uid://cj1l6gmrktmob"]
 
 [ext_resource type="Script" uid="uid://bwfy1bk3qso2u" path="res://app/main/main.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://b5xxv3ttcbnbp" path="res://app/main/3d_world.gd" id="2_3hrc4"]
 [ext_resource type="Script" uid="uid://0p7qwmwduce" path="res://app/main/main_menu.gd" id="2_uehq1"]
 [ext_resource type="PackedScene" uid="uid://jx6twfvue1m3" path="res://app/main/level_button.tscn" id="3_2c3py"]
+[ext_resource type="PackedScene" uid="uid://64ira8a8ohu3" path="res://app/blocks/cube.tscn" id="3_cfabd"]
 [ext_resource type="Script" uid="uid://b7a3pufhsrshv" path="res://app/main/camera_3d.gd" id="3_uttb8"]
 [ext_resource type="ArrayMesh" uid="uid://ctoa5osm25at1" path="res://app/meshes/cube_side.obj" id="4_aun5o"]
 [ext_resource type="ArrayMesh" uid="uid://fy8v0jjoo0iv" path="res://app/meshes/cube_half.obj" id="5_4its8"]
@@ -20,13 +21,20 @@
 script = ExtResource("1_ig7tw")
 menus = NodePath("menus")
 
-[node name="3d_world" type="Node3D" parent="."]
+[node name="3d_world" type="Node3D" parent="." node_paths=PackedStringArray("main_menu", "main_menu_3d", "camera", "play_ui", "edit_ui", "level")]
 script = ExtResource("2_3hrc4")
+main_menu = NodePath("../menus/main_menu")
+main_menu_3d = NodePath("main_menu")
+camera = NodePath("camera_and_light/Camera3D")
+play_ui = NodePath("../menus/play_ui")
+edit_ui = NodePath("../menus/edit_ui")
+level = NodePath("level")
+cube = ExtResource("3_cfabd")
 
 [node name="camera_and_light" type="Node3D" parent="3d_world"]
 
 [node name="Camera3D" type="Camera3D" parent="3d_world/camera_and_light"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 10, 10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 100, 100)
 projection = 1
 size = 7.0
 script = ExtResource("3_uttb8")
@@ -40,6 +48,8 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0
 [node name="DirectionalLight3D3" type="DirectionalLight3D" parent="3d_world/camera_and_light"]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 light_energy = 0.2
+
+[node name="level" type="Node3D" parent="3d_world"]
 
 [node name="main_menu" type="Node3D" parent="3d_world"]
 
@@ -151,23 +161,26 @@ mesh = SubResource("BoxMesh_3hrc4")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_3hrc4")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="3d_world"]
+[node name="MeshInstance3D19" type="MeshInstance3D" parent="3d_world/main_menu"]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 3, 3.5, 3)
 mesh = ExtResource("5_4its8")
+skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_4its8")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="3d_world"]
+[node name="MeshInstance3D20" type="MeshInstance3D" parent="3d_world/main_menu"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 3.5, 4)
 mesh = ExtResource("4_aun5o")
+skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_4its8")
 
-[node name="menus" type="Node" parent="." node_paths=PackedStringArray("main_menu", "level_buttons", "are_you_sure", "are_you_sure_label")]
+[node name="menus" type="Node" parent="." node_paths=PackedStringArray("main_menu", "level_buttons", "are_you_sure", "are_you_sure_label", "world_3d")]
 script = ExtResource("2_uehq1")
 main_menu = NodePath("main_menu")
 level_buttons = NodePath("main_menu/VBoxContainer/ScrollContainer/VBoxContainer")
 level_button = ExtResource("3_2c3py")
 are_you_sure = NodePath("main_menu/are_you_sure")
 are_you_sure_label = NodePath("main_menu/are_you_sure/Label")
+world_3d = NodePath("../3d_world")
 
 [node name="main_menu" type="Control" parent="menus"]
 layout_mode = 3
@@ -269,6 +282,52 @@ focus_mode = 0
 theme_override_font_sizes/font_size = 50
 text = "No"
 
+[node name="play_ui" type="Control" parent="menus"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="menus/play_ui"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -87.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 87.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 50
+text = "X"
+
+[node name="edit_ui" type="Control" parent="menus"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="menus/edit_ui"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -87.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 87.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 50
+text = "X"
+
 [connection signal="pressed" from="menus/main_menu/VBoxContainer/NewButton" to="menus" method="_on_new_button_pressed"]
 [connection signal="pressed" from="menus/main_menu/are_you_sure/Button" to="menus" method="_on_actually_delete_pressed"]
 [connection signal="pressed" from="menus/main_menu/are_you_sure/Button2" to="menus" method="_on_dont_delete_pressed"]
+[connection signal="pressed" from="menus/play_ui/Button" to="3d_world" method="open_main_menu"]
+[connection signal="pressed" from="menus/edit_ui/Button" to="3d_world" method="open_main_menu"]
