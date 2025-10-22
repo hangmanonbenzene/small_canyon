@@ -18,5 +18,4 @@ func open_main_menu() -> void:
 	for block: Node in level.get_children():
 		block.queue_free()
 	camera.size = 7
-	menus.open_main_menu()
 	main_menu_3d.visible = true

@@ -171,7 +171,7 @@ mesh = ExtResource("4_aun5o")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_4its8")
 
-[node name="menus" type="Node" parent="." node_paths=PackedStringArray("world_3d", "main_menu", "level_buttons", "are_you_sure", "are_you_sure_label", "play_ui", "edit_ui")]
+[node name="menus" type="Node" parent="." node_paths=PackedStringArray("world_3d", "main_menu", "level_buttons", "are_you_sure", "are_you_sure_label", "play_ui", "edit_ui", "play_pause", "edit_pause")]
 script = ExtResource("2_uehq1")
 world_3d = NodePath("../3d_world")
 main_menu = NodePath("main_menu")
@@ -181,6 +181,8 @@ are_you_sure = NodePath("main_menu/are_you_sure")
 are_you_sure_label = NodePath("main_menu/are_you_sure/Label")
 play_ui = NodePath("play_ui")
 edit_ui = NodePath("edit_ui")
+play_pause = NodePath("play_ui/play_pause")
+edit_pause = NodePath("edit_ui/edit_pause")
 
 [node name="main_menu" type="Control" parent="menus"]
 layout_mode = 3
@@ -291,7 +293,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Button" type="Button" parent="menus/play_ui"]
+[node name="pause" type="Button" parent="menus/play_ui"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -303,6 +305,58 @@ offset_bottom = 87.0
 grow_horizontal = 0
 theme_override_font_sizes/font_size = 50
 text = "X"
+
+[node name="play_pause" type="ColorRect" parent="menus/play_ui"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.27058825)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="menus/play_ui/play_pause"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="menus/play_ui/play_pause/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Level Name"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="menus/play_ui/play_pause/VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 50
+text = "Continue"
+
+[node name="Button2" type="Button" parent="menus/play_ui/play_pause/VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 50
+text = "Edit"
+
+[node name="Button3" type="Button" parent="menus/play_ui/play_pause/VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 50
+text = "Leave"
 
 [node name="edit_ui" type="Control" parent="menus"]
 visible = false
@@ -313,7 +367,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Button" type="Button" parent="menus/edit_ui"]
+[node name="pause" type="Button" parent="menus/edit_ui"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -326,8 +380,63 @@ grow_horizontal = 0
 theme_override_font_sizes/font_size = 50
 text = "X"
 
+[node name="edit_pause" type="ColorRect" parent="menus/edit_ui"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.27058825)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="menus/edit_ui/edit_pause"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="menus/edit_ui/edit_pause/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Level Name"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="menus/edit_ui/edit_pause/VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 50
+text = "Continue"
+
+[node name="Button2" type="Button" parent="menus/edit_ui/edit_pause/VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 50
+text = "Edit"
+
+[node name="Button3" type="Button" parent="menus/edit_ui/edit_pause/VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 50
+text = "Leave"
+
 [connection signal="pressed" from="menus/main_menu/VBoxContainer/NewButton" to="menus" method="_on_new_button_pressed"]
 [connection signal="pressed" from="menus/main_menu/are_you_sure/Button" to="menus" method="_on_actually_delete_pressed"]
 [connection signal="pressed" from="menus/main_menu/are_you_sure/Button2" to="menus" method="_on_dont_delete_pressed"]
-[connection signal="pressed" from="menus/play_ui/Button" to="3d_world" method="open_main_menu"]
-[connection signal="pressed" from="menus/edit_ui/Button" to="3d_world" method="open_main_menu"]
+[connection signal="pressed" from="menus/play_ui/pause" to="menus" method="_on_play_pause_pressed"]
+[connection signal="pressed" from="menus/play_ui/play_pause/VBoxContainer/Button" to="menus" method="_on_play_pause_continue_pressed"]
+[connection signal="pressed" from="menus/play_ui/play_pause/VBoxContainer/Button2" to="menus" method="_on_play_pause_edit_pressed"]
+[connection signal="pressed" from="menus/play_ui/play_pause/VBoxContainer/Button3" to="menus" method="_on_play_pause_leave_pressed"]
+[connection signal="pressed" from="menus/edit_ui/pause" to="menus" method="_on_edit_pause_pressed"]

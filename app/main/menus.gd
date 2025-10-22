@@ -8,6 +8,8 @@ extends Node
 @export var are_you_sure_label: Label
 @export var play_ui: Control
 @export var edit_ui: Control
+@export var play_pause: Control
+@export var edit_pause: Control
 
 var button_to_delete: Control
 var level_to_delete: String
@@ -52,7 +54,27 @@ func remove_levels() -> void:
 	for level: Node in level_buttons.get_children():
 		level.queue_free()
 
+
 func open_main_menu() -> void:
 	play_ui.visible = false
 	edit_ui.visible = false
+	world_3d.open_main_menu()
 	main_menu.visible = true
+
+func _on_play_pause_pressed() -> void:
+	play_pause.visible = true
+
+func _on_play_pause_continue_pressed() -> void:
+	play_pause.visible = false
+
+func _on_play_pause_edit_pressed() -> void:
+	play_pause.visible = false
+	play_ui.visible = false
+	edit_ui.visible = true
+
+func _on_play_pause_leave_pressed() -> void:
+	play_pause.visible = false
+	open_main_menu()
+
+func _on_edit_pause_pressed() -> void:
+	open_main_menu()
