@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bwfy1bk3qso2u" path="res://app/main/main.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://b5xxv3ttcbnbp" path="res://app/main/3d_world.gd" id="2_3hrc4"]
-[ext_resource type="Script" uid="uid://0p7qwmwduce" path="res://app/main/main_menu.gd" id="2_uehq1"]
+[ext_resource type="Script" uid="uid://0p7qwmwduce" path="res://app/main/menus.gd" id="2_uehq1"]
 [ext_resource type="PackedScene" uid="uid://jx6twfvue1m3" path="res://app/main/level_button.tscn" id="3_2c3py"]
 [ext_resource type="PackedScene" uid="uid://64ira8a8ohu3" path="res://app/blocks/cube.tscn" id="3_cfabd"]
 [ext_resource type="Script" uid="uid://b7a3pufhsrshv" path="res://app/main/camera_3d.gd" id="3_uttb8"]
@@ -21,13 +21,11 @@
 script = ExtResource("1_ig7tw")
 menus = NodePath("menus")
 
-[node name="3d_world" type="Node3D" parent="." node_paths=PackedStringArray("main_menu", "main_menu_3d", "camera", "play_ui", "edit_ui", "level")]
+[node name="3d_world" type="Node3D" parent="." node_paths=PackedStringArray("menus", "main_menu_3d", "camera", "level")]
 script = ExtResource("2_3hrc4")
-main_menu = NodePath("../menus/main_menu")
+menus = NodePath("../menus")
 main_menu_3d = NodePath("main_menu")
 camera = NodePath("camera_and_light/Camera3D")
-play_ui = NodePath("../menus/play_ui")
-edit_ui = NodePath("../menus/edit_ui")
 level = NodePath("level")
 cube = ExtResource("3_cfabd")
 
@@ -173,14 +171,16 @@ mesh = ExtResource("4_aun5o")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_4its8")
 
-[node name="menus" type="Node" parent="." node_paths=PackedStringArray("main_menu", "level_buttons", "are_you_sure", "are_you_sure_label", "world_3d")]
+[node name="menus" type="Node" parent="." node_paths=PackedStringArray("world_3d", "main_menu", "level_buttons", "are_you_sure", "are_you_sure_label", "play_ui", "edit_ui")]
 script = ExtResource("2_uehq1")
+world_3d = NodePath("../3d_world")
 main_menu = NodePath("main_menu")
 level_buttons = NodePath("main_menu/VBoxContainer/ScrollContainer/VBoxContainer")
 level_button = ExtResource("3_2c3py")
 are_you_sure = NodePath("main_menu/are_you_sure")
 are_you_sure_label = NodePath("main_menu/are_you_sure/Label")
-world_3d = NodePath("../3d_world")
+play_ui = NodePath("play_ui")
+edit_ui = NodePath("edit_ui")
 
 [node name="main_menu" type="Control" parent="menus"]
 layout_mode = 3
