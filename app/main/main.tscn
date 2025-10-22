@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cj1l6gmrktmob"]
+[gd_scene load_steps=14 format=3 uid="uid://cj1l6gmrktmob"]
 
 [ext_resource type="Script" uid="uid://bwfy1bk3qso2u" path="res://app/main/main.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://b5xxv3ttcbnbp" path="res://app/main/3d_world/3d_world.gd" id="2_3hrc4"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://b7a3pufhsrshv" path="res://app/main/3d_world/camera_3d.gd" id="3_uttb8"]
 [ext_resource type="ArrayMesh" uid="uid://ctoa5osm25at1" path="res://app/meshes/cube_side.obj" id="4_aun5o"]
 [ext_resource type="ArrayMesh" uid="uid://fy8v0jjoo0iv" path="res://app/meshes/cube_half.obj" id="5_4its8"]
+[ext_resource type="Script" uid="uid://bdp1kjfwc04kq" path="res://app/main/menus/main_menu.gd" id="9_revbh"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_3hrc4"]
 
@@ -17,8 +18,9 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4its8"]
 
-[node name="main" type="Node" node_paths=PackedStringArray("menus")]
+[node name="main" type="Node" node_paths=PackedStringArray("world_3d", "menus")]
 script = ExtResource("1_ig7tw")
+world_3d = NodePath("3d_world")
 menus = NodePath("menus")
 
 [node name="3d_world" type="Node3D" parent="." node_paths=PackedStringArray("menus", "main_menu_3d", "camera", "level")]
@@ -171,26 +173,28 @@ mesh = ExtResource("4_aun5o")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_4its8")
 
-[node name="menus" type="Node" parent="." node_paths=PackedStringArray("world_3d", "main_menu", "level_buttons", "are_you_sure", "are_you_sure_label", "play_ui", "edit_ui", "play_pause", "edit_pause")]
+[node name="menus" type="Node" parent="." node_paths=PackedStringArray("world_3d", "main_menu", "play_ui", "edit_ui", "play_pause", "edit_pause")]
 script = ExtResource("2_uehq1")
 world_3d = NodePath("../3d_world")
 main_menu = NodePath("main_menu")
-level_buttons = NodePath("main_menu/VBoxContainer/ScrollContainer/VBoxContainer")
-level_button = ExtResource("3_2c3py")
-are_you_sure = NodePath("main_menu/are_you_sure")
-are_you_sure_label = NodePath("main_menu/are_you_sure/Label")
 play_ui = NodePath("play_ui")
 edit_ui = NodePath("edit_ui")
 play_pause = NodePath("play_ui/play_pause")
 edit_pause = NodePath("edit_ui/edit_pause")
 
-[node name="main_menu" type="Control" parent="menus"]
+[node name="main_menu" type="Control" parent="menus" node_paths=PackedStringArray("menus", "level_buttons", "are_you_sure", "are_you_sure_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("9_revbh")
+menus = NodePath("..")
+level_buttons = NodePath("VBoxContainer/ScrollContainer/VBoxContainer")
+level_button = ExtResource("3_2c3py")
+are_you_sure = NodePath("are_you_sure")
+are_you_sure_label = NodePath("are_you_sure/Label")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="menus/main_menu"]
 layout_mode = 1
@@ -432,9 +436,9 @@ focus_mode = 0
 theme_override_font_sizes/font_size = 50
 text = "Leave"
 
-[connection signal="pressed" from="menus/main_menu/VBoxContainer/NewButton" to="menus" method="_on_new_button_pressed"]
-[connection signal="pressed" from="menus/main_menu/are_you_sure/Button" to="menus" method="_on_actually_delete_pressed"]
-[connection signal="pressed" from="menus/main_menu/are_you_sure/Button2" to="menus" method="_on_dont_delete_pressed"]
+[connection signal="pressed" from="menus/main_menu/VBoxContainer/NewButton" to="menus/main_menu" method="_on_new_button_pressed"]
+[connection signal="pressed" from="menus/main_menu/are_you_sure/Button" to="menus/main_menu" method="_on_actually_delete_pressed"]
+[connection signal="pressed" from="menus/main_menu/are_you_sure/Button2" to="menus/main_menu" method="_on_dont_delete_pressed"]
 [connection signal="pressed" from="menus/play_ui/pause" to="menus" method="_on_play_pause_pressed"]
 [connection signal="pressed" from="menus/play_ui/play_pause/VBoxContainer/Button" to="menus" method="_on_play_pause_continue_pressed"]
 [connection signal="pressed" from="menus/play_ui/play_pause/VBoxContainer/Button2" to="menus" method="_on_play_pause_edit_pressed"]
