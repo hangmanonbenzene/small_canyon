@@ -16,3 +16,6 @@ func _on_play_pause_edit_pressed() -> void:
 func _on_play_pause_leave_pressed() -> void:
 	play_pause.visible = false
 	menus.open_main_menu()
+
+func set_active(active: bool) -> void:
+	visible = active

@@ -42,3 +42,10 @@ func load_levels() -> void:
 func remove_levels() -> void:
 	for level: Node in level_buttons.get_children():
 		level.queue_free()
+
+func set_active(active: bool) -> void:
+	if active:
+		load_levels()
+	else:
+		remove_levels()
+	visible = active

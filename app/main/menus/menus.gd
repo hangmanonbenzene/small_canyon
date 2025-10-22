@@ -9,22 +9,23 @@ func load_levels() -> void:
 	main_menu.load_levels()
 
 func open_new_level() -> void:
-	main_menu.visible = false
+	main_menu.set_active(false)
 	world_3d.open_new_level()
-	edit_ui.visible = true
+	edit_ui.set_active(true)
 
 func open_level(level_name: String, edit_mode: bool) -> void:
-	main_menu.visible = false
+	main_menu.set_active(false)
 	world_3d.open_level(level_name, edit_mode)
-	play_ui.visible = not edit_mode
-	edit_ui.visible = edit_mode
+	edit_ui.set_level_name(level_name)
+	play_ui.set_active(not edit_mode)
+	edit_ui.set_active(edit_mode)
 
 func open_main_menu() -> void:
-	play_ui.visible = false
-	edit_ui.visible = false
+	play_ui.set_active(false)
+	edit_ui.set_active(false)
 	world_3d.open_main_menu()
-	main_menu.visible = true
+	main_menu.set_active(true)
 
 func change_level_mode(edit_mode: bool) -> void:
-	play_ui.visible = not edit_mode
-	edit_ui.visible = edit_mode
+	play_ui.set_active(not edit_mode)
+	edit_ui.set_active(edit_mode)

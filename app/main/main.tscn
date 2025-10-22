@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cj1l6gmrktmob"]
+[gd_scene load_steps=11 format=3 uid="uid://cj1l6gmrktmob"]
 
 [ext_resource type="Script" uid="uid://bwfy1bk3qso2u" path="res://app/main/main.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://b5xxv3ttcbnbp" path="res://app/main/3d_world/3d_world.gd" id="2_3hrc4"]
@@ -6,19 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://jx6twfvue1m3" path="res://app/main/menus/level_button.tscn" id="3_2c3py"]
 [ext_resource type="PackedScene" uid="uid://64ira8a8ohu3" path="res://app/blocks/cube.tscn" id="3_cfabd"]
 [ext_resource type="Script" uid="uid://b7a3pufhsrshv" path="res://app/main/3d_world/camera_3d.gd" id="3_uttb8"]
-[ext_resource type="ArrayMesh" uid="uid://ctoa5osm25at1" path="res://app/meshes/cube_side.obj" id="4_aun5o"]
-[ext_resource type="ArrayMesh" uid="uid://fy8v0jjoo0iv" path="res://app/meshes/cube_half.obj" id="5_4its8"]
+[ext_resource type="PackedScene" uid="uid://uu62cbh7lr68" path="res://app/main/3d_world/main_menu.tscn" id="5_mkrb3"]
 [ext_resource type="Script" uid="uid://bdp1kjfwc04kq" path="res://app/main/menus/main_menu.gd" id="9_revbh"]
 [ext_resource type="Script" uid="uid://c5j4muju8a58k" path="res://app/main/menus/play_ui.gd" id="10_mkrb3"]
 [ext_resource type="Script" uid="uid://bsxv3vmg5nvov" path="res://app/main/menus/edit_ui.gd" id="11_gmk0n"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_3hrc4"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3hrc4"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_uttb8"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4its8"]
 
 [node name="main" type="Node" node_paths=PackedStringArray("world_3d", "menus")]
 script = ExtResource("1_ig7tw")
@@ -53,127 +44,7 @@ light_energy = 0.2
 
 [node name="level" type="Node3D" parent="3d_world"]
 
-[node name="main_menu" type="Node3D" parent="3d_world"]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="3d_world/main_menu"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -3, 0)
-mesh = SubResource("BoxMesh_3hrc4")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_3hrc4")
-
-[node name="MeshInstance3D5" type="MeshInstance3D" parent="3d_world/main_menu"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -3, 1)
-mesh = SubResource("BoxMesh_3hrc4")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_3hrc4")
-
-[node name="MeshInstance3D6" type="MeshInstance3D" parent="3d_world/main_menu"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -3, 2)
-mesh = SubResource("BoxMesh_3hrc4")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_3hrc4")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="3d_world/main_menu"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -3, 3)
-mesh = SubResource("BoxMesh_3hrc4")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_3hrc4")
-
-[node name="MeshInstance3D8" type="MeshInstance3D" parent="3d_world/main_menu"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -2, 3)
-mesh = SubResource("BoxMesh_3hrc4")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_3hrc4")
-
-[node name="MeshInstance3D9" type="MeshInstance3D" parent="3d_world/main_menu"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -1, 3)
-mesh = SubResource("BoxMesh_3hrc4")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_3hrc4")
-
-[node name="MeshInstance3D10" type="MeshInstance3D" parent="3d_world/main_menu"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 3)
-mesh = SubResource("BoxMesh_3hrc4")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_3hrc4")
-
-[node name="MeshInstance3D11" type="MeshInstance3D" parent="3d_world/main_menu"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1, 3)
-mesh = SubResource("BoxMesh_3hrc4")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_3hrc4")
-
-[node name="MeshInstance3D12" type="MeshInstance3D" parent="3d_world/main_menu"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2, 3)
-mesh = SubResource("BoxMesh_3hrc4")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_3hrc4")
-
-[node name="MeshInstance3D13" type="MeshInstance3D" parent="3d_world/main_menu"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 3, 3)
-mesh = SubResource("BoxMesh_3hrc4")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_3hrc4")
-
-[node name="MeshInstance3D14" type="MeshInstance3D" parent="3d_world/main_menu"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 3, 3)
-mesh = SubResource("BoxMesh_3hrc4")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_3hrc4")
-
-[node name="MeshInstance3D15" type="MeshInstance3D" parent="3d_world/main_menu"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 3, 3)
-mesh = SubResource("BoxMesh_3hrc4")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_3hrc4")
-
-[node name="MeshInstance3D16" type="MeshInstance3D" parent="3d_world/main_menu"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 3)
-mesh = SubResource("BoxMesh_3hrc4")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_3hrc4")
-
-[node name="MeshInstance3D17" type="MeshInstance3D" parent="3d_world/main_menu"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 3, 3)
-mesh = SubResource("BoxMesh_3hrc4")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_3hrc4")
-
-[node name="MeshInstance3D18" type="MeshInstance3D" parent="3d_world/main_menu"]
-transform = Transform3D(4.371139e-08, -3.821371e-15, 1, -8.742278e-08, -1, 0, 1, -8.742278e-08, -4.371139e-08, 2, 3, 3)
-mesh = SubResource("BoxMesh_uttb8")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_3hrc4")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="3d_world/main_menu"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -3, -1)
-mesh = SubResource("BoxMesh_3hrc4")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_3hrc4")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="3d_world/main_menu"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -3, -2)
-mesh = SubResource("BoxMesh_3hrc4")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_3hrc4")
-
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="3d_world/main_menu"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -3, -3)
-mesh = SubResource("BoxMesh_3hrc4")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_3hrc4")
-
-[node name="MeshInstance3D19" type="MeshInstance3D" parent="3d_world/main_menu"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 3, 3.5, 3)
-mesh = ExtResource("5_4its8")
-skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("StandardMaterial3D_4its8")
-
-[node name="MeshInstance3D20" type="MeshInstance3D" parent="3d_world/main_menu"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 3.5, 4)
-mesh = ExtResource("4_aun5o")
-skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("StandardMaterial3D_4its8")
+[node name="main_menu" parent="3d_world" instance=ExtResource("5_mkrb3")]
 
 [node name="menus" type="Node" parent="." node_paths=PackedStringArray("world_3d", "main_menu", "play_ui", "edit_ui")]
 script = ExtResource("2_uehq1")
@@ -242,15 +113,25 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -163.5
-offset_top = -84.5
-offset_right = 163.5
-offset_bottom = -15.5
+offset_left = -78.5
+offset_top = -88.5
+offset_right = 78.5
+offset_bottom = -19.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 50
 text = "Delete"
 horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="menus/main_menu/are_you_sure/Label"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Button" type="Button" parent="menus/main_menu/are_you_sure"]
 custom_minimum_size = Vector2(100, 0)
@@ -324,6 +205,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.27058825)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="menus/play_ui/play_pause"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -337,12 +219,6 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 10
-
-[node name="Label" type="Label" parent="menus/play_ui/play_pause/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "Level Name"
-horizontal_alignment = 1
 
 [node name="Button" type="Button" parent="menus/play_ui/play_pause/VBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
@@ -363,9 +239,9 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 focus_mode = 0
 theme_override_font_sizes/font_size = 50
-text = "Leave"
+text = "Exit"
 
-[node name="edit_ui" type="Control" parent="menus" node_paths=PackedStringArray("menus", "edit_pause")]
+[node name="edit_ui" type="Control" parent="menus" node_paths=PackedStringArray("menus", "edit_pause", "name_text")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -376,6 +252,7 @@ grow_vertical = 2
 script = ExtResource("11_gmk0n")
 menus = NodePath("..")
 edit_pause = NodePath("edit_pause")
+name_text = NodePath("edit_pause/VBoxContainer/LineEdit")
 
 [node name="pause" type="Button" parent="menus/edit_ui"]
 layout_mode = 1
@@ -401,6 +278,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.27058825)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="menus/edit_ui/edit_pause"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -415,11 +293,12 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="menus/edit_ui/edit_pause/VBoxContainer"]
+[node name="LineEdit" type="LineEdit" parent="menus/edit_ui/edit_pause/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
-text = "Level Name"
-horizontal_alignment = 1
+placeholder_text = "Name..."
+context_menu_enabled = false
+emoji_menu_enabled = false
 
 [node name="Button" type="Button" parent="menus/edit_ui/edit_pause/VBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
@@ -433,14 +312,21 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 focus_mode = 0
 theme_override_font_sizes/font_size = 50
-text = "Edit"
+text = "Save & Play"
+
+[node name="Button4" type="Button" parent="menus/edit_ui/edit_pause/VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 50
+text = "Save & Exit"
 
 [node name="Button3" type="Button" parent="menus/edit_ui/edit_pause/VBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 focus_mode = 0
 theme_override_font_sizes/font_size = 50
-text = "Leave"
+text = "Exit"
 
 [connection signal="pressed" from="menus/main_menu/VBoxContainer/NewButton" to="menus/main_menu" method="_on_new_button_pressed"]
 [connection signal="pressed" from="menus/main_menu/are_you_sure/Button" to="menus/main_menu" method="_on_actually_delete_pressed"]
@@ -450,3 +336,7 @@ text = "Leave"
 [connection signal="pressed" from="menus/play_ui/play_pause/VBoxContainer/Button2" to="menus/play_ui" method="_on_play_pause_edit_pressed"]
 [connection signal="pressed" from="menus/play_ui/play_pause/VBoxContainer/Button3" to="menus/play_ui" method="_on_play_pause_leave_pressed"]
 [connection signal="pressed" from="menus/edit_ui/pause" to="menus/edit_ui" method="_on_edit_pause_pressed"]
+[connection signal="pressed" from="menus/edit_ui/edit_pause/VBoxContainer/Button" to="menus/edit_ui" method="_on_edit_pause_continue_pressed"]
+[connection signal="pressed" from="menus/edit_ui/edit_pause/VBoxContainer/Button2" to="menus/edit_ui" method="_on_edit_pause_save_and_play_pressed"]
+[connection signal="pressed" from="menus/edit_ui/edit_pause/VBoxContainer/Button4" to="menus/edit_ui" method="_on_edit_pause_save_and_exit_pressed"]
+[connection signal="pressed" from="menus/edit_ui/edit_pause/VBoxContainer/Button3" to="menus/edit_ui" method="_on_edit_pause_exit_pressed"]
