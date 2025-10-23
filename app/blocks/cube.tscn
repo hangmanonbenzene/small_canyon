@@ -1,10 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://64ira8a8ohu3"]
+[gd_scene load_steps=4 format=3 uid="uid://64ira8a8ohu3"]
 
+[ext_resource type="Script" uid="uid://cux5yoykv4hfm" path="res://app/blocks/cube.gd" id="1_2824d"]
 [ext_resource type="ArrayMesh" uid="uid://ctoa5osm25at1" path="res://app/meshes/cube_side.obj" id="1_cv53l"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8nnkh"]
 
-[node name="cube" type="Node3D"]
+[node name="cube" type="Node3D" node_paths=PackedStringArray("side")]
+script = ExtResource("1_2824d")
+side = NodePath("MeshInstance3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
