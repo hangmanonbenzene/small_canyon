@@ -1,9 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://64ira8a8ohu3"]
+[gd_scene load_steps=5 format=3 uid="uid://64ira8a8ohu3"]
 
 [ext_resource type="Script" uid="uid://cux5yoykv4hfm" path="res://app/blocks/cube.gd" id="1_2824d"]
 [ext_resource type="ArrayMesh" uid="uid://ctoa5osm25at1" path="res://app/meshes/cube_side.obj" id="1_cv53l"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8nnkh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2824d"]
+size = Vector3(0.5, 0.5, 0.5)
 
 [node name="cube" type="Node3D" node_paths=PackedStringArray("side")]
 script = ExtResource("1_2824d")
@@ -38,3 +41,11 @@ surface_material_override/0 = SubResource("StandardMaterial3D_8nnkh")
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, -0.5)
 mesh = ExtResource("1_cv53l")
 surface_material_override/0 = SubResource("StandardMaterial3D_8nnkh")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_2824d")
+
+[connection signal="input_event" from="Area3D" to="." method="_on_area_3d_input_event"]
+[connection signal="mouse_entered" from="Area3D" to="." method="_on_area_3d_mouse_entered"]
