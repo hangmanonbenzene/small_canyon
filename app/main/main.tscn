@@ -1,10 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://cj1l6gmrktmob"]
+[gd_scene load_steps=10 format=3 uid="uid://cj1l6gmrktmob"]
 
 [ext_resource type="Script" uid="uid://bwfy1bk3qso2u" path="res://app/main/main.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://b5xxv3ttcbnbp" path="res://app/main/3d_world/3d_world.gd" id="2_3hrc4"]
 [ext_resource type="Script" uid="uid://0p7qwmwduce" path="res://app/main/menus/menus.gd" id="2_uehq1"]
 [ext_resource type="PackedScene" uid="uid://jx6twfvue1m3" path="res://app/main/menus/level_button.tscn" id="3_2c3py"]
-[ext_resource type="PackedScene" uid="uid://64ira8a8ohu3" path="res://app/blocks/cube.tscn" id="3_cfabd"]
 [ext_resource type="Script" uid="uid://b7a3pufhsrshv" path="res://app/main/3d_world/camera_3d.gd" id="3_uttb8"]
 [ext_resource type="PackedScene" uid="uid://uu62cbh7lr68" path="res://app/main/3d_world/main_menu.tscn" id="5_mkrb3"]
 [ext_resource type="Script" uid="uid://bdp1kjfwc04kq" path="res://app/main/menus/main_menu.gd" id="9_revbh"]
@@ -22,7 +21,6 @@ menus = NodePath("../menus")
 main_menu_3d = NodePath("main_menu")
 camera = NodePath("camera_and_light/Camera3D")
 level = NodePath("level")
-cube = ExtResource("3_cfabd")
 
 [node name="camera_and_light" type="Node3D" parent="3d_world"]
 
