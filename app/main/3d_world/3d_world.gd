@@ -6,25 +6,33 @@ extends Node3D
 @export var level: Node3D
 
 var objects: Array[Node]
+var current_mode: bool
 
 func open_new_level() -> void:
 	main_menu_3d.visible = false
+	current_mode = true
 	var new_cube: Node = load("res://app/blocks/cube.tscn").instantiate()
 	objects.append(new_cube)
 	level.add_child(new_cube)
-	var another_cube: Node = load("res://app/blocks/cube.tscn").instantiate()
-	objects.append(another_cube)
-	level.add_child(another_cube)
-	another_cube.position = Vector3.UP
+	new_cube.change_mode(true)
+	
+	var other_cube: Node = load("res://app/blocks/cube.tscn").instantiate()
+	objects.append(other_cube)
+	level.add_child(other_cube)
+	other_cube.change_mode(true)
+	other_cube.position = Vector3.UP
 
-func open_level(_level_name: String, _edit_mode: bool) -> void:
+func open_level(_level_name: String, edit_mode: bool) -> void:
 	main_menu_3d.visible = false
-	var new_cube: Node = load("res://app/blocks/cube.tscn").instantiate()
-	objects.append(new_cube)
-	level.add_child(new_cube)
+	current_mode = edit_mode
 
 func open_main_menu() -> void:
 	for block: Node in level.get_children():
 		block.queue_free()
 	camera.size = 7
 	main_menu_3d.visible = true
+
+func change_mode(edit_mode: bool) -> void:
+	current_mode = edit_mode
+	for object in objects:
+		object.change_mode(edit_mode)

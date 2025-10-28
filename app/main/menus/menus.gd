@@ -29,3 +29,4 @@ func open_main_menu() -> void:
 func change_level_mode(edit_mode: bool) -> void:
 	play_ui.set_active(not edit_mode)
 	edit_ui.set_active(edit_mode)
+	world_3d.change_mode(edit_mode)
