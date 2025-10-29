@@ -41,7 +41,7 @@ func _input(event: InputEvent) -> void:
 				current_direction = Vector3.ZERO
 			elif is_entered: 
 				side_color = Color.ORANGE
-		if is_pressed and event is InputEventMouseMotion:
+		if event is InputEventMouseMotion and is_pressed:
 			var mouse_vector: Vector2 = event.position - current_camera.unproject_position(global_position)
 			var step: float = (840 / current_camera.size)
 			var length: int = clampi(floori((mouse_vector.length() + step / 2) / step), 0, 10)
@@ -89,6 +89,8 @@ func _on_area_3d_input_event(camera: Node, event: InputEvent, _event_position: V
 			is_pressed = true
 			one_is_pressed = true
 			current_camera = camera
+		if event is InputEventMouseButton and event.pressed and event.button_index == 2:
+			world3d.delete_block(self)
 
 func _on_area_3d_mouse_entered() -> void:
 	if current_mode == NEW: 

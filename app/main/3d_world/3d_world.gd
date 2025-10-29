@@ -54,6 +54,14 @@ func create_new_block(new_block: Node3D, block_position: Vector3) -> void:
 	new_block.global_position = block_position
 	blocked_space.append_array(new_block.blocks_space())
 
+func delete_block(block: Node3D) -> void:
+	if objects.size() <= 1: return
+	objects.erase(block)
+	for vector_to_remove: Vector3 in block.blocks_space():
+		blocked_space.erase(vector_to_remove)
+	level.remove_child(block)
+	block.queue_free()
+
 func get_data() -> Array[String]:
 	var data: Array[String]
 	for block: Node in level.get_children():
