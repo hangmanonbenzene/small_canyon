@@ -14,9 +14,8 @@ var is_pressed: bool
 var is_entered: bool
 var current_camera: Camera3D
 var blocks: Array[Node3D]
-enum direction {UP, DOWN, LEFT, RIGHT, FORWARD, BACK}
 var current_length: int
-var current_direction: int
+var current_direction: Vector3
 
 func _ready() -> void:
 	var material: BaseMaterial3D = StandardMaterial3D.new()
@@ -31,12 +30,14 @@ func _input(event: InputEvent) -> void:
 			if is_pressed:
 				is_pressed = false
 				one_is_pressed = false
-				if not is_entered: 
+				if not is_entered:
 					side_color = Color.WHITE
-					for block in blocks:
-						block.queue_free()
-					blocks.clear()
-					current_length = 0
+				for block in blocks:
+					self.get_parent_node_3d().remove_child(block)
+					world3d.create_new_block(block)
+				blocks.clear()
+				current_length = 0
+				current_direction = Vector3.ZERO
 			elif is_entered: 
 				side_color = Color.ORANGE
 		if is_pressed and event is InputEventMouseMotion:
@@ -48,12 +49,25 @@ func _input(event: InputEvent) -> void:
 					var new_block: Node3D = preload("res://app/blocks/cube.tscn").instantiate()
 					blocks.append(new_block)
 					self.get_parent_node_3d().add_child(new_block)
-					new_block.global_position = self.global_position + Vector3.UP * (i + 1)
+					new_block.global_position = self.global_position + current_direction * (i + 1)
 			elif length < current_length:
 				for i in range(current_length - length):
 					blocks.pop_back().queue_free()
 			current_length = length
-			print(rad_to_deg(mouse_vector.angle()))
+			var angle: float = rad_to_deg(mouse_vector.angle())
+			print(angle)
+			var direction: Vector3 = (
+				Vector3.LEFT if angle < -120
+				else Vector3.UP if angle < -60
+				else Vector3.FORWARD if angle < 0
+				else Vector3.RIGHT if angle < 60
+				else Vector3.DOWN if angle < 120
+				else Vector3.BACK
+			)
+			if direction != current_direction:
+				current_direction = direction
+				for i in blocks.size():
+					blocks[i].global_position = self.global_position + current_direction * (i + 1)
 
 func _on_area_3d_input_event(camera: Node, event: InputEvent, _event_position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
 	if current_mode == EDIT:
@@ -63,13 +77,17 @@ func _on_area_3d_input_event(camera: Node, event: InputEvent, _event_position: V
 			current_camera = camera
 
 func _on_area_3d_mouse_entered() -> void:
-	if current_mode == EDIT: 
+	if current_mode == NEW: 
+		is_entered = true
+	elif current_mode == EDIT: 
 		is_entered = true
 		if not one_is_pressed:
 			side_color = Color.ORANGE
 
 func _on_area_3d_mouse_exited() -> void:
-	if current_mode == EDIT: 
+	if current_mode == NEW: 
+		is_entered = false
+	elif current_mode == EDIT: 
 		is_entered = false
 		if not one_is_pressed:
 			side_color = Color.WHITE
@@ -79,6 +97,7 @@ func change_mode(edit_mode: bool) -> void:
 	else: current_mode = PLAY
 
 func initialize(mode: bool, world: Node) -> void:
-	side_color = Color.WHITE
+	if is_entered: side_color = Color.ORANGE
+	else: side_color = Color.WHITE
 	change_mode(mode)
 	world3d = world

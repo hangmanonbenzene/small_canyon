@@ -11,10 +11,7 @@ var current_mode: bool
 func open_new_level() -> void:
 	main_menu_3d.visible = false
 	current_mode = true
-	var new_cube: Node = preload("res://app/blocks/cube.tscn").instantiate()
-	objects.append(new_cube)
-	level.add_child(new_cube)
-	new_cube.initialize(true, self)
+	create_new_block(preload("res://app/blocks/cube.tscn").instantiate())
 
 func open_level(_level_name: String, edit_mode: bool) -> void:
 	main_menu_3d.visible = false
@@ -30,3 +27,8 @@ func change_mode(edit_mode: bool) -> void:
 	current_mode = edit_mode
 	for object in objects:
 		object.change_mode(edit_mode)
+
+func create_new_block(new_block: Node) -> void:
+	objects.append(new_block)
+	level.add_child(new_block)
+	new_block.initialize(true, self)
