@@ -1,4 +1,6 @@
-extends Node3D
+extends Block
+
+class_name BlockCube
 
 @export var sides: Array[MeshInstance3D]
 @export var side_color: Color:
