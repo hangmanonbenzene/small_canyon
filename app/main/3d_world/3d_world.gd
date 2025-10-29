@@ -8,6 +8,7 @@ extends Node3D
 const cube: Resource = preload("res://app/blocks/cube.tscn")
 
 var objects: Array[Node]
+var blocked_space: Array[Vector3]
 var current_mode: bool
 
 func open_new_level() -> void:
@@ -29,8 +30,8 @@ func open_level(level_name: String, edit_mode: bool) -> void:
 		match node_data["type"]:
 			"cube":
 				var new_cube: Node3D = cube.instantiate()
-				create_new_block(new_cube)
 				new_cube.global_position = Vector3(node_data["pos_x"], node_data["pos_y"], node_data["pos_z"])
+				create_new_block(new_cube)
 			_:
 				print("Unknown type!")
 
@@ -38,6 +39,7 @@ func open_main_menu() -> void:
 	for object in objects:
 		object.queue_free()
 	objects.clear()
+	blocked_space.clear()
 	camera.size = 7
 	main_menu_3d.visible = true
 
@@ -50,6 +52,7 @@ func create_new_block(new_block: Node) -> void:
 	objects.append(new_block)
 	level.add_child(new_block)
 	new_block.initialize(true, self)
+	blocked_space.append_array(new_block.blocks_space())
 
 func get_data() -> Array[String]:
 	var data: Array[String]

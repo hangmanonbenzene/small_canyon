@@ -43,19 +43,22 @@ func _input(event: InputEvent) -> void:
 		if is_pressed and event is InputEventMouseMotion:
 			var mouse_vector: Vector2 = event.position - current_camera.unproject_position(global_position)
 			var step: float = (840 / current_camera.size)
-			var length: int = floori((mouse_vector.length() + step / 2) / step)
+			var length: int = clampi(floori((mouse_vector.length() + step / 2) / step), 0, 10)
 			if length > current_length:
 				for i in range(current_length, length):
+					var new_position: Vector3 = self.global_position + current_direction * (i + 1)
+					if new_position in world3d.blocked_space:
+						length = i
+						break
 					var new_block: Node3D = preload("res://app/blocks/cube.tscn").instantiate()
 					blocks.append(new_block)
 					self.get_parent_node_3d().add_child(new_block)
-					new_block.global_position = self.global_position + current_direction * (i + 1)
+					new_block.global_position = new_position
 			elif length < current_length:
 				for i in range(current_length - length):
 					blocks.pop_back().queue_free()
 			current_length = length
 			var angle: float = rad_to_deg(mouse_vector.angle())
-			print(angle)
 			var direction: Vector3 = (
 				Vector3.LEFT if angle < -120
 				else Vector3.UP if angle < -60
@@ -66,8 +69,18 @@ func _input(event: InputEvent) -> void:
 			)
 			if direction != current_direction:
 				current_direction = direction
+				var is_blocked: bool = false
 				for i in blocks.size():
-					blocks[i].global_position = self.global_position + current_direction * (i + 1)
+					var new_position: Vector3 = self.global_position + current_direction * (i + 1)
+					if new_position in world3d.blocked_space:
+						length = i
+						is_blocked = true
+						break
+					blocks[i].global_position = new_position
+				if is_blocked:
+					for i in range(current_length - length):
+						blocks.pop_back().queue_free()
+					current_length = length
 
 func _on_area_3d_input_event(camera: Node, event: InputEvent, _event_position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
 	if current_mode == EDIT:
@@ -110,3 +123,6 @@ func get_data() -> String:
 		"pos_z" : global_position.z,
 	}
 	return JSON.stringify(data_dict)
+
+func blocks_space() -> Array[Vector3]:
+	return [global_position]
