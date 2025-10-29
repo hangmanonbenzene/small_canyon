@@ -11,16 +11,10 @@ var current_mode: bool
 func open_new_level() -> void:
 	main_menu_3d.visible = false
 	current_mode = true
-	var new_cube: Node = load("res://app/blocks/cube.tscn").instantiate()
+	var new_cube: Node = preload("res://app/blocks/cube.tscn").instantiate()
 	objects.append(new_cube)
 	level.add_child(new_cube)
-	new_cube.change_mode(true)
-	
-	var other_cube: Node = load("res://app/blocks/cube.tscn").instantiate()
-	objects.append(other_cube)
-	level.add_child(other_cube)
-	other_cube.change_mode(true)
-	other_cube.position = Vector3.UP
+	new_cube.initialize(true, self)
 
 func open_level(_level_name: String, edit_mode: bool) -> void:
 	main_menu_3d.visible = false
