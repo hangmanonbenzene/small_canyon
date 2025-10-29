@@ -14,7 +14,7 @@ var current_mode: bool
 func open_new_level() -> void:
 	main_menu_3d.visible = false
 	current_mode = true
-	create_new_block(cube.instantiate())
+	create_new_block(cube.instantiate(), Vector3.ZERO)
 
 func open_level(level_name: String, edit_mode: bool) -> void:
 	main_menu_3d.visible = false
@@ -30,8 +30,7 @@ func open_level(level_name: String, edit_mode: bool) -> void:
 		match node_data["type"]:
 			"cube":
 				var new_cube: Node3D = cube.instantiate()
-				new_cube.global_position = Vector3(node_data["pos_x"], node_data["pos_y"], node_data["pos_z"])
-				create_new_block(new_cube)
+				create_new_block(new_cube, Vector3(node_data["pos_x"], node_data["pos_y"], node_data["pos_z"]))
 			_:
 				print("Unknown type!")
 
@@ -48,10 +47,11 @@ func change_mode(edit_mode: bool) -> void:
 	for object in objects:
 		object.change_mode(edit_mode)
 
-func create_new_block(new_block: Node) -> void:
+func create_new_block(new_block: Node3D, block_position: Vector3) -> void:
 	objects.append(new_block)
 	level.add_child(new_block)
-	new_block.initialize(true, self)
+	new_block.initialize(current_mode, self)
+	new_block.global_position = block_position
 	blocked_space.append_array(new_block.blocks_space())
 
 func get_data() -> Array[String]:

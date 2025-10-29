@@ -35,7 +35,6 @@ func _on_edit_pause_exit_pressed() -> void:
 	menus.open_main_menu()
 
 func set_active(active: bool) -> void:
-	set_level_name("")
 	visible = active
 
 func set_level_name(new_name: String) -> void:

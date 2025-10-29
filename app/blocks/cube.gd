@@ -33,8 +33,9 @@ func _input(event: InputEvent) -> void:
 				if not is_entered:
 					side_color = Color.WHITE
 				for block in blocks:
+					var block_position: Vector3 = block.global_position
 					self.get_parent_node_3d().remove_child(block)
-					world3d.create_new_block(block)
+					world3d.create_new_block(block, block_position)
 				blocks.clear()
 				current_length = 0
 				current_direction = Vector3.ZERO
