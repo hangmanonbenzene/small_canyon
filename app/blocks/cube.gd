@@ -1,33 +1,13 @@
-extends Block
-
-class_name BlockCube
-
-@export var sides: Array[MeshInstance3D]
-@export var side_color: Color:
-	set(value):
-		sides[0].material_override.albedo_color = value
-		side_color = value
-var world3d: Node
+class_name BlockCube extends Block
 
 var depth: int
-var block_behind_this: Node3D
+var block_behind_this: Block
 
-enum {NEW, PLAY, EDIT}
-var current_mode: int = NEW
-static var one_is_pressed: bool
 var is_pressed: bool
-var is_entered: bool
 var current_camera: Camera3D
-var blocks: Array[Node3D]
+var blocks: Array[Block]
 var current_length: int
 var current_direction: Vector3
-
-func _ready() -> void:
-	var material: BaseMaterial3D = StandardMaterial3D.new()
-	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	material.albedo_color = Color(1.0, 0.647, 0.0, 0.498)
-	for side in sides:
-		side.material_override = material
 
 func _input(event: InputEvent) -> void:
 	if current_mode == EDIT:
@@ -97,32 +77,6 @@ func _on_area_3d_input_event(camera: Node, event: InputEvent, _event_position: V
 		if event is InputEventMouseButton and event.pressed and event.button_index == 2:
 			world3d.delete_block(self)
 
-func _on_area_3d_mouse_entered() -> void:
-	if current_mode == NEW: 
-		is_entered = true
-	elif current_mode == EDIT: 
-		is_entered = true
-		if not one_is_pressed:
-			side_color = Color.ORANGE
-
-func _on_area_3d_mouse_exited() -> void:
-	if current_mode == NEW: 
-		is_entered = false
-	elif current_mode == EDIT: 
-		is_entered = false
-		if not one_is_pressed:
-			side_color = Color.WHITE
-
-func change_mode(edit_mode: bool) -> void:
-	if edit_mode: current_mode = EDIT
-	else: current_mode = PLAY
-
-func initialize(mode: bool, world: Node) -> void:
-	if is_entered: side_color = Color.ORANGE
-	else: side_color = Color.WHITE
-	change_mode(mode)
-	world3d = world
-
 func get_data() -> String:
 	var data_dict: Dictionary = {
 		"type" : "cube",
@@ -131,9 +85,3 @@ func get_data() -> String:
 		"pos_z" : global_position.z,
 	}
 	return JSON.stringify(data_dict)
-
-func blocks_space() -> Array[Vector3]:
-	return [global_position]
-
-func connection_points() -> Array[Vector3]:
-	return [global_position]

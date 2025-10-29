@@ -1,4 +1,4 @@
-extends Node3D
+class_name World extends Node3D
 
 @export var menus: Node
 @export var main_menu_3d: Node3D
@@ -7,9 +7,9 @@ extends Node3D
 
 const cube: Resource = preload("res://app/blocks/cube.tscn")
 
-var objects: Array[Node]
-var blocked_space: Dictionary[Vector3, Node3D]
-var map2d: Dictionary[Vector2, Node3D]
+var objects: Array[Block]
+var blocked_space: Dictionary[Vector3, Block]
+var map2d: Dictionary[Vector2, Block]
 var current_mode: bool
 
 func open_new_level() -> void:
@@ -30,7 +30,7 @@ func open_level(level_name: String, edit_mode: bool) -> void:
 		var node_data: Dictionary = json.data
 		match node_data["type"]:
 			"cube":
-				var new_cube: Node3D = cube.instantiate()
+				var new_cube: BlockCube = cube.instantiate()
 				create_new_block(new_cube, Vector3(node_data["pos_x"], node_data["pos_y"], node_data["pos_z"]))
 			_:
 				print("Unknown type!")
@@ -49,7 +49,7 @@ func change_mode(edit_mode: bool) -> void:
 	for object in objects:
 		object.change_mode(edit_mode)
 
-func create_new_block(new_block: Node3D, block_position: Vector3) -> void:
+func create_new_block(new_block: Block, block_position: Vector3) -> void:
 	objects.append(new_block)
 	level.add_child(new_block)
 	new_block.initialize(current_mode, self)
@@ -59,12 +59,12 @@ func create_new_block(new_block: Node3D, block_position: Vector3) -> void:
 	for point3d: Vector3 in new_block.connection_points():
 		var point2d: Vector2 = Vector2(point3d.x - point3d.z, point3d.y - point3d.z)
 		new_block.depth = point3d.x + point3d.z
-		var next_block: Node3D = map2d.get(point2d)
+		var next_block: Block = map2d.get(point2d)
 		if next_block == null or new_block.depth > next_block.depth:
 			map2d.set(point2d, new_block)
 			new_block.block_behind_this = next_block
 			break
-		var previous_block: Node3D = next_block
+		var previous_block: Block = next_block
 		next_block = next_block.block_behind_this
 		while next_block != null and new_block.depth < next_block.depth:
 			previous_block = next_block
@@ -72,14 +72,14 @@ func create_new_block(new_block: Node3D, block_position: Vector3) -> void:
 		previous_block.block_behind_this = new_block
 		new_block.block_behind_this = next_block
 
-func delete_block(block: Node3D) -> void:
+func delete_block(block: Block) -> void:
 	if objects.size() <= 1: return
 	objects.erase(block)
 	for vector_to_remove: Vector3 in block.blocks_space():
 		blocked_space.erase(vector_to_remove)
 	for point3d: Vector3 in block.connection_points():
 		var point2d: Vector2 = Vector2(point3d.x - point3d.z, point3d.y - point3d.z)
-		var current_node: Node3D = map2d.get(point2d)
+		var current_node: Block = map2d.get(point2d)
 		if current_node == block: 
 			map2d.set(point2d, block.block_behind_this)
 			break
@@ -91,6 +91,6 @@ func delete_block(block: Node3D) -> void:
 
 func get_data() -> Array[String]:
 	var data: Array[String]
-	for block: Node in level.get_children():
+	for block: Block in level.get_children():
 		data.append(block.get_data())
 	return data
