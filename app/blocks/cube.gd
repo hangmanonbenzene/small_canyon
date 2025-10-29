@@ -101,3 +101,12 @@ func initialize(mode: bool, world: Node) -> void:
 	else: side_color = Color.WHITE
 	change_mode(mode)
 	world3d = world
+
+func get_data() -> String:
+	var data_dict: Dictionary = {
+		"type" : "cube",
+		"pos_x" : global_position.x,
+		"pos_y" : global_position.y,
+		"pos_z" : global_position.z,
+	}
+	return JSON.stringify(data_dict)

@@ -35,6 +35,7 @@ func _on_edit_pause_exit_pressed() -> void:
 	menus.open_main_menu()
 
 func set_active(active: bool) -> void:
+	set_level_name("")
 	visible = active
 
 func set_level_name(new_name: String) -> void:
@@ -47,4 +48,6 @@ func save() -> bool:
 	if level_name.is_empty(): return false
 	var file: FileAccess = FileAccess.open("user://created_levels/" + level_name, FileAccess.WRITE)
 	if file == null: return false
+	for line: String in menus.world_3d.get_data():
+		file.store_line(line)
 	return true

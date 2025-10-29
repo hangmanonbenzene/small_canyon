@@ -16,9 +16,9 @@ func open_new_level() -> void:
 func open_level(level_name: String, edit_mode: bool) -> void:
 	main_menu.set_active(false)
 	world_3d.open_level(level_name, edit_mode)
-	edit_ui.set_level_name(level_name)
 	play_ui.set_active(not edit_mode)
 	edit_ui.set_active(edit_mode)
+	edit_ui.set_level_name(level_name)
 
 func open_main_menu() -> void:
 	play_ui.set_active(false)
