@@ -8,7 +8,8 @@ extends Node3D
 const cube: Resource = preload("res://app/blocks/cube.tscn")
 
 var objects: Array[Node]
-var blocked_space: Array[Vector3]
+var blocked_space: Dictionary[Vector3, Node3D]
+var map2d: Dictionary[Vector2, Node3D]
 var current_mode: bool
 
 func open_new_level() -> void:
@@ -39,6 +40,7 @@ func open_main_menu() -> void:
 		object.queue_free()
 	objects.clear()
 	blocked_space.clear()
+	map2d.clear()
 	camera.size = 7
 	main_menu_3d.visible = true
 
@@ -52,13 +54,38 @@ func create_new_block(new_block: Node3D, block_position: Vector3) -> void:
 	level.add_child(new_block)
 	new_block.initialize(current_mode, self)
 	new_block.global_position = block_position
-	blocked_space.append_array(new_block.blocks_space())
+	for space: Vector3 in new_block.blocks_space():
+		blocked_space.set(space, new_block)
+	for point3d: Vector3 in new_block.connection_points():
+		var point2d: Vector2 = Vector2(point3d.x - point3d.z, point3d.y - point3d.z)
+		new_block.depth = point3d.x + point3d.z
+		var next_block: Node3D = map2d.get(point2d)
+		if next_block == null or new_block.depth > next_block.depth:
+			map2d.set(point2d, new_block)
+			new_block.block_behind_this = next_block
+			break
+		var previous_block: Node3D = next_block
+		next_block = next_block.block_behind_this
+		while next_block != null and new_block.depth < next_block.depth:
+			previous_block = next_block
+			next_block = next_block.block_behind_this
+		previous_block.block_behind_this = new_block
+		new_block.block_behind_this = next_block
 
 func delete_block(block: Node3D) -> void:
 	if objects.size() <= 1: return
 	objects.erase(block)
 	for vector_to_remove: Vector3 in block.blocks_space():
 		blocked_space.erase(vector_to_remove)
+	for point3d: Vector3 in block.connection_points():
+		var point2d: Vector2 = Vector2(point3d.x - point3d.z, point3d.y - point3d.z)
+		var current_node: Node3D = map2d.get(point2d)
+		if current_node == block: 
+			map2d.set(point2d, block.block_behind_this)
+			break
+		if current_node.block_behind_this != block:
+			current_node = current_node.block_behind_this
+		current_node.block_behind_this = block.block_behind_this
 	level.remove_child(block)
 	block.queue_free()
 

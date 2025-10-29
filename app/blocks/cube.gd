@@ -7,6 +7,9 @@ extends Node3D
 		side_color = value
 var world3d: Node
 
+var depth: int
+var block_behind_this: Node3D
+
 enum {NEW, PLAY, EDIT}
 var current_mode: int = NEW
 static var one_is_pressed: bool
@@ -128,4 +131,7 @@ func get_data() -> String:
 	return JSON.stringify(data_dict)
 
 func blocks_space() -> Array[Vector3]:
+	return [global_position]
+
+func connection_points() -> Array[Vector3]:
 	return [global_position]
