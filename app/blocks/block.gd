@@ -24,7 +24,7 @@ func change_mode(edit_mode: bool) -> void:
 	if edit_mode: current_mode = EDIT
 	else: current_mode = PLAY
 
-func initialize(mode: bool, world: Node) -> void:
+func initialize(mode: bool, world: World) -> void:
 	if is_entered: side_color = Color.ORANGE
 	else: side_color = Color.WHITE
 	change_mode(mode)

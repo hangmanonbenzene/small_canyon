@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://gl6s306tan1a"
+path="res://.godot/imported/steps_side.obj-5c6d58af8426c829bcb03a1975cf107f.mesh"
+
+[deps]
+
+files=["res://.godot/imported/steps_side.obj-5c6d58af8426c829bcb03a1975cf107f.mesh"]
+
+source_file="res://app/meshes/steps_side.obj"
+dest_files=["res://.godot/imported/steps_side.obj-5c6d58af8426c829bcb03a1975cf107f.mesh", "res://.godot/imported/steps_side.obj-5c6d58af8426c829bcb03a1975cf107f.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

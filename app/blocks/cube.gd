@@ -36,7 +36,7 @@ func _input(event: InputEvent) -> void:
 					if new_position in world3d.blocked_space:
 						length = i
 						break
-					var new_block: Node3D = preload("res://app/blocks/cube.tscn").instantiate()
+					var new_block: Block = world3d.cube.instantiate()
 					blocks.append(new_block)
 					self.get_parent_node_3d().add_child(new_block)
 					new_block.global_position = new_position

@@ -5,7 +5,7 @@ class_name World extends Node3D
 @export var camera: Camera3D
 @export var level: Node3D
 
-const cube: Resource = preload("res://app/blocks/cube.tscn")
+const cube: PackedScene = preload("res://app/blocks/cube.tscn")
 
 var objects: Array[Block]
 var blocked_space: Dictionary[Vector3, Block]
