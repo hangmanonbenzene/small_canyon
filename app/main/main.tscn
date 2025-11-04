@@ -31,14 +31,7 @@ size = 7.0
 script = ExtResource("3_uttb8")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="3d_world/camera_and_light"]
-light_energy = 0.5
-
-[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="3d_world/camera_and_light"]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
-
-[node name="DirectionalLight3D3" type="DirectionalLight3D" parent="3d_world/camera_and_light"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
-light_energy = 0.2
+transform = Transform3D(0.9848077, -0.16317591, 0.05939118, 0, 0.34202015, 0.9396926, -0.17364818, -0.9254165, 0.3368241, 0, 0, 0)
 
 [node name="level" type="Node3D" parent="3d_world"]
 
