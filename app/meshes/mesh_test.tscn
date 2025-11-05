@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://n3qejc5dgf0o"]
+[gd_scene load_steps=20 format=3 uid="uid://n3qejc5dgf0o"]
 
 [ext_resource type="ArrayMesh" uid="uid://ctoa5osm25at1" path="res://app/meshes/cube_side.obj" id="1_rxi85"]
 [ext_resource type="ArrayMesh" uid="uid://fy8v0jjoo0iv" path="res://app/meshes/cube_half.obj" id="2_mqt8o"]
 [ext_resource type="ArrayMesh" uid="uid://c1cbixoey8t1j" path="res://app/meshes/quarter_circle.obj" id="3_5naep"]
 [ext_resource type="ArrayMesh" uid="uid://bi3b055lvwpm5" path="res://app/meshes/quarter_circle_cut.obj" id="4_4jo4u"]
+[ext_resource type="ArrayMesh" uid="uid://cd36ylkp768v" path="res://app/meshes/cube_half_ramp.obj" id="4_sogq5"]
 [ext_resource type="ArrayMesh" uid="uid://gl6s306tan1a" path="res://app/meshes/steps_side.obj" id="5_0lpvv"]
 [ext_resource type="ArrayMesh" uid="uid://12f05jidkhiw" path="res://app/meshes/quarter_circle_big_ramp.obj" id="5_psgld"]
 [ext_resource type="ArrayMesh" uid="uid://drdy8nulljevh" path="res://app/meshes/quarter_circle_cut_ramp.obj" id="5_tfipa"]
@@ -14,6 +15,9 @@
 [ext_resource type="ArrayMesh" uid="uid://dn2dkhwy81t2i" path="res://app/meshes/quarter_circle_bigger_ramp.obj" id="7_vafqu"]
 [ext_resource type="ArrayMesh" uid="uid://bmec6j6vctgsj" path="res://app/meshes/quarter_circle_big_cut.obj" id="10_c6td4"]
 [ext_resource type="ArrayMesh" uid="uid://xofktvwt5ge3" path="res://app/meshes/quarter_circle_big.obj" id="11_vm7af"]
+[ext_resource type="ArrayMesh" uid="uid://b3d4itgm05pax" path="res://app/meshes/quarter_circle_bigger.obj" id="13_tadwq"]
+[ext_resource type="ArrayMesh" uid="uid://vsa0ioxyl7sg" path="res://app/meshes/quarter_circle_bigger_cut_ramp.obj" id="14_sfw7i"]
+[ext_resource type="ArrayMesh" uid="uid://ds7044633p2sa" path="res://app/meshes/quarter_circle_bigger_cut.obj" id="15_pcbrv"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mqt8o"]
 
@@ -42,6 +46,12 @@ material_override = SubResource("StandardMaterial3D_mqt8o")
 mesh = ExtResource("7_753wf")
 skeleton = NodePath("../..")
 
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(-4.371139e-08, 1, 4.371139e-08, 0, -4.371139e-08, 1, 1, 4.371139e-08, 1.9106855e-15, 0, 0.5, 1.5)
+material_override = SubResource("StandardMaterial3D_mqt8o")
+mesh = ExtResource("4_sogq5")
+skeleton = NodePath("../..")
+
 [node name="MeshInstance3D5" type="MeshInstance3D" parent="Node3D"]
 transform = Transform3D(4.371139e-08, -4.3711385e-08, 1, 1, 8.742278e-08, -4.3711385e-08, -8.742278e-08, 1, 4.371139e-08, 1.5, 0.5, 1)
 material_override = SubResource("StandardMaterial3D_mqt8o")
@@ -54,8 +64,122 @@ material_override = SubResource("StandardMaterial3D_mqt8o")
 mesh = ExtResource("1_rxi85")
 skeleton = NodePath("../..")
 
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 5, 0.5, -1.5)
+material_override = SubResource("StandardMaterial3D_mqt8o")
+mesh = ExtResource("1_rxi85")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D48" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 6, -0.5, -1.5)
+material_override = SubResource("StandardMaterial3D_mqt8o")
+mesh = ExtResource("1_rxi85")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D28" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 5, 1.5, -1.5)
+material_override = SubResource("StandardMaterial3D_mqt8o")
+mesh = ExtResource("1_rxi85")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D31" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 2, -1.5)
+material_override = SubResource("StandardMaterial3D_mqt8o")
+mesh = ExtResource("1_rxi85")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D34" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, -1.5)
+material_override = SubResource("StandardMaterial3D_mqt8o")
+mesh = ExtResource("1_rxi85")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D35" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, -1.5)
+material_override = SubResource("StandardMaterial3D_mqt8o")
+mesh = ExtResource("1_rxi85")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D36" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, -1.5)
+material_override = SubResource("StandardMaterial3D_mqt8o")
+mesh = ExtResource("1_rxi85")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D37" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -1.5)
+material_override = SubResource("StandardMaterial3D_mqt8o")
+mesh = ExtResource("1_rxi85")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D38" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -1.5)
+material_override = SubResource("StandardMaterial3D_mqt8o")
+mesh = ExtResource("1_rxi85")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D39" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, -1.5)
+material_override = SubResource("StandardMaterial3D_mqt8o")
+mesh = ExtResource("1_rxi85")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D40" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, -0.5)
+material_override = SubResource("StandardMaterial3D_mqt8o")
+mesh = ExtResource("1_rxi85")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D41" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0.5)
+material_override = SubResource("StandardMaterial3D_mqt8o")
+mesh = ExtResource("1_rxi85")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D42" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 1.5)
+material_override = SubResource("StandardMaterial3D_mqt8o")
+mesh = ExtResource("1_rxi85")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D43" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 2.5)
+material_override = SubResource("StandardMaterial3D_mqt8o")
+mesh = ExtResource("1_rxi85")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D44" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 3.5)
+material_override = SubResource("StandardMaterial3D_mqt8o")
+mesh = ExtResource("1_rxi85")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D45" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 4.5)
+material_override = SubResource("StandardMaterial3D_mqt8o")
+mesh = ExtResource("1_rxi85")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D46" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 5.5)
+material_override = SubResource("StandardMaterial3D_mqt8o")
+mesh = ExtResource("1_rxi85")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D32" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 2, -1.5)
+material_override = SubResource("StandardMaterial3D_mqt8o")
+mesh = ExtResource("1_rxi85")
+skeleton = NodePath("../..")
+
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="Node3D"]
 transform = Transform3D(1.9106855e-15, -4.371139e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, -4.371139e-08, 2.5, -0.5, 3)
+material_override = SubResource("StandardMaterial3D_mqt8o")
+mesh = ExtResource("1_rxi85")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D47" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(1.9106855e-15, -4.371139e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, -4.371139e-08, -1.5, -0.5, 6)
 material_override = SubResource("StandardMaterial3D_mqt8o")
 mesh = ExtResource("1_rxi85")
 skeleton = NodePath("../..")
@@ -130,6 +254,24 @@ skeleton = NodePath("../..")
 transform = Transform3D(-4.371139e-08, 1, 0, 4.371139e-08, 1.9106855e-15, 1, 1, 4.371139e-08, -4.371139e-08, 1, 0.5, 1.5)
 material_override = SubResource("StandardMaterial3D_mqt8o")
 mesh = ExtResource("2_mqt8o")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D26" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(-4.371139e-08, 1, 0, 4.371139e-08, 1.9106855e-15, 1, 1, 4.371139e-08, -4.371139e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_mqt8o")
+mesh = ExtResource("13_tadwq")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D49" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(1.9106855e-15, 4.371139e-08, 1, 1, -4.371139e-08, 0, 4.371139e-08, 1, -4.371139e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_mqt8o")
+mesh = ExtResource("15_pcbrv")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D27" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(1.9106855e-15, -4.371139e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, -4.371139e-08, 3, 3, -1)
+material_override = SubResource("StandardMaterial3D_mqt8o")
+mesh = ExtResource("14_sfw7i")
 skeleton = NodePath("../..")
 
 [node name="MeshInstance3D16" type="MeshInstance3D" parent="Node3D"]
