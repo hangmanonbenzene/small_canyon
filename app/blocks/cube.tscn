@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://64ira8a8ohu3"]
 
 [ext_resource type="Script" uid="uid://cux5yoykv4hfm" path="res://app/blocks/cube.gd" id="1_2824d"]
-[ext_resource type="ArrayMesh" uid="uid://ctoa5osm25at1" path="res://app/meshes/cube_side.obj" id="1_cv53l"]
+[ext_resource type="ArrayMesh" uid="uid://ctoa5osm25at1" path="res://app/meshes/cubic/cube_side.obj" id="1_cv53l"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2824d"]
 size = Vector3(0.5, 0.5, 0.5)

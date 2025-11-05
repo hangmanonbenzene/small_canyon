@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://ds7044633p2sa"
+path="res://.godot/imported/quarter_circle_bigger_cut.obj-43811a636229f41b4261bd76652a1615.mesh"
+
+[deps]
+
+files=["res://.godot/imported/quarter_circle_bigger_cut.obj-43811a636229f41b4261bd76652a1615.mesh"]
+
+source_file="res://app/meshes/round/quarter_circle_bigger_cut.obj"
+dest_files=["res://.godot/imported/quarter_circle_bigger_cut.obj-43811a636229f41b4261bd76652a1615.mesh", "res://.godot/imported/quarter_circle_bigger_cut.obj-43811a636229f41b4261bd76652a1615.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false
