@@ -1,10 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://n3qejc5dgf0o"]
+[gd_scene load_steps=19 format=3 uid="uid://n3qejc5dgf0o"]
 
 [ext_resource type="ArrayMesh" uid="uid://ctoa5osm25at1" path="res://app/meshes/cube_side.obj" id="1_rxi85"]
 [ext_resource type="ArrayMesh" uid="uid://fy8v0jjoo0iv" path="res://app/meshes/cube_half.obj" id="2_mqt8o"]
 [ext_resource type="ArrayMesh" uid="uid://c1cbixoey8t1j" path="res://app/meshes/quarter_circle.obj" id="3_5naep"]
 [ext_resource type="ArrayMesh" uid="uid://bi3b055lvwpm5" path="res://app/meshes/quarter_circle_cut.obj" id="4_4jo4u"]
-[ext_resource type="ArrayMesh" uid="uid://cd36ylkp768v" path="res://app/meshes/cube_half_ramp.obj" id="4_sogq5"]
 [ext_resource type="ArrayMesh" uid="uid://gl6s306tan1a" path="res://app/meshes/steps_side.obj" id="5_0lpvv"]
 [ext_resource type="ArrayMesh" uid="uid://12f05jidkhiw" path="res://app/meshes/quarter_circle_big_ramp.obj" id="5_psgld"]
 [ext_resource type="ArrayMesh" uid="uid://drdy8nulljevh" path="res://app/meshes/quarter_circle_cut_ramp.obj" id="5_tfipa"]
@@ -44,12 +43,6 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 1.5, 0.5, 1)
 material_override = SubResource("StandardMaterial3D_mqt8o")
 mesh = ExtResource("7_753wf")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D6" type="MeshInstance3D" parent="Node3D"]
-transform = Transform3D(-4.371139e-08, 1, 4.371139e-08, 0, -4.371139e-08, 1, 1, 4.371139e-08, 1.9106855e-15, 0, 0.5, 1.5)
-material_override = SubResource("StandardMaterial3D_mqt8o")
-mesh = ExtResource("4_sogq5")
 skeleton = NodePath("../..")
 
 [node name="MeshInstance3D5" type="MeshInstance3D" parent="Node3D"]
@@ -251,7 +244,7 @@ mesh = ExtResource("1_rxi85")
 skeleton = NodePath("../..")
 
 [node name="MeshInstance3D18" type="MeshInstance3D" parent="Node3D"]
-transform = Transform3D(-4.371139e-08, 1, 0, 4.371139e-08, 1.9106855e-15, 1, 1, 4.371139e-08, -4.371139e-08, 1, 0.5, 1.5)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.5, 0.5, 1.5)
 material_override = SubResource("StandardMaterial3D_mqt8o")
 mesh = ExtResource("2_mqt8o")
 skeleton = NodePath("../..")
