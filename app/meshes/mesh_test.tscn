@@ -1,9 +1,9 @@
 [gd_scene load_steps=16 format=3 uid="uid://n3qejc5dgf0o"]
 
 [ext_resource type="ArrayMesh" uid="uid://ctoa5osm25at1" path="res://app/meshes/cubic/cube_side.obj" id="1_rxi85"]
+[ext_resource type="PackedScene" uid="uid://claaxr0d4a75f" path="res://app/main/3d_world/camera_and_light.tscn" id="1_vafqu"]
 [ext_resource type="ArrayMesh" uid="uid://fy8v0jjoo0iv" path="res://app/meshes/cubic/cube_half.obj" id="2_mqt8o"]
 [ext_resource type="ArrayMesh" uid="uid://12f05jidkhiw" path="res://app/meshes/round/quarter_circle_big_ramp.obj" id="5_psgld"]
-[ext_resource type="Script" uid="uid://b7a3pufhsrshv" path="res://app/main/3d_world/camera_3d.gd" id="7_2nt13"]
 [ext_resource type="ArrayMesh" uid="uid://cyk4kkcbsrk7l" path="res://app/meshes/cubic/stairs.obj" id="7_753wf"]
 [ext_resource type="ArrayMesh" uid="uid://drn4ekaw7y0bn" path="res://app/meshes/round/quarter_circle_big_cut_ramp.obj" id="7_drawr"]
 [ext_resource type="ArrayMesh" uid="uid://dn2dkhwy81t2i" path="res://app/meshes/round/quarter_circle_bigger_ramp.obj" id="7_vafqu"]
@@ -19,14 +19,7 @@
 
 [node name="mesh_test" type="Node3D"]
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 100, 100)
-projection = 1
-size = 7.0
-script = ExtResource("7_2nt13")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.9848078, -0.16317593, 0.059391182, 0, 0.34202018, 0.9396927, -0.1736482, -0.9254166, 0.33682412, 0.5, 0, 0.5)
+[node name="CameraAndLight" parent="." instance=ExtResource("1_vafqu")]
 
 [node name="Node3D" type="Node3D" parent="."]
 

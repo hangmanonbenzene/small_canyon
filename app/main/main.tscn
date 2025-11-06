@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://b5xxv3ttcbnbp" path="res://app/main/3d_world/3d_world.gd" id="2_3hrc4"]
 [ext_resource type="Script" uid="uid://0p7qwmwduce" path="res://app/main/menus/menus.gd" id="2_uehq1"]
 [ext_resource type="PackedScene" uid="uid://jx6twfvue1m3" path="res://app/main/menus/level_button.tscn" id="3_2c3py"]
-[ext_resource type="Script" uid="uid://b7a3pufhsrshv" path="res://app/main/3d_world/camera_3d.gd" id="3_uttb8"]
+[ext_resource type="PackedScene" uid="uid://claaxr0d4a75f" path="res://app/main/3d_world/camera_and_light.tscn" id="3_revbh"]
 [ext_resource type="PackedScene" uid="uid://uu62cbh7lr68" path="res://app/main/3d_world/main_menu.tscn" id="5_mkrb3"]
 [ext_resource type="Script" uid="uid://bdp1kjfwc04kq" path="res://app/main/menus/main_menu.gd" id="9_revbh"]
 [ext_resource type="Script" uid="uid://c5j4muju8a58k" path="res://app/main/menus/play_ui.gd" id="10_mkrb3"]
@@ -19,19 +19,10 @@ menus = NodePath("menus")
 script = ExtResource("2_3hrc4")
 menus = NodePath("../menus")
 main_menu_3d = NodePath("main_menu")
-camera = NodePath("camera_and_light/Camera3D")
+camera = NodePath("")
 level = NodePath("level")
 
-[node name="camera_and_light" type="Node3D" parent="3d_world"]
-
-[node name="Camera3D" type="Camera3D" parent="3d_world/camera_and_light"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 100, 100)
-projection = 1
-size = 7.0
-script = ExtResource("3_uttb8")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="3d_world/camera_and_light"]
-transform = Transform3D(0.9848077, -0.16317591, 0.05939118, 0, 0.34202015, 0.9396926, -0.17364818, -0.9254165, 0.3368241, 0, 0, 0)
+[node name="CameraAndLight" parent="3d_world" instance=ExtResource("3_revbh")]
 
 [node name="level" type="Node3D" parent="3d_world"]
 

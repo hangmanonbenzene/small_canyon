@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://claaxr0d4a75f"]
+
+[ext_resource type="Script" uid="uid://b7a3pufhsrshv" path="res://app/main/3d_world/camera_3d.gd" id="1_avw5q"]
+
+[sub_resource type="Environment" id="Environment_najy3"]
+ambient_light_source = 1
+
+[node name="CameraAndLight" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 100, 100)
+environment = SubResource("Environment_najy3")
+projection = 1
+size = 7.0
+script = ExtResource("1_avw5q")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.9848077, -0.16317591, 0.05939118, 0, 0.34202015, 0.9396926, -0.17364818, -0.9254165, 0.3368241, 0, 0, 0)
