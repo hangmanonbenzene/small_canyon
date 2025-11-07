@@ -41,7 +41,7 @@ func open_main_menu() -> void:
 	objects.clear()
 	blocked_space.clear()
 	map2d.clear()
-	camera.size = 7
+	#camera.size = 7
 	main_menu_3d.visible = true
 
 func change_mode(edit_mode: bool) -> void:
