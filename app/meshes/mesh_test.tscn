@@ -1,14 +1,13 @@
-[gd_scene load_steps=16 format=3 uid="uid://n3qejc5dgf0o"]
+[gd_scene load_steps=15 format=3 uid="uid://n3qejc5dgf0o"]
 
 [ext_resource type="ArrayMesh" uid="uid://ctoa5osm25at1" path="res://app/meshes/cubic/cube_side.obj" id="1_rxi85"]
 [ext_resource type="PackedScene" uid="uid://claaxr0d4a75f" path="res://app/main/3d_world/camera_and_light.tscn" id="1_vafqu"]
 [ext_resource type="ArrayMesh" uid="uid://fy8v0jjoo0iv" path="res://app/meshes/cubic/cube_half.obj" id="2_mqt8o"]
-[ext_resource type="ArrayMesh" uid="uid://12f05jidkhiw" path="res://app/meshes/round/quarter_circle_big_ramp.obj" id="5_psgld"]
+[ext_resource type="ArrayMesh" uid="uid://bosti585eefrf" path="res://app/meshes/round/2_circle.obj" id="3_c6td4"]
 [ext_resource type="ArrayMesh" uid="uid://cyk4kkcbsrk7l" path="res://app/meshes/cubic/stairs.obj" id="7_753wf"]
 [ext_resource type="ArrayMesh" uid="uid://drn4ekaw7y0bn" path="res://app/meshes/round/quarter_circle_big_cut_ramp.obj" id="7_drawr"]
 [ext_resource type="ArrayMesh" uid="uid://dn2dkhwy81t2i" path="res://app/meshes/round/quarter_circle_bigger_ramp.obj" id="7_vafqu"]
 [ext_resource type="ArrayMesh" uid="uid://bmec6j6vctgsj" path="res://app/meshes/round/quarter_circle_big_cut.obj" id="10_c6td4"]
-[ext_resource type="ArrayMesh" uid="uid://xofktvwt5ge3" path="res://app/meshes/round/quarter_circle_big.obj" id="11_vm7af"]
 [ext_resource type="ArrayMesh" uid="uid://b3d4itgm05pax" path="res://app/meshes/round/quarter_circle_bigger.obj" id="13_tadwq"]
 [ext_resource type="ArrayMesh" uid="uid://vsa0ioxyl7sg" path="res://app/meshes/round/quarter_circle_bigger_cut_ramp.obj" id="14_sfw7i"]
 [ext_resource type="ArrayMesh" uid="uid://jf3r8868puvv" path="res://app/meshes/round/1_ramp.obj" id="14_vafqu"]
@@ -27,6 +26,12 @@
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 2.5)
 material_override = SubResource("StandardMaterial3D_mqt8o")
 mesh = ExtResource("1_rxi85")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 4, -0.5, -1)
+material_override = SubResource("StandardMaterial3D_mqt8o")
+mesh = ExtResource("3_c6td4")
 skeleton = NodePath("../..")
 
 [node name="MeshInstance3D5" type="MeshInstance3D" parent="Node3D"]
@@ -161,12 +166,6 @@ material_override = SubResource("StandardMaterial3D_mqt8o")
 mesh = ExtResource("1_rxi85")
 skeleton = NodePath("../..")
 
-[node name="MeshInstance3D15" type="MeshInstance3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, -1, -1)
-material_override = SubResource("StandardMaterial3D_mqt8o")
-mesh = ExtResource("5_psgld")
-skeleton = NodePath("../..")
-
 [node name="MeshInstance3D33" type="MeshInstance3D" parent="Node3D"]
 transform = Transform3D(-4.371139e-08, 1, 4.371139e-08, 0, -4.371139e-08, 1, 1, 4.371139e-08, 1.9106855e-15, -1, 0, 0)
 material_override = SubResource("StandardMaterial3D_mqt8o")
@@ -249,12 +248,6 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0, -0.5)
 material_override = SubResource("StandardMaterial3D_mqt8o")
 mesh = ExtResource("1_rxi85")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D29" type="MeshInstance3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -1)
-material_override = SubResource("StandardMaterial3D_mqt8o")
-mesh = ExtResource("11_vm7af")
 skeleton = NodePath("../..")
 
 [node name="MeshInstance3D12" type="MeshInstance3D" parent="Node3D"]
