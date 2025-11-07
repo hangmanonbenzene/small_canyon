@@ -15,4 +15,4 @@ size = 7.0
 script = ExtResource("1_avw5q")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.9848077, -0.16317591, 0.05939118, 0, 0.34202015, 0.9396926, -0.17364818, -0.9254165, 0.3368241, 0, 0, 0)
+transform = Transform3D(0.96592575, -0.24321033, 0.088521324, 0, 0.34202012, 0.93969256, -0.258819, -0.9076733, 0.33036608, 0, 0, 0)
