@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://n3qejc5dgf0o"]
+[gd_scene load_steps=15 format=3 uid="uid://n3qejc5dgf0o"]
 
 [ext_resource type="ArrayMesh" uid="uid://ctoa5osm25at1" path="res://app/meshes/cubic/cube_side.obj" id="1_rxi85"]
 [ext_resource type="PackedScene" uid="uid://claaxr0d4a75f" path="res://app/main/3d_world/camera_and_light.tscn" id="1_vafqu"]
@@ -6,6 +6,7 @@
 [ext_resource type="ArrayMesh" uid="uid://cis60q0bweni8" path="res://app/meshes/round/2_donut.obj" id="3_vafqu"]
 [ext_resource type="ArrayMesh" uid="uid://bnmcc65eqrari" path="res://app/meshes/round/2_ramp.obj" id="4_vm7af"]
 [ext_resource type="ArrayMesh" uid="uid://cyk4kkcbsrk7l" path="res://app/meshes/cubic/stairs.obj" id="7_753wf"]
+[ext_resource type="ArrayMesh" uid="uid://yc8ndv7puci5" path="res://app/meshes/cubic/ladder.obj" id="7_c6td4"]
 [ext_resource type="ArrayMesh" uid="uid://dn2dkhwy81t2i" path="res://app/meshes/round/quarter_circle_bigger_ramp.obj" id="7_vafqu"]
 [ext_resource type="ArrayMesh" uid="uid://b3d4itgm05pax" path="res://app/meshes/round/quarter_circle_bigger.obj" id="13_tadwq"]
 [ext_resource type="ArrayMesh" uid="uid://vsa0ioxyl7sg" path="res://app/meshes/round/quarter_circle_bigger_cut_ramp.obj" id="14_sfw7i"]
@@ -69,6 +70,12 @@ skeleton = NodePath("../..")
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 3, -0.5, 2.5)
 material_override = SubResource("StandardMaterial3D_mqt8o")
 mesh = ExtResource("1_rxi85")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D51" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(-7.5497894e-08, 1, -8.742278e-08, 1, 7.54979e-08, 8.742278e-08, 8.7422784e-08, -8.742277e-08, -1, 1, 0.5, 0.5)
+material_override = SubResource("StandardMaterial3D_mqt8o")
+mesh = ExtResource("7_c6td4")
 skeleton = NodePath("../..")
 
 [node name="MeshInstance3D10" type="MeshInstance3D" parent="Node3D"]
