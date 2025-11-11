@@ -5,8 +5,20 @@ class_name World extends Node3D
 @export var camera: Camera3D
 @export var level: Node3D
 
-const cube: PackedScene = preload("res://app/blocks/cube.tscn")
-const arch2x: PackedScene = preload("res://app/blocks/arch_2x.tscn")
+const block_prefabs: Array[PackedScene] = [
+	preload("res://app/blocks/cube.tscn"),
+	null,
+	null,
+	preload("res://app/blocks/arch_2x.tscn"),
+	null,
+	null,
+	null,
+	null,
+	null,
+	null,
+	null,
+	null,
+]
 
 var objects: Array[Block]
 var blocked_space: Dictionary[Vector3, Block]
@@ -23,7 +35,7 @@ var current_direction: Vector3
 func open_new_level() -> void:
 	main_menu_3d.visible = false
 	current_mode = true
-	create_new_block(cube.instantiate(), Vector3.ZERO)
+	create_new_block(block_prefabs[CUBE].instantiate(), Vector3.ZERO)
 
 func open_level(level_name: String, edit_mode: bool) -> void:
 	main_menu_3d.visible = false
@@ -38,8 +50,7 @@ func open_level(level_name: String, edit_mode: bool) -> void:
 		var node_data: Dictionary = json.data
 		match node_data["type"]:
 			"cube":
-				var new_cube: BlockCube = cube.instantiate()
-				create_new_block(new_cube, Vector3(node_data["pos_x"], node_data["pos_y"], node_data["pos_z"]))
+				create_new_block(block_prefabs[CUBE].instantiate(), Vector3(node_data["pos_x"], node_data["pos_y"], node_data["pos_z"]))
 			_:
 				print("Unknown type!")
 
@@ -94,7 +105,6 @@ func delete_block(block: Block) -> void:
 		if current_node.block_behind_this != block:
 			current_node = current_node.block_behind_this
 		current_node.block_behind_this = block.block_behind_this
-	level.remove_child(block)
 	block.queue_free()
 
 func get_data() -> Array[String]:
@@ -116,7 +126,8 @@ func create_block_preview(direction: Vector3, length: int) -> void:
 			if new_position in blocked_space:
 				length = i
 				break
-			var new_block: Block = cube.instantiate()
+			if block_prefabs[selected_block_type] == null: return
+			var new_block: Block = block_prefabs[selected_block_type].instantiate()
 			blocks.append(new_block)
 			level.add_child(new_block)
 			new_block.global_position = new_position
