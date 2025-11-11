@@ -4,6 +4,9 @@ extends Control
 @export var edit_pause: Control
 @export var name_text: LineEdit
 
+@export var block_buttons: Array[Button]
+var selected_block_type: int
+
 var level_name: String
 
 func _on_edit_pause_pressed() -> void:
@@ -50,3 +53,9 @@ func save() -> bool:
 	for line: String in menus.world_3d.get_data():
 		file.store_line(line)
 	return true
+
+func _on_block_selection_pressed(block_type: int) -> void:
+	block_buttons[selected_block_type].disabled = false
+	selected_block_type = block_type
+	block_buttons[selected_block_type].disabled = true
+	menus.change_selected_block_type(selected_block_type)

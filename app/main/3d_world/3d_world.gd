@@ -6,11 +6,15 @@ class_name World extends Node3D
 @export var level: Node3D
 
 const cube: PackedScene = preload("res://app/blocks/cube.tscn")
+const arch2x: PackedScene = preload("res://app/blocks/arch_2x.tscn")
 
 var objects: Array[Block]
 var blocked_space: Dictionary[Vector3, Block]
 var map2d: Dictionary[Vector2, Block]
 var current_mode: bool
+
+enum {CUBE, STAIRS, ARCH1X, ARCH2X, ARCH3X, RAMP1X, RAMP2X, RAMP3X, LADDER, DOOR, START, END}
+var selected_block_type: int = CUBE
 
 func open_new_level() -> void:
 	main_menu_3d.visible = false
@@ -94,3 +98,6 @@ func get_data() -> Array[String]:
 	for block: Block in level.get_children():
 		data.append(block.get_data())
 	return data
+
+func change_selected_block_type(new_block_type: int) -> void:
+	selected_block_type = new_block_type
