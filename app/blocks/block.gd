@@ -38,11 +38,9 @@ func initialize(mode: bool, world: World) -> void:
 
 @abstract func get_data() -> String
 
-func blocks_space() -> Array[Vector3]:
-	return [global_position]
+@abstract func blocks_space() -> Array[Vector3]
 
-func connection_points() -> Array[Vector3]:
-	return [global_position]
+@abstract func connection_points() -> Array[Vector3]
 
 func _input(event: InputEvent) -> void:
 	if current_mode == EDIT:
