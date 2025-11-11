@@ -8,6 +8,9 @@ var side_color: Color:
 		sides[0].material_override.albedo_color = value
 		side_color = value
 
+var depth: int
+var block_behind_this: Block
+
 var is_pressed: bool
 var current_camera: Camera3D
 
@@ -40,6 +43,32 @@ func blocks_space() -> Array[Vector3]:
 
 func connection_points() -> Array[Vector3]:
 	return [global_position]
+
+func _input(event: InputEvent) -> void:
+	if current_mode == EDIT:
+		if event is InputEventMouseButton and not event.pressed and event.button_index == 1:
+			if is_pressed:
+				is_pressed = false
+				one_is_pressed = false
+				if not is_entered:
+					side_color = Color.WHITE
+					world3d.create_blocks()
+			elif is_entered: 
+				side_color = Color.ORANGE
+		if event is InputEventMouseMotion and is_pressed:
+			var mouse_vector: Vector2 = event.position - current_camera.unproject_position(global_position)
+			var step: float = (840 / current_camera.size)
+			var length: int = clampi(floori((mouse_vector.length() + step / 2) / step), 0, 10)
+			var angle: float = rad_to_deg(mouse_vector.angle())
+			var direction: Vector3 = (
+				Vector3.LEFT if angle < -120
+				else Vector3.UP if angle < -60
+				else Vector3.FORWARD if angle < 0
+				else Vector3.RIGHT if angle < 60
+				else Vector3.DOWN if angle < 120
+				else Vector3.BACK
+			)
+			world3d.create_block_preview(direction, length)
 
 func _on_area_3d_mouse_entered() -> void:
 	if current_mode == NEW: 

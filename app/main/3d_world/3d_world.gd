@@ -66,7 +66,7 @@ func create_new_block(new_block: Block, block_position: Vector3) -> void:
 		blocked_space.set(space, new_block)
 	for point3d: Vector3 in new_block.connection_points():
 		var point2d: Vector2 = Vector2(point3d.x - point3d.z, point3d.y - point3d.z)
-		new_block.depth = point3d.x + point3d.z
+		new_block.depth = (point3d.x + point3d.z) as int
 		var next_block: Block = map2d.get(point2d)
 		if next_block == null or new_block.depth > next_block.depth:
 			map2d.set(point2d, new_block)
