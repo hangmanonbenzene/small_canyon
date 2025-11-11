@@ -8,6 +8,9 @@ var side_color: Color:
 		sides[0].material_override.albedo_color = value
 		side_color = value
 
+var is_pressed: bool
+var current_camera: Camera3D
+
 enum {NEW, PLAY, EDIT}
 var current_mode: int = NEW
 static var one_is_pressed: bool
@@ -53,3 +56,13 @@ func _on_area_3d_mouse_exited() -> void:
 		is_entered = false
 		if not one_is_pressed:
 			side_color = Color.WHITE
+
+func _on_area_3d_input_event(camera: Node, event: InputEvent, _event_position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
+	if current_mode == EDIT:
+		if event is InputEventMouseButton and event.pressed and event.button_index == 1:
+			is_pressed = true
+			one_is_pressed = true
+			current_camera = camera
+			world3d.block_pressed(self.global_position)
+		if event is InputEventMouseButton and event.pressed and event.button_index == 2:
+			world3d.delete_block(self)

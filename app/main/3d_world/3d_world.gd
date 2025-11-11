@@ -15,6 +15,10 @@ var current_mode: bool
 
 enum {CUBE, STAIRS, ARCH1X, ARCH2X, ARCH3X, RAMP1X, RAMP2X, RAMP3X, LADDER, DOOR, START, END}
 var selected_block_type: int = CUBE
+var blocks: Array[Block]
+var current_pressed_block_coordinates: Vector3
+var current_length: int
+var current_direction: Vector3
 
 func open_new_level() -> void:
 	main_menu_3d.visible = false
@@ -101,3 +105,46 @@ func get_data() -> Array[String]:
 
 func change_selected_block_type(new_block_type: int) -> void:
 	selected_block_type = new_block_type
+
+func block_pressed(coordinates: Vector3) -> void:
+	current_pressed_block_coordinates = coordinates
+
+func create_block_preview(direction: Vector3, length: int) -> void:
+	if length > current_length:
+		for i in range(current_length, length):
+			var new_position: Vector3 = current_pressed_block_coordinates + current_direction * (i + 1)
+			if new_position in blocked_space:
+				length = i
+				break
+			var new_block: Block = cube.instantiate()
+			blocks.append(new_block)
+			level.add_child(new_block)
+			new_block.global_position = new_position
+	elif length < current_length:
+		for i in range(current_length - length):
+			blocks.pop_back().queue_free()
+	current_length = length
+	
+	if direction != current_direction:
+		current_direction = direction
+		var is_blocked: bool = false
+		for i in blocks.size():
+			var new_position: Vector3 = current_pressed_block_coordinates + current_direction * (i + 1)
+			if new_position in blocked_space:
+				length = i
+				is_blocked = true
+				break
+			blocks[i].global_position = new_position
+		if is_blocked:
+			for i in range(current_length - length):
+				blocks.pop_back().queue_free()
+			current_length = length
+
+func create_blocks() -> void:
+	for block in blocks:
+		var block_position: Vector3 = block.global_position
+		level.remove_child(block)
+		create_new_block(block, block_position)
+	blocks.clear()
+	current_length = 0
+	current_direction = Vector3.ZERO
