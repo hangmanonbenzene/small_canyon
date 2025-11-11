@@ -1,0 +1,80 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1illxacc7wqb"]
+
+[ext_resource type="Script" uid="uid://c5j4muju8a58k" path="res://app/main/menus/play_ui.gd" id="1_e4s26"]
+
+[node name="play_ui" type="Control" node_paths=PackedStringArray("play_pause")]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_e4s26")
+play_pause = NodePath("play_pause")
+
+[node name="pause" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -87.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 87.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 50
+text = "X"
+
+[node name="play_pause" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.27058825)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="play_pause"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Button" type="Button" parent="play_pause/VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 50
+text = "Continue"
+
+[node name="Button2" type="Button" parent="play_pause/VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 50
+text = "Edit"
+
+[node name="Button3" type="Button" parent="play_pause/VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 50
+text = "Exit"
+
+[connection signal="pressed" from="pause" to="." method="_on_play_pause_pressed"]
+[connection signal="pressed" from="play_pause/VBoxContainer/Button" to="." method="_on_play_pause_continue_pressed"]
+[connection signal="pressed" from="play_pause/VBoxContainer/Button2" to="." method="_on_play_pause_edit_pressed"]
+[connection signal="pressed" from="play_pause/VBoxContainer/Button3" to="." method="_on_play_pause_leave_pressed"]

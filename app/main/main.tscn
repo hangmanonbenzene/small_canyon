@@ -1,25 +1,23 @@
-[gd_scene load_steps=10 format=3 uid="uid://cj1l6gmrktmob"]
+[gd_scene load_steps=9 format=3 uid="uid://cj1l6gmrktmob"]
 
 [ext_resource type="Script" uid="uid://bwfy1bk3qso2u" path="res://app/main/main.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://b5xxv3ttcbnbp" path="res://app/main/3d_world/3d_world.gd" id="2_3hrc4"]
 [ext_resource type="Script" uid="uid://0p7qwmwduce" path="res://app/main/menus/menus.gd" id="2_uehq1"]
-[ext_resource type="PackedScene" uid="uid://jx6twfvue1m3" path="res://app/main/menus/level_button.tscn" id="3_2c3py"]
 [ext_resource type="PackedScene" uid="uid://claaxr0d4a75f" path="res://app/main/3d_world/camera_and_light.tscn" id="3_revbh"]
 [ext_resource type="PackedScene" uid="uid://uu62cbh7lr68" path="res://app/main/3d_world/main_menu.tscn" id="5_mkrb3"]
-[ext_resource type="Script" uid="uid://bdp1kjfwc04kq" path="res://app/main/menus/main_menu.gd" id="9_revbh"]
-[ext_resource type="Script" uid="uid://c5j4muju8a58k" path="res://app/main/menus/play_ui.gd" id="10_mkrb3"]
-[ext_resource type="Script" uid="uid://bsxv3vmg5nvov" path="res://app/main/menus/edit_ui.gd" id="11_gmk0n"]
+[ext_resource type="PackedScene" uid="uid://dm8wrdggpxqql" path="res://app/main/menus/main_menu.tscn" id="6_cfabd"]
+[ext_resource type="PackedScene" uid="uid://5130ubf2sohl" path="res://app/main/menus/edit_ui.tscn" id="7_revbh"]
+[ext_resource type="PackedScene" uid="uid://b1illxacc7wqb" path="res://app/main/menus/play_ui.tscn" id="8_mkrb3"]
 
 [node name="main" type="Node" node_paths=PackedStringArray("world_3d", "menus")]
 script = ExtResource("1_ig7tw")
 world_3d = NodePath("3d_world")
 menus = NodePath("menus")
 
-[node name="3d_world" type="Node3D" parent="." node_paths=PackedStringArray("menus", "main_menu_3d", "camera", "level")]
+[node name="3d_world" type="Node3D" parent="." node_paths=PackedStringArray("menus", "main_menu_3d", "level")]
 script = ExtResource("2_3hrc4")
 menus = NodePath("../menus")
 main_menu_3d = NodePath("main_menu")
-camera = NodePath("")
 level = NodePath("level")
 
 [node name="CameraAndLight" parent="3d_world" instance=ExtResource("3_revbh")]
@@ -35,292 +33,11 @@ main_menu = NodePath("main_menu")
 play_ui = NodePath("play_ui")
 edit_ui = NodePath("edit_ui")
 
-[node name="main_menu" type="Control" parent="menus" node_paths=PackedStringArray("menus", "level_buttons", "are_you_sure", "are_you_sure_label")]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("9_revbh")
+[node name="main_menu" parent="menus" node_paths=PackedStringArray("menus") instance=ExtResource("6_cfabd")]
 menus = NodePath("..")
-level_buttons = NodePath("VBoxContainer/ScrollContainer/VBoxContainer")
-level_button = ExtResource("3_2c3py")
-are_you_sure = NodePath("are_you_sure")
-are_you_sure_label = NodePath("are_you_sure/Label")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="menus/main_menu"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.6
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 60.0
-offset_right = -60.0
-offset_bottom = -60.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 10
-
-[node name="NewButton" type="Button" parent="menus/main_menu/VBoxContainer"]
-layout_mode = 2
-focus_mode = 0
-theme_override_font_sizes/font_size = 50
-text = "New Level"
-
-[node name="ScrollContainer" type="ScrollContainer" parent="menus/main_menu/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-horizontal_scroll_mode = 0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="menus/main_menu/VBoxContainer/ScrollContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 10
-
-[node name="are_you_sure" type="ColorRect" parent="menus/main_menu"]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.27058825)
-
-[node name="Label" type="Label" parent="menus/main_menu/are_you_sure"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -78.5
-offset_top = -88.5
-offset_right = 78.5
-offset_bottom = -19.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 50
-text = "Delete"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Panel" type="Panel" parent="menus/main_menu/are_you_sure/Label"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Button" type="Button" parent="menus/main_menu/are_you_sure"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -110.0
-offset_top = 11.5
-offset_right = -10.0
-offset_bottom = 88.5
-grow_horizontal = 2
-grow_vertical = 2
-focus_mode = 0
-theme_override_font_sizes/font_size = 50
-text = "Yes"
-
-[node name="Button2" type="Button" parent="menus/main_menu/are_you_sure"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 10.0
-offset_top = 11.5
-offset_right = 110.0
-offset_bottom = 88.5
-grow_horizontal = 2
-grow_vertical = 2
-focus_mode = 0
-theme_override_font_sizes/font_size = 50
-text = "No"
-
-[node name="play_ui" type="Control" parent="menus" node_paths=PackedStringArray("menus", "play_pause")]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("10_mkrb3")
+[node name="edit_ui" parent="menus" node_paths=PackedStringArray("menus") instance=ExtResource("7_revbh")]
 menus = NodePath("..")
-play_pause = NodePath("play_pause")
 
-[node name="pause" type="Button" parent="menus/play_ui"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -87.0
-offset_top = 10.0
-offset_right = -10.0
-offset_bottom = 87.0
-grow_horizontal = 0
-theme_override_font_sizes/font_size = 50
-text = "X"
-
-[node name="play_pause" type="ColorRect" parent="menus/play_ui"]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.27058825)
-
-[node name="VBoxContainer" type="VBoxContainer" parent="menus/play_ui/play_pause"]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 10
-
-[node name="Button" type="Button" parent="menus/play_ui/play_pause/VBoxContainer"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-focus_mode = 0
-theme_override_font_sizes/font_size = 50
-text = "Continue"
-
-[node name="Button2" type="Button" parent="menus/play_ui/play_pause/VBoxContainer"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-focus_mode = 0
-theme_override_font_sizes/font_size = 50
-text = "Edit"
-
-[node name="Button3" type="Button" parent="menus/play_ui/play_pause/VBoxContainer"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-focus_mode = 0
-theme_override_font_sizes/font_size = 50
-text = "Exit"
-
-[node name="edit_ui" type="Control" parent="menus" node_paths=PackedStringArray("menus", "edit_pause", "name_text")]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("11_gmk0n")
+[node name="play_ui" parent="menus" node_paths=PackedStringArray("menus") instance=ExtResource("8_mkrb3")]
 menus = NodePath("..")
-edit_pause = NodePath("edit_pause")
-name_text = NodePath("edit_pause/VBoxContainer/LineEdit")
-
-[node name="pause" type="Button" parent="menus/edit_ui"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -87.0
-offset_top = 10.0
-offset_right = -10.0
-offset_bottom = 87.0
-grow_horizontal = 0
-theme_override_font_sizes/font_size = 50
-text = "X"
-
-[node name="edit_pause" type="ColorRect" parent="menus/edit_ui"]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.27058825)
-
-[node name="VBoxContainer" type="VBoxContainer" parent="menus/edit_ui/edit_pause"]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 10
-
-[node name="LineEdit" type="LineEdit" parent="menus/edit_ui/edit_pause/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-placeholder_text = "Name..."
-context_menu_enabled = false
-emoji_menu_enabled = false
-
-[node name="Button" type="Button" parent="menus/edit_ui/edit_pause/VBoxContainer"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-focus_mode = 0
-theme_override_font_sizes/font_size = 50
-text = "Continue"
-
-[node name="Button2" type="Button" parent="menus/edit_ui/edit_pause/VBoxContainer"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-focus_mode = 0
-theme_override_font_sizes/font_size = 50
-text = "Save & Play"
-
-[node name="Button4" type="Button" parent="menus/edit_ui/edit_pause/VBoxContainer"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-focus_mode = 0
-theme_override_font_sizes/font_size = 50
-text = "Save & Exit"
-
-[node name="Button3" type="Button" parent="menus/edit_ui/edit_pause/VBoxContainer"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-focus_mode = 0
-theme_override_font_sizes/font_size = 50
-text = "Exit"
-
-[connection signal="pressed" from="menus/main_menu/VBoxContainer/NewButton" to="menus/main_menu" method="_on_new_button_pressed"]
-[connection signal="pressed" from="menus/main_menu/are_you_sure/Button" to="menus/main_menu" method="_on_actually_delete_pressed"]
-[connection signal="pressed" from="menus/main_menu/are_you_sure/Button2" to="menus/main_menu" method="_on_dont_delete_pressed"]
-[connection signal="pressed" from="menus/play_ui/pause" to="menus/play_ui" method="_on_play_pause_pressed"]
-[connection signal="pressed" from="menus/play_ui/play_pause/VBoxContainer/Button" to="menus/play_ui" method="_on_play_pause_continue_pressed"]
-[connection signal="pressed" from="menus/play_ui/play_pause/VBoxContainer/Button2" to="menus/play_ui" method="_on_play_pause_edit_pressed"]
-[connection signal="pressed" from="menus/play_ui/play_pause/VBoxContainer/Button3" to="menus/play_ui" method="_on_play_pause_leave_pressed"]
-[connection signal="pressed" from="menus/edit_ui/pause" to="menus/edit_ui" method="_on_edit_pause_pressed"]
-[connection signal="pressed" from="menus/edit_ui/edit_pause/VBoxContainer/Button" to="menus/edit_ui" method="_on_edit_pause_continue_pressed"]
-[connection signal="pressed" from="menus/edit_ui/edit_pause/VBoxContainer/Button2" to="menus/edit_ui" method="_on_edit_pause_save_and_play_pressed"]
-[connection signal="pressed" from="menus/edit_ui/edit_pause/VBoxContainer/Button4" to="menus/edit_ui" method="_on_edit_pause_save_and_exit_pressed"]
-[connection signal="pressed" from="menus/edit_ui/edit_pause/VBoxContainer/Button3" to="menus/edit_ui" method="_on_edit_pause_exit_pressed"]
