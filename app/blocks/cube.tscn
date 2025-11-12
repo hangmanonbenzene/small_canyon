@@ -1,8 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://64ira8a8ohu3"]
+[gd_scene load_steps=6 format=3 uid="uid://64ira8a8ohu3"]
 
 [ext_resource type="Script" uid="uid://cux5yoykv4hfm" path="res://app/blocks/cube.gd" id="1_2824d"]
 [ext_resource type="ArrayMesh" uid="uid://ctoa5osm25at1" path="res://app/meshes/cubic/cube_side.obj" id="1_cv53l"]
 [ext_resource type="Script" uid="uid://bgeoq0ktdjhot" path="res://app/blocks/connection_point.gd" id="3_2s86g"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2s86g"]
+size = Vector3(0.5, 0.01, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2824d"]
 size = Vector3(0.5, 0.5, 0.5)
@@ -17,25 +20,61 @@ connection_points = [NodePath("Area3D/CollisionShape3D")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 mesh = ExtResource("1_cv53l")
 
+[node name="Area3D" type="Area3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/Area3D"]
+shape = SubResource("BoxShape3D_2s86g")
+
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.5, 0, 0)
 mesh = ExtResource("1_cv53l")
+
+[node name="Area3D" type="Area3D" parent="MeshInstance3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2/Area3D"]
+shape = SubResource("BoxShape3D_2s86g")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
 transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, 0, -0.5, 0)
 mesh = ExtResource("1_cv53l")
 
+[node name="Area3D" type="Area3D" parent="MeshInstance3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D3/Area3D"]
+shape = SubResource("BoxShape3D_2s86g")
+
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.5, 0, 0)
 mesh = ExtResource("1_cv53l")
+
+[node name="Area3D" type="Area3D" parent="MeshInstance3D4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D4/Area3D"]
+shape = SubResource("BoxShape3D_2s86g")
 
 [node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0.5)
 mesh = ExtResource("1_cv53l")
 
+[node name="Area3D" type="Area3D" parent="MeshInstance3D5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D5/Area3D"]
+shape = SubResource("BoxShape3D_2s86g")
+
 [node name="MeshInstance3D6" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, -0.5)
 mesh = ExtResource("1_cv53l")
+
+[node name="Area3D" type="Area3D" parent="MeshInstance3D6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D6/Area3D"]
+shape = SubResource("BoxShape3D_2s86g")
 
 [node name="Area3D" type="Area3D" parent="."]
 

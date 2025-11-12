@@ -10,13 +10,14 @@ var side_color: Color:
 @export var blocker: Array[Node3D]
 @export var connection_points: Array[ConnectionPoint]
 
+var is_entered: bool
 var is_pressed: bool
+static var one_is_pressed: bool
 var current_camera: Camera3D
+var current_point: ConnectionPoint
 
 enum {NEW, PLAY, EDIT}
 var current_mode: int = NEW
-static var one_is_pressed: bool
-var is_entered: bool
 
 func _ready() -> void:
 	var material: BaseMaterial3D = StandardMaterial3D.new()
@@ -96,7 +97,7 @@ func _input(event: InputEvent) -> void:
 			elif is_entered: 
 				side_color = Color.ORANGE
 		if event is InputEventMouseMotion and is_pressed:
-			var mouse_vector: Vector2 = event.position - current_camera.unproject_position(global_position)
+			var mouse_vector: Vector2 = event.position - current_camera.unproject_position(current_point.get_my_position())
 			var step: float = (840 / current_camera.size)
 			var length: int = clampi(floori((mouse_vector.length() + step / 2) / step), 0, 10)
 			var angle: float = rad_to_deg(mouse_vector.angle())
@@ -108,7 +109,10 @@ func _input(event: InputEvent) -> void:
 				else Vector3i.DOWN if angle < 120
 				else Vector3i.BACK
 			)
-			world3d.create_block_preview(direction, length)
+			if current_point.viable_direction(direction):
+				world3d.create_block_preview(direction, length)
+			else:
+				world3d.create_block_preview(direction, 0)
 
 func _on_area_3d_mouse_entered() -> void:
 	if current_mode == NEW: 
@@ -132,7 +136,8 @@ func _on_area_3d_input_event(camera: Node, event: InputEvent, _event_position: V
 			is_pressed = true
 			one_is_pressed = true
 			current_camera = camera
-			world3d.block_pressed(vector3_to_vector3i(global_position))
+			current_point = connection_points[_shape_idx]
+			world3d.block_pressed(current_point.get_my_position())
 		if event is InputEventMouseButton and event.pressed and event.button_index == 2:
 			world3d.delete_block(self)
 
