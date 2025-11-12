@@ -41,8 +41,8 @@ func initialize(mode: bool, world: World) -> void:
 
 func blocks_space() -> Array[Vector3i]:
 	var blocked_space: Array[Vector3i]
-	for space: Node3D in blocker:
-		blocked_space.append(space.global_position as Vector3i)
+	for space in blocker:
+		blocked_space.append(vector3_to_vector3i(space.global_position))
 	return blocked_space
 
 @abstract func connection_points() -> Array[Vector3i]
@@ -135,6 +135,9 @@ func _on_area_3d_input_event(camera: Node, event: InputEvent, _event_position: V
 			is_pressed = true
 			one_is_pressed = true
 			current_camera = camera
-			world3d.block_pressed(self.global_position)
+			world3d.block_pressed(vector3_to_vector3i(global_position))
 		if event is InputEventMouseButton and event.pressed and event.button_index == 2:
 			world3d.delete_block(self)
+
+static func vector3_to_vector3i(vector: Vector3) -> Vector3i:
+	return Vector3i(roundi(vector.x), roundi(vector.y), roundi(vector.z))

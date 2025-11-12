@@ -74,11 +74,11 @@ func create_new_block(new_block: Block, block_position: Vector3i, block_directio
 	level.add_child(new_block)
 	new_block.initialize(current_mode, self)
 	new_block.set_new_position(block_position, block_direction, block_rotation)
-	for space: Vector3i in new_block.blocks_space():
+	for space in new_block.blocks_space():
 		blocked_space.set(space, new_block)
-	for point3d: Vector3i in new_block.connection_points():
+	for point3d in new_block.connection_points():
 		var point2d: Vector2i = Vector2i(point3d.x - point3d.z, point3d.y - point3d.z)
-		new_block.depth = (point3d.x + point3d.z) as int
+		new_block.depth = point3d.x + point3d.z
 		var next_block: Block = map2d.get(point2d)
 		if next_block == null or new_block.depth > next_block.depth:
 			map2d.set(point2d, new_block)
@@ -95,9 +95,9 @@ func create_new_block(new_block: Block, block_position: Vector3i, block_directio
 func delete_block(block: Block) -> void:
 	if objects.size() <= 1: return
 	objects.erase(block)
-	for vector_to_remove: Vector3i in block.blocks_space():
+	for vector_to_remove in block.blocks_space():
 		blocked_space.erase(vector_to_remove)
-	for point3d: Vector3i in block.connection_points():
+	for point3d in block.connection_points():
 		var point2d: Vector2i = Vector2i(point3d.x - point3d.z, point3d.y - point3d.z)
 		var current_node: Block = map2d.get(point2d)
 		if current_node == block: 
@@ -157,7 +157,7 @@ func create_block_preview(direction: Vector3i, length: int) -> void:
 			blocks.append(new_block)
 			level.add_child(new_block)
 			new_block.set_new_position(new_position, direction, (length - 1) % 4)
-			for space: Vector3i in new_block.blocks_space():
+			for space in new_block.blocks_space():
 				if space in blocked_space:
 					blocks.pop_back().queue_free()
 					length = 0
@@ -166,7 +166,7 @@ func create_block_preview(direction: Vector3i, length: int) -> void:
 			if current_direction != direction or current_length != length:
 				var new_position: Vector3i = current_pressed_block_coordinates + direction
 				blocks[0].set_new_position(new_position, direction, (length - 1) % 4)
-				for space: Vector3i in blocks[0].blocks_space():
+				for space in blocks[0].blocks_space():
 					if space in blocked_space:
 						blocks.pop_back().queue_free()
 						length = 0
@@ -180,7 +180,7 @@ func create_block_preview(direction: Vector3i, length: int) -> void:
 
 func create_blocks() -> void:
 	for block in blocks:
-		var block_position: Vector3i = block.global_position
+		var block_position: Vector3i = Block.vector3_to_vector3i(block.global_position)
 		level.remove_child(block)
 		create_new_block(block, block_position, current_direction, (current_length - 1) % 4)
 	blocks.clear()
