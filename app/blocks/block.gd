@@ -2,6 +2,9 @@
 
 var world3d: World
 
+var current_direction: Vector3i
+var current_rotation: int
+
 @export var sides: Array[MeshInstance3D]
 var side_color: Color:
 	set(value):
@@ -47,6 +50,8 @@ func blocks_space() -> Array[Vector3i]:
 
 func set_new_position(new_position: Vector3i, new_direction: Vector3i, new_rotation: int) -> void:
 	global_position = new_position
+	current_direction = new_direction
+	current_rotation = new_rotation
 	match new_direction:
 		Vector3i.UP: 
 			match new_rotation:

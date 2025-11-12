@@ -52,6 +52,8 @@ func open_level(level_name: String, edit_mode: bool) -> void:
 		match node_data["type"]:
 			"cube":
 				create_new_block(block_prefabs[CUBE].instantiate(), Vector3i(node_data["pos_x"], node_data["pos_y"], node_data["pos_z"]), Vector3i.UP, 0)
+			"arch2x":
+				create_new_block(block_prefabs[ARCH2X].instantiate(), Vector3i(node_data["pos_x"], node_data["pos_y"], node_data["pos_z"]), Vector3i(node_data["dir_x"], node_data["dir_y"], node_data["dir_z"]), node_data["rot"])
 			_:
 				print("Unknown type!")
 
