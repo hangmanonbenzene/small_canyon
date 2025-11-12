@@ -7,19 +7,21 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_7mipq"]
 size = Vector3(0.5, 0.5, 0.5)
 
-[node name="Arch2x" type="Node3D" node_paths=PackedStringArray("sides")]
+[node name="Arch2x" type="Node3D" node_paths=PackedStringArray("sides", "blocker")]
 script = ExtResource("1_whp5r")
 sides = [NodePath("MeshInstance3D"), NodePath("MeshInstance3D2"), NodePath("MeshInstance3D3")]
+blocker = [NodePath("Blocker/Node3D"), NodePath("Blocker/Node3D2"), NodePath("Blocker/Node3D3"), NodePath("Blocker/Node3D4")]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -0.5, 0)
 mesh = ExtResource("1_q7o7m")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 1.5, 0)
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -1.5, 1, 0)
 mesh = ExtResource("2_7mipq")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
-transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, 1.5, 0, 0)
+transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, 0, -0.5, 0)
 mesh = ExtResource("2_7mipq")
 skeleton = NodePath("../MeshInstance3D2")
 
@@ -27,13 +29,28 @@ skeleton = NodePath("../MeshInstance3D2")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.5, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -0.5, 0)
 shape = SubResource("BoxShape3D_7mipq")
 
 [node name="Area3D2" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.5, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -0.5, 0)
 shape = SubResource("BoxShape3D_7mipq")
+
+[node name="Blocker" type="Node3D" parent="."]
+
+[node name="Node3D" type="Node3D" parent="Blocker"]
+
+[node name="Node3D2" type="Node3D" parent="Blocker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Node3D3" type="Node3D" parent="Blocker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="Node3D4" type="Node3D" parent="Blocker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 0)
 
 [connection signal="input_event" from="Area3D" to="." method="_on_area_3d_input_event"]
 [connection signal="mouse_entered" from="Area3D" to="." method="_on_area_3d_mouse_entered"]

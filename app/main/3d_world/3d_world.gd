@@ -21,21 +21,22 @@ const block_prefabs: Array[PackedScene] = [
 ]
 
 var objects: Array[Block]
-var blocked_space: Dictionary[Vector3, Block]
-var map2d: Dictionary[Vector2, Block]
+var blocked_space: Dictionary[Vector3i, Block]
+var map2d: Dictionary[Vector2i, Block]
 var current_mode: bool
 
 enum {CUBE, STAIRS, ARCH1X, ARCH2X, ARCH3X, RAMP1X, RAMP2X, RAMP3X, LADDER, DOOR, START, END}
 var selected_block_type: int = CUBE
+var block_types: Array[int] = [0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2]
 var blocks: Array[Block]
-var current_pressed_block_coordinates: Vector3
+var current_pressed_block_coordinates: Vector3i
 var current_length: int
-var current_direction: Vector3
+var current_direction: Vector3i
 
 func open_new_level() -> void:
 	main_menu_3d.visible = false
 	current_mode = true
-	create_new_block(block_prefabs[CUBE].instantiate(), Vector3.ZERO)
+	create_new_block(block_prefabs[CUBE].instantiate(), Vector3i.ZERO, Vector3i.UP, 0)
 
 func open_level(level_name: String, edit_mode: bool) -> void:
 	main_menu_3d.visible = false
@@ -50,7 +51,7 @@ func open_level(level_name: String, edit_mode: bool) -> void:
 		var node_data: Dictionary = json.data
 		match node_data["type"]:
 			"cube":
-				create_new_block(block_prefabs[CUBE].instantiate(), Vector3(node_data["pos_x"], node_data["pos_y"], node_data["pos_z"]))
+				create_new_block(block_prefabs[CUBE].instantiate(), Vector3i(node_data["pos_x"], node_data["pos_y"], node_data["pos_z"]), Vector3i.UP, 0)
 			_:
 				print("Unknown type!")
 
@@ -68,15 +69,15 @@ func change_mode(edit_mode: bool) -> void:
 	for object in objects:
 		object.change_mode(edit_mode)
 
-func create_new_block(new_block: Block, block_position: Vector3) -> void:
+func create_new_block(new_block: Block, block_position: Vector3i, block_direction: Vector3i, block_rotation: int) -> void:
 	objects.append(new_block)
 	level.add_child(new_block)
 	new_block.initialize(current_mode, self)
-	new_block.global_position = block_position
-	for space: Vector3 in new_block.blocks_space():
+	new_block.set_new_position(block_position, block_direction, block_rotation)
+	for space: Vector3i in new_block.blocks_space():
 		blocked_space.set(space, new_block)
-	for point3d: Vector3 in new_block.connection_points():
-		var point2d: Vector2 = Vector2(point3d.x - point3d.z, point3d.y - point3d.z)
+	for point3d: Vector3i in new_block.connection_points():
+		var point2d: Vector2i = Vector2i(point3d.x - point3d.z, point3d.y - point3d.z)
 		new_block.depth = (point3d.x + point3d.z) as int
 		var next_block: Block = map2d.get(point2d)
 		if next_block == null or new_block.depth > next_block.depth:
@@ -94,10 +95,10 @@ func create_new_block(new_block: Block, block_position: Vector3) -> void:
 func delete_block(block: Block) -> void:
 	if objects.size() <= 1: return
 	objects.erase(block)
-	for vector_to_remove: Vector3 in block.blocks_space():
+	for vector_to_remove: Vector3i in block.blocks_space():
 		blocked_space.erase(vector_to_remove)
-	for point3d: Vector3 in block.connection_points():
-		var point2d: Vector2 = Vector2(point3d.x - point3d.z, point3d.y - point3d.z)
+	for point3d: Vector3i in block.connection_points():
+		var point2d: Vector2i = Vector2i(point3d.x - point3d.z, point3d.y - point3d.z)
 		var current_node: Block = map2d.get(point2d)
 		if current_node == block: 
 			map2d.set(point2d, block.block_behind_this)
@@ -116,46 +117,72 @@ func get_data() -> Array[String]:
 func change_selected_block_type(new_block_type: int) -> void:
 	selected_block_type = new_block_type
 
-func block_pressed(coordinates: Vector3) -> void:
+func block_pressed(coordinates: Vector3i) -> void:
 	current_pressed_block_coordinates = coordinates
 
-func create_block_preview(direction: Vector3, length: int) -> void:
-	if length > current_length:
-		for i in range(current_length, length):
-			var new_position: Vector3 = current_pressed_block_coordinates + current_direction * (i + 1)
-			if new_position in blocked_space:
-				length = i
-				break
-			if block_prefabs[selected_block_type] == null: return
+func create_block_preview(direction: Vector3i, length: int) -> void:
+	if block_types[selected_block_type] == 0:
+		if length > current_length:
+			for i in range(current_length, length):
+				var new_position: Vector3i = current_pressed_block_coordinates + current_direction * (i + 1)
+				if new_position in blocked_space:
+					length = i
+					break
+				var new_block: Block = block_prefabs[selected_block_type].instantiate()
+				blocks.append(new_block)
+				level.add_child(new_block)
+				new_block.set_new_position(new_position, direction, (length - 1) % 4)
+		elif length < current_length:
+			for i in range(current_length - length):
+				blocks.pop_back().queue_free()
+		current_length = length
+		if direction != current_direction:
+			current_direction = direction
+			var is_blocked: bool = false
+			for i in blocks.size():
+				var new_position: Vector3i = current_pressed_block_coordinates + current_direction * (i + 1)
+				if new_position in blocked_space:
+					length = i
+					is_blocked = true
+					break
+				blocks[i].set_new_position(new_position, direction, (length - 1) % 4)
+			if is_blocked:
+				for i in range(current_length - length):
+					blocks.pop_back().queue_free()
+				current_length = length
+	elif block_types[selected_block_type] == 1:
+		if current_length == 0 and length > 0:
+			var new_position: Vector3i = current_pressed_block_coordinates + direction
 			var new_block: Block = block_prefabs[selected_block_type].instantiate()
 			blocks.append(new_block)
 			level.add_child(new_block)
-			new_block.global_position = new_position
-	elif length < current_length:
-		for i in range(current_length - length):
+			new_block.set_new_position(new_position, direction, (length - 1) % 4)
+			for space: Vector3i in new_block.blocks_space():
+				if space in blocked_space:
+					blocks.pop_back().queue_free()
+					length = 0
+					break
+		elif current_length > 0 and length > 0:
+			if current_direction != direction or current_length != length:
+				var new_position: Vector3i = current_pressed_block_coordinates + direction
+				blocks[0].set_new_position(new_position, direction, (length - 1) % 4)
+				for space: Vector3i in blocks[0].blocks_space():
+					if space in blocked_space:
+						blocks.pop_back().queue_free()
+						length = 0
+						break
+		elif current_length > 0 and length == 0:
 			blocks.pop_back().queue_free()
-	current_length = length
-	
-	if direction != current_direction:
 		current_direction = direction
-		var is_blocked: bool = false
-		for i in blocks.size():
-			var new_position: Vector3 = current_pressed_block_coordinates + current_direction * (i + 1)
-			if new_position in blocked_space:
-				length = i
-				is_blocked = true
-				break
-			blocks[i].global_position = new_position
-		if is_blocked:
-			for i in range(current_length - length):
-				blocks.pop_back().queue_free()
-			current_length = length
+		current_length = length
+	elif block_types[selected_block_type] == 2:
+		pass
 
 func create_blocks() -> void:
 	for block in blocks:
-		var block_position: Vector3 = block.global_position
+		var block_position: Vector3i = block.global_position
 		level.remove_child(block)
-		create_new_block(block, block_position)
+		create_new_block(block, block_position, current_direction, (current_length - 1) % 4)
 	blocks.clear()
 	current_length = 0
-	current_direction = Vector3.ZERO
+	current_direction = Vector3i.ZERO

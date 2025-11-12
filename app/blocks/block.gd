@@ -7,6 +7,7 @@ var side_color: Color:
 	set(value):
 		sides[0].material_override.albedo_color = value
 		side_color = value
+@export var blocker: Array[Node3D]
 
 var depth: int
 var block_behind_this: Block
@@ -38,9 +39,53 @@ func initialize(mode: bool, world: World) -> void:
 
 @abstract func get_data() -> String
 
-@abstract func blocks_space() -> Array[Vector3]
+func blocks_space() -> Array[Vector3i]:
+	var blocked_space: Array[Vector3i]
+	for space: Node3D in blocker:
+		blocked_space.append(space.global_position as Vector3i)
+	return blocked_space
 
-@abstract func connection_points() -> Array[Vector3]
+@abstract func connection_points() -> Array[Vector3i]
+
+func set_new_position(new_position: Vector3i, new_direction: Vector3i, new_rotation: int) -> void:
+	global_position = new_position
+	match new_direction:
+		Vector3i.UP: 
+			match new_rotation:
+				0: rotation_degrees = Vector3i(0, 0, 0)
+				1: rotation_degrees = Vector3i(0, 90, 0)
+				2: rotation_degrees = Vector3i(0, 180, 0)
+				3: rotation_degrees = Vector3i(0, 270, 0)
+		Vector3i.DOWN:
+			match new_rotation:
+				0: rotation_degrees = Vector3i(0, 0, 180)
+				1: rotation_degrees = Vector3i(0, -90, 180)
+				2: rotation_degrees = Vector3i(0, -180, 180)
+				3: rotation_degrees = Vector3i(0, -270, 180)
+		Vector3i.LEFT: 
+			match new_rotation:
+				0: rotation_degrees = Vector3i(0, 0, 90)
+				1: rotation_degrees = Vector3i(-90, 90, 0)
+				2: rotation_degrees = Vector3i(0, 180, -90)
+				3: rotation_degrees = Vector3i(90, -90, 0)
+		Vector3i.RIGHT: 
+			match new_rotation:
+				0: rotation_degrees = Vector3i(0, 0, -90)
+				1: rotation_degrees = Vector3i(90, 90, 0)
+				2: rotation_degrees = Vector3i(0, 180, 90)
+				3: rotation_degrees = Vector3i(-90, -90, 0)
+		Vector3i.FORWARD: 
+			match new_rotation:
+				0: rotation_degrees = Vector3i(90, 180, 0)
+				1: rotation_degrees = Vector3i(0, -90, 90)
+				2: rotation_degrees = Vector3i(-90, 0, 0)
+				3: rotation_degrees = Vector3i(0, 90, -90)
+		Vector3i.BACK: 
+			match new_rotation:
+				0: rotation_degrees = Vector3i(90, 0, 0)
+				1: rotation_degrees = Vector3i(0, 90, 90)
+				2: rotation_degrees = Vector3i(-90, 180, 0)
+				3: rotation_degrees = Vector3i(0, -90, -90)
 
 func _input(event: InputEvent) -> void:
 	if current_mode == EDIT:
@@ -58,13 +103,13 @@ func _input(event: InputEvent) -> void:
 			var step: float = (840 / current_camera.size)
 			var length: int = clampi(floori((mouse_vector.length() + step / 2) / step), 0, 10)
 			var angle: float = rad_to_deg(mouse_vector.angle())
-			var direction: Vector3 = (
-				Vector3.LEFT if angle < -120
-				else Vector3.UP if angle < -60
-				else Vector3.FORWARD if angle < 0
-				else Vector3.RIGHT if angle < 60
-				else Vector3.DOWN if angle < 120
-				else Vector3.BACK
+			var direction: Vector3i = (
+				Vector3i.LEFT if angle < -120
+				else Vector3i.UP if angle < -60
+				else Vector3i.FORWARD if angle < 0
+				else Vector3i.RIGHT if angle < 60
+				else Vector3i.DOWN if angle < 120
+				else Vector3i.BACK
 			)
 			world3d.create_block_preview(direction, length)
 
