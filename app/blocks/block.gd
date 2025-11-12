@@ -8,9 +8,7 @@ var side_color: Color:
 		sides[0].material_override.albedo_color = value
 		side_color = value
 @export var blocker: Array[Node3D]
-
-var depth: int
-var block_behind_this: Block
+@export var connection_points: Array[ConnectionPoint]
 
 var is_pressed: bool
 var current_camera: Camera3D
@@ -32,6 +30,7 @@ func change_mode(edit_mode: bool) -> void:
 	else: current_mode = PLAY
 
 func initialize(mode: bool, world: World) -> void:
+	sides[0].material_override.transparency = BaseMaterial3D.TRANSPARENCY_DISABLED
 	if is_entered: side_color = Color.ORANGE
 	else: side_color = Color.WHITE
 	change_mode(mode)
@@ -44,8 +43,6 @@ func blocks_space() -> Array[Vector3i]:
 	for space in blocker:
 		blocked_space.append(vector3_to_vector3i(space.global_position))
 	return blocked_space
-
-@abstract func connection_points() -> Array[Vector3i]
 
 func set_new_position(new_position: Vector3i, new_direction: Vector3i, new_rotation: int) -> void:
 	global_position = new_position

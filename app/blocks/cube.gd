@@ -1,8 +1,5 @@
 class_name BlockCube extends Block
 
-func connection_points() -> Array[Vector3i]:
-	return [global_position]
-
 func get_data() -> String:
 	var data_dict: Dictionary = {
 		"type" : "cube",

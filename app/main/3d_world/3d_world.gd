@@ -22,7 +22,7 @@ const block_prefabs: Array[PackedScene] = [
 
 var objects: Array[Block]
 var blocked_space: Dictionary[Vector3i, Block]
-var map2d: Dictionary[Vector2i, Block]
+var map2d: Dictionary[Vector2i, ConnectionPoint]
 var current_mode: bool
 
 enum {CUBE, STAIRS, ARCH1X, ARCH2X, ARCH3X, RAMP1X, RAMP2X, RAMP3X, LADDER, DOOR, START, END}
@@ -76,36 +76,40 @@ func create_new_block(new_block: Block, block_position: Vector3i, block_directio
 	new_block.set_new_position(block_position, block_direction, block_rotation)
 	for space in new_block.blocks_space():
 		blocked_space.set(space, new_block)
-	for point3d in new_block.connection_points():
+	for i in range(new_block.connection_points.size()):
+		var point: ConnectionPoint = new_block.connection_points[i]
+		var point3d: Vector3i = point.get_my_position()
 		var point2d: Vector2i = Vector2i(point3d.x - point3d.z, point3d.y - point3d.z)
-		new_block.depth = point3d.x + point3d.z
-		var next_block: Block = map2d.get(point2d)
-		if next_block == null or new_block.depth > next_block.depth:
-			map2d.set(point2d, new_block)
-			new_block.block_behind_this = next_block
-			break
-		var previous_block: Block = next_block
-		next_block = next_block.block_behind_this
-		while next_block != null and new_block.depth < next_block.depth:
-			previous_block = next_block
-			next_block = next_block.block_behind_this
-		previous_block.block_behind_this = new_block
-		new_block.block_behind_this = next_block
+		point.depth = point3d.x + point3d.z
+		var next_point: ConnectionPoint = map2d.get(point2d)
+		if next_point == null or point.depth > next_point.depth:
+			map2d.set(point2d, point)
+			point.block_behind_this = next_point
+			continue
+		var previous_point: ConnectionPoint = next_point
+		next_point = next_point.block_behind_this
+		while next_point != null and point.depth < next_point.depth:
+			previous_point = next_point
+			next_point = next_point.block_behind_this
+		previous_point.block_behind_this = point
+		point.block_behind_this = next_point
 
 func delete_block(block: Block) -> void:
 	if objects.size() <= 1: return
 	objects.erase(block)
 	for vector_to_remove in block.blocks_space():
 		blocked_space.erase(vector_to_remove)
-	for point3d in block.connection_points():
+	for i in range(block.connection_points.size()):
+		var point: ConnectionPoint = block.connection_points[i]
+		var point3d: Vector3i = point.get_my_position()
 		var point2d: Vector2i = Vector2i(point3d.x - point3d.z, point3d.y - point3d.z)
-		var current_node: Block = map2d.get(point2d)
-		if current_node == block: 
-			map2d.set(point2d, block.block_behind_this)
-			break
-		if current_node.block_behind_this != block:
-			current_node = current_node.block_behind_this
-		current_node.block_behind_this = block.block_behind_this
+		var current_point: ConnectionPoint = map2d.get(point2d)
+		if current_point == point: 
+			map2d.set(point2d, point.block_behind_this)
+			continue
+		while current_point.block_behind_this != point:
+			current_point = current_point.block_behind_this
+		current_point.block_behind_this = point.block_behind_this
 	block.queue_free()
 
 func get_data() -> Array[String]:
