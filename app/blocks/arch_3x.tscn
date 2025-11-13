@@ -1,0 +1,83 @@
+[gd_scene load_steps=6 format=3 uid="uid://d4lueuk4efef3"]
+
+[ext_resource type="ArrayMesh" uid="uid://ctoa5osm25at1" path="res://app/meshes/cubic/cube_side.obj" id="1_bqrgl"]
+[ext_resource type="Script" uid="uid://oof5i0w8cqkm" path="res://app/blocks/arch_3x.gd" id="1_ygxv2"]
+[ext_resource type="Script" uid="uid://bgeoq0ktdjhot" path="res://app/blocks/connection_point.gd" id="2_ygxv2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j3ejw"]
+size = Vector3(0.5, 0.01, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r5665"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[node name="Arch3x" type="Node3D" node_paths=PackedStringArray("sides", "blocker", "connection_points")]
+script = ExtResource("1_ygxv2")
+sides = [NodePath("MeshInstance3D"), NodePath("MeshInstance3D2"), NodePath("MeshInstance3D3")]
+blocker = [NodePath("Blocker/Node3D"), NodePath("Blocker/Node3D2"), NodePath("Blocker/Node3D3"), NodePath("Blocker/Node3D4"), NodePath("Blocker/Node3D5"), NodePath("Blocker/Node3D6"), NodePath("Blocker/Node3D7"), NodePath("Blocker/Node3D8")]
+connection_points = [NodePath("Area3D/CollisionShape3D"), NodePath("Area3D/CollisionShape3D2")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, -0.5, 0)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -2.5, 2, 0)
+mesh = ExtResource("1_bqrgl")
+
+[node name="Area3D" type="Area3D" parent="MeshInstance3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2/Area3D"]
+shape = SubResource("BoxShape3D_j3ejw")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, 0, -0.5, 0)
+mesh = ExtResource("1_bqrgl")
+skeleton = NodePath("../MeshInstance3D2")
+
+[node name="Area3D" type="Area3D" parent="MeshInstance3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D3/Area3D"]
+shape = SubResource("BoxShape3D_j3ejw")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" node_paths=PackedStringArray("block")]
+shape = SubResource("BoxShape3D_r5665")
+script = ExtResource("2_ygxv2")
+block = NodePath("../..")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D" node_paths=PackedStringArray("block")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, 0)
+shape = SubResource("BoxShape3D_r5665")
+script = ExtResource("2_ygxv2")
+block = NodePath("../..")
+
+[node name="Blocker" type="Node3D" parent="."]
+
+[node name="Node3D" type="Node3D" parent="Blocker"]
+
+[node name="Node3D2" type="Node3D" parent="Blocker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Node3D3" type="Node3D" parent="Blocker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="Node3D4" type="Node3D" parent="Blocker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 0)
+
+[node name="Node3D5" type="Node3D" parent="Blocker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 0)
+
+[node name="Node3D6" type="Node3D" parent="Blocker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, 0)
+
+[node name="Node3D7" type="Node3D" parent="Blocker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2, 0)
+
+[node name="Node3D8" type="Node3D" parent="Blocker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[connection signal="input_event" from="Area3D" to="." method="_on_area_3d_input_event"]
+[connection signal="mouse_entered" from="Area3D" to="." method="_on_area_3d_mouse_entered"]
+[connection signal="mouse_exited" from="Area3D" to="." method="_on_area_3d_mouse_exited"]

@@ -7,13 +7,13 @@ class_name World extends Node3D
 
 const block_prefabs: Array[PackedScene] = [
 	preload("res://app/blocks/cube.tscn"),
-	null,
-	null,
+	preload("res://app/blocks/stairs.tscn"),
+	preload("res://app/blocks/arch_1x.tscn"),
 	preload("res://app/blocks/arch_2x.tscn"),
-	null,
-	null,
-	null,
-	null,
+	preload("res://app/blocks/arch_3x.tscn"),
+	preload("res://app/blocks/ramp_1x.tscn"),
+	preload("res://app/blocks/ramp_2x.tscn"),
+	preload("res://app/blocks/ramp_3x.tscn"),
 	null,
 	null,
 	null,
@@ -52,8 +52,20 @@ func open_level(level_name: String, edit_mode: bool) -> void:
 		match node_data["type"]:
 			"cube":
 				create_new_block(block_prefabs[CUBE].instantiate(), Vector3i(node_data["pos_x"], node_data["pos_y"], node_data["pos_z"]), Vector3i.UP, 0)
+			"stairs":
+				create_new_block(block_prefabs[STAIRS].instantiate(), Vector3i(node_data["pos_x"], node_data["pos_y"], node_data["pos_z"]), Vector3i(node_data["dir_x"], node_data["dir_y"], node_data["dir_z"]), node_data["rot"])
+			"arch1x":
+				create_new_block(block_prefabs[ARCH1X].instantiate(), Vector3i(node_data["pos_x"], node_data["pos_y"], node_data["pos_z"]), Vector3i(node_data["dir_x"], node_data["dir_y"], node_data["dir_z"]), node_data["rot"])
 			"arch2x":
 				create_new_block(block_prefabs[ARCH2X].instantiate(), Vector3i(node_data["pos_x"], node_data["pos_y"], node_data["pos_z"]), Vector3i(node_data["dir_x"], node_data["dir_y"], node_data["dir_z"]), node_data["rot"])
+			"arch3x":
+				create_new_block(block_prefabs[ARCH3X].instantiate(), Vector3i(node_data["pos_x"], node_data["pos_y"], node_data["pos_z"]), Vector3i(node_data["dir_x"], node_data["dir_y"], node_data["dir_z"]), node_data["rot"])
+			"ramp1x":
+				create_new_block(block_prefabs[RAMP1X].instantiate(), Vector3i(node_data["pos_x"], node_data["pos_y"], node_data["pos_z"]), Vector3i(node_data["dir_x"], node_data["dir_y"], node_data["dir_z"]), node_data["rot"])
+			"ramp2x":
+				create_new_block(block_prefabs[RAMP2X].instantiate(), Vector3i(node_data["pos_x"], node_data["pos_y"], node_data["pos_z"]), Vector3i(node_data["dir_x"], node_data["dir_y"], node_data["dir_z"]), node_data["rot"])
+			"ramp3x":
+				create_new_block(block_prefabs[RAMP3X].instantiate(), Vector3i(node_data["pos_x"], node_data["pos_y"], node_data["pos_z"]), Vector3i(node_data["dir_x"], node_data["dir_y"], node_data["dir_z"]), node_data["rot"])
 			_:
 				print("Unknown type!")
 
