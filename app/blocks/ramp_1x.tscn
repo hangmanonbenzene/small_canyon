@@ -1,19 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://21421kksnk3a"]
+[gd_scene load_steps=6 format=3 uid="uid://21421kksnk3a"]
 
 [ext_resource type="ArrayMesh" uid="uid://jf3r8868puvv" path="res://app/meshes/round/1_ramp.obj" id="1_dqqwl"]
 [ext_resource type="Script" uid="uid://dickl0qklmakg" path="res://app/blocks/ramp_1x.gd" id="1_y1pmc"]
-[ext_resource type="ArrayMesh" uid="uid://ctoa5osm25at1" path="res://app/meshes/cubic/cube_side.obj" id="2_y1pmc"]
+[ext_resource type="PackedScene" uid="uid://q6gl0qwsdmxx" path="res://app/meshes/scenes/cube.tscn" id="3_y1pmc"]
 [ext_resource type="Script" uid="uid://bgeoq0ktdjhot" path="res://app/blocks/connection_point.gd" id="3_ywkq3"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_j71is"]
-size = Vector3(0.5, 0.01, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gjv1a"]
 size = Vector3(0.5, 0.5, 0.5)
 
 [node name="Ramp1x" type="Node3D" node_paths=PackedStringArray("sides", "blocker", "connection_points")]
 script = ExtResource("1_y1pmc")
-sides = [NodePath("MeshInstance3D"), NodePath("MeshInstance3D2"), NodePath("MeshInstance3D3")]
+sides = [NodePath("MeshInstance3D"), NodePath("Cube"), NodePath("Cube2")]
 blocker = [NodePath(".")]
 connection_points = [NodePath("Area3D/CollisionShape3D")]
 
@@ -21,26 +18,11 @@ connection_points = [NodePath("Area3D/CollisionShape3D")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.5, 0)
 mesh = ExtResource("1_dqqwl")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+[node name="Cube" parent="." instance=ExtResource("3_y1pmc")]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.5, 0, 0)
-mesh = ExtResource("2_y1pmc")
 
-[node name="Area3D" type="Area3D" parent="MeshInstance3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2/Area3D"]
-shape = SubResource("BoxShape3D_j71is")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+[node name="Cube2" parent="." instance=ExtResource("3_y1pmc")]
 transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, 0, -0.5, 0)
-mesh = ExtResource("2_y1pmc")
-skeleton = NodePath("../MeshInstance3D2")
-
-[node name="Area3D" type="Area3D" parent="MeshInstance3D3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D3/Area3D"]
-shape = SubResource("BoxShape3D_j71is")
 
 [node name="Area3D" type="Area3D" parent="."]
 

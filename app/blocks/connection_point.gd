@@ -16,6 +16,7 @@ func viable_direction(direction: Vector3) -> bool:
 	query.exclude = [self]
 	query.collide_with_areas = true
 	query.collide_with_bodies = false
+	query.collision_mask = 1
 	var result: Dictionary = space_state.intersect_ray(query)
 	if result: return true
 	else: return false

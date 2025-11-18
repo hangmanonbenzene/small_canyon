@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://q6gl0qwsdmxx"]
+
+[ext_resource type="ArrayMesh" uid="uid://ctoa5osm25at1" path="res://app/meshes/cubic/cube_side.obj" id="1_dy872"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2s86g"]
+size = Vector3(0.5, 0.01, 0.5)
+
+[node name="Cube" type="MeshInstance3D"]
+mesh = ExtResource("1_dy872")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_2s86g")

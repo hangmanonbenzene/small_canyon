@@ -1,19 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://dqmems0guv5qv"]
+[gd_scene load_steps=6 format=3 uid="uid://dqmems0guv5qv"]
 
 [ext_resource type="ArrayMesh" uid="uid://cis60q0bweni8" path="res://app/meshes/round/2_donut.obj" id="1_q7o7m"]
 [ext_resource type="Script" uid="uid://270rdfmlpohy" path="res://app/blocks/arch_2x.gd" id="1_whp5r"]
-[ext_resource type="ArrayMesh" uid="uid://ctoa5osm25at1" path="res://app/meshes/cubic/cube_side.obj" id="2_7mipq"]
+[ext_resource type="PackedScene" uid="uid://q6gl0qwsdmxx" path="res://app/meshes/scenes/cube.tscn" id="3_hunuk"]
 [ext_resource type="Script" uid="uid://bgeoq0ktdjhot" path="res://app/blocks/connection_point.gd" id="4_hunuk"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_hunuk"]
-size = Vector3(0.5, 0.01, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7mipq"]
 size = Vector3(0.5, 0.5, 0.5)
 
 [node name="Arch2x" type="Node3D" node_paths=PackedStringArray("sides", "blocker", "connection_points")]
 script = ExtResource("1_whp5r")
-sides = [NodePath("MeshInstance3D"), NodePath("MeshInstance3D2"), NodePath("MeshInstance3D3")]
+sides = [NodePath("MeshInstance3D"), NodePath("Cube"), NodePath("Cube2")]
 blocker = [NodePath("Blocker/Node3D"), NodePath("Blocker/Node3D2"), NodePath("Blocker/Node3D3"), NodePath("Blocker/Node3D4")]
 connection_points = [NodePath("Area3D/CollisionShape3D"), NodePath("Area3D/CollisionShape3D2")]
 
@@ -21,26 +18,11 @@ connection_points = [NodePath("Area3D/CollisionShape3D"), NodePath("Area3D/Colli
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -0.5, 0)
 mesh = ExtResource("1_q7o7m")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -1.5, 1, 0)
-mesh = ExtResource("2_7mipq")
+[node name="Cube" parent="." instance=ExtResource("3_hunuk")]
+transform = Transform3D(-1, -8.742278e-08, 0, 8.742278e-08, -1, 0, 0, 0, 1, 0, -0.5, 0)
 
-[node name="Area3D" type="Area3D" parent="MeshInstance3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2/Area3D"]
-shape = SubResource("BoxShape3D_hunuk")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
-transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, 0, -0.5, 0)
-mesh = ExtResource("2_7mipq")
-skeleton = NodePath("../MeshInstance3D2")
-
-[node name="Area3D" type="Area3D" parent="MeshInstance3D3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D3/Area3D"]
-shape = SubResource("BoxShape3D_hunuk")
+[node name="Cube2" parent="." instance=ExtResource("3_hunuk")]
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, -1.5, 1, 0)
 
 [node name="Area3D" type="Area3D" parent="."]
 
