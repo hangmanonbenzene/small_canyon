@@ -22,6 +22,7 @@ const block_prefabs: Array[PackedScene] = [
 
 var objects: Array[Block]
 var blocked_space: Dictionary[Vector3i, Block]
+var connection_points: Dictionary[Vector3i, ConnectionPoint]
 var map2d: Dictionary[Vector2i, ConnectionPoint]
 var current_mode: bool
 
@@ -74,6 +75,7 @@ func open_main_menu() -> void:
 		object.queue_free()
 	objects.clear()
 	blocked_space.clear()
+	connection_points.clear()
 	map2d.clear()
 	#camera.size = 7
 	main_menu_3d.visible = true
@@ -90,6 +92,8 @@ func create_new_block(new_block: Block, block_position: Vector3i, block_directio
 	new_block.set_new_position(block_position, block_direction, block_rotation)
 	for space in new_block.blocks_space():
 		blocked_space.set(space, new_block)
+	for connection in new_block.connection_points:
+		connection_points.set(connection.get_my_position(), connection)
 	for i in range(new_block.connection_points.size()):
 		var point: ConnectionPoint = new_block.connection_points[i]
 		var point3d: Vector3i = point.get_my_position()
@@ -113,6 +117,8 @@ func delete_block(block: Block) -> void:
 	objects.erase(block)
 	for vector_to_remove in block.blocks_space():
 		blocked_space.erase(vector_to_remove)
+	for connection in block.connection_points:
+		connection_points.erase(connection.get_my_position())
 	for i in range(block.connection_points.size()):
 		var point: ConnectionPoint = block.connection_points[i]
 		var point3d: Vector3i = point.get_my_position()
