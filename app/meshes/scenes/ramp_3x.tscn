@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://bm587tr1gx6fr"]
+
+[node name="Ramp3x" type="MeshInstance3D"]

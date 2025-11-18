@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c0kxbp6m7vcmq"]
+
+[ext_resource type="ArrayMesh" uid="uid://bt8kfqwrexm77" path="res://app/meshes/round/1_circle.obj" id="1_333fg"]
+
+[node name="Arch1x" type="MeshInstance3D"]
+mesh = ExtResource("1_333fg")

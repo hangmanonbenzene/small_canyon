@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bjt5a6y2j6yd"]
 
 [ext_resource type="Script" uid="uid://bkoatvbkaaxru" path="res://app/blocks/stairs.gd" id="1_ovf11"]
-[ext_resource type="ArrayMesh" uid="uid://cyk4kkcbsrk7l" path="res://app/meshes/cubic/stairs.obj" id="2_sqaph"]
+[ext_resource type="PackedScene" uid="uid://dygh0yjgqg378" path="res://app/meshes/scenes/stairs.tscn" id="2_ovf11"]
 [ext_resource type="PackedScene" uid="uid://q6gl0qwsdmxx" path="res://app/meshes/scenes/cube.tscn" id="3_ovf11"]
 [ext_resource type="Script" uid="uid://bgeoq0ktdjhot" path="res://app/blocks/connection_point.gd" id="3_sqaph"]
 
@@ -10,12 +10,11 @@ size = Vector3(0.5, 0.5, 0.5)
 
 [node name="Stairs" type="Node3D" node_paths=PackedStringArray("sides", "blocker", "connection_points")]
 script = ExtResource("1_ovf11")
-sides = [NodePath("MeshInstance3D"), NodePath("Cube"), NodePath("Cube2")]
+sides = [NodePath("Stairs"), NodePath("Cube"), NodePath("Cube2")]
 blocker = [NodePath(".")]
 connection_points = [NodePath("Area3D/CollisionShape3D")]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = ExtResource("2_sqaph")
+[node name="Stairs" parent="." instance=ExtResource("2_ovf11")]
 
 [node name="Cube" parent="." instance=ExtResource("3_ovf11")]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.5, 0, 0)

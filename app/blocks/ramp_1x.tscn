@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://21421kksnk3a"]
 
-[ext_resource type="ArrayMesh" uid="uid://jf3r8868puvv" path="res://app/meshes/round/1_ramp.obj" id="1_dqqwl"]
 [ext_resource type="Script" uid="uid://dickl0qklmakg" path="res://app/blocks/ramp_1x.gd" id="1_y1pmc"]
+[ext_resource type="PackedScene" uid="uid://bdxa3g1k87gls" path="res://app/meshes/scenes/ramp_1x.tscn" id="2_y1pmc"]
 [ext_resource type="PackedScene" uid="uid://q6gl0qwsdmxx" path="res://app/meshes/scenes/cube.tscn" id="3_y1pmc"]
 [ext_resource type="Script" uid="uid://bgeoq0ktdjhot" path="res://app/blocks/connection_point.gd" id="3_ywkq3"]
 
@@ -10,13 +10,12 @@ size = Vector3(0.5, 0.5, 0.5)
 
 [node name="Ramp1x" type="Node3D" node_paths=PackedStringArray("sides", "blocker", "connection_points")]
 script = ExtResource("1_y1pmc")
-sides = [NodePath("MeshInstance3D"), NodePath("Cube"), NodePath("Cube2")]
+sides = [NodePath("Ramp1x"), NodePath("Cube"), NodePath("Cube2")]
 blocker = [NodePath(".")]
 connection_points = [NodePath("Area3D/CollisionShape3D")]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Ramp1x" parent="." instance=ExtResource("2_y1pmc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.5, 0)
-mesh = ExtResource("1_dqqwl")
 
 [node name="Cube" parent="." instance=ExtResource("3_y1pmc")]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.5, 0, 0)

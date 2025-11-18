@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://d4lueuk4efef3"]
+[gd_scene load_steps=6 format=3 uid="uid://d4lueuk4efef3"]
 
 [ext_resource type="Script" uid="uid://oof5i0w8cqkm" path="res://app/blocks/arch_3x.gd" id="1_ygxv2"]
 [ext_resource type="PackedScene" uid="uid://q6gl0qwsdmxx" path="res://app/meshes/scenes/cube.tscn" id="2_j3ejw"]
+[ext_resource type="PackedScene" uid="uid://n4jtt8of3gif" path="res://app/meshes/scenes/arch_3x.tscn" id="2_r5665"]
 [ext_resource type="Script" uid="uid://bgeoq0ktdjhot" path="res://app/blocks/connection_point.gd" id="2_ygxv2"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_r5665"]
@@ -9,11 +10,11 @@ size = Vector3(0.5, 0.5, 0.5)
 
 [node name="Arch3x" type="Node3D" node_paths=PackedStringArray("sides", "blocker", "connection_points")]
 script = ExtResource("1_ygxv2")
-sides = [NodePath("MeshInstance3D"), NodePath("Cube"), NodePath("Cube2")]
+sides = [NodePath("Arch3x"), NodePath("Cube"), NodePath("Cube2")]
 blocker = [NodePath("Blocker/Node3D"), NodePath("Blocker/Node3D2"), NodePath("Blocker/Node3D3"), NodePath("Blocker/Node3D4"), NodePath("Blocker/Node3D5"), NodePath("Blocker/Node3D6"), NodePath("Blocker/Node3D7"), NodePath("Blocker/Node3D8")]
 connection_points = [NodePath("Area3D/CollisionShape3D"), NodePath("Area3D/CollisionShape3D2")]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Arch3x" parent="." instance=ExtResource("2_r5665")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, -0.5, 0)
 
 [node name="Cube" parent="." instance=ExtResource("2_j3ejw")]

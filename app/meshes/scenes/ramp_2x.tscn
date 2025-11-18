@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmuayj5g0x0vf"]
+
+[ext_resource type="ArrayMesh" uid="uid://bnmcc65eqrari" path="res://app/meshes/round/2_ramp.obj" id="1_udu8q"]
+
+[node name="Ramp2x" type="MeshInstance3D"]
+mesh = ExtResource("1_udu8q")
