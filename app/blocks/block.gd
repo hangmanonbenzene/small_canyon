@@ -45,7 +45,7 @@ func initialize(mode: bool, world: World) -> void:
 func blocks_space() -> Array[Vector3i]:
 	var blocked_space: Array[Vector3i]
 	for space in blocker:
-		blocked_space.append(vector3_to_vector3i(space.global_position))
+		blocked_space.append(Main.get_position(space))
 	return blocked_space
 
 func set_new_position(new_position: Vector3i, new_direction: Vector3i, new_rotation: int) -> void:
@@ -102,7 +102,7 @@ func _input(event: InputEvent) -> void:
 			elif is_entered: 
 				side_color = Color.ORANGE
 		if event is InputEventMouseMotion and is_pressed:
-			var mouse_vector: Vector2 = event.position - current_camera.unproject_position(current_point.get_my_position())
+			var mouse_vector: Vector2 = event.position - current_camera.unproject_position(Main.get_position(current_point))
 			var step: float = (840 / current_camera.size)
 			var length: int = clampi(floori((mouse_vector.length() + step / 2) / step), 0, 10)
 			var angle: float = rad_to_deg(mouse_vector.angle())
@@ -142,9 +142,6 @@ func _on_area_3d_input_event(camera: Node, event: InputEvent, _event_position: V
 			one_is_pressed = true
 			current_camera = camera
 			current_point = connection_points[_shape_idx]
-			world3d.block_pressed(current_point.get_my_position())
+			world3d.block_pressed(Main.get_position(current_point))
 		if event is InputEventMouseButton and event.pressed and event.button_index == 2:
 			world3d.delete_block(self)
-
-static func vector3_to_vector3i(vector: Vector3) -> Vector3i:
-	return Vector3i(roundi(vector.x), roundi(vector.y), roundi(vector.z))

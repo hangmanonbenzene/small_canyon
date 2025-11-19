@@ -93,10 +93,10 @@ func create_new_block(new_block: Block, block_position: Vector3i, block_directio
 	for space in new_block.blocks_space():
 		blocked_space.set(space, new_block)
 	for connection in new_block.connection_points:
-		connection_points.set(connection.get_my_position(), connection)
+		connection_points.set(Main.get_position(connection), connection)
 	for i in range(new_block.connection_points.size()):
 		var point: ConnectionPoint = new_block.connection_points[i]
-		var point3d: Vector3i = point.get_my_position()
+		var point3d: Vector3i = Main.get_position(point)
 		var point2d: Vector2i = Vector2i(point3d.x - point3d.z, point3d.y - point3d.z)
 		point.depth = point3d.x + point3d.z
 		var next_point: ConnectionPoint = map2d.get(point2d)
@@ -118,10 +118,10 @@ func delete_block(block: Block) -> void:
 	for vector_to_remove in block.blocks_space():
 		blocked_space.erase(vector_to_remove)
 	for connection in block.connection_points:
-		connection_points.erase(connection.get_my_position())
+		connection_points.erase(Main.get_position(connection))
 	for i in range(block.connection_points.size()):
 		var point: ConnectionPoint = block.connection_points[i]
-		var point3d: Vector3i = point.get_my_position()
+		var point3d: Vector3i = Main.get_position(point)
 		var point2d: Vector2i = Vector2i(point3d.x - point3d.z, point3d.y - point3d.z)
 		var current_point: ConnectionPoint = map2d.get(point2d)
 		if current_point == point: 
@@ -204,7 +204,7 @@ func create_block_preview(direction: Vector3i, length: int) -> void:
 
 func create_blocks() -> void:
 	for block in blocks:
-		var block_position: Vector3i = Block.vector3_to_vector3i(block.global_position)
+		var block_position: Vector3i = Main.get_position(block)
 		level.remove_child(block)
 		create_new_block(block, block_position, current_direction, (current_length - 1) % 4)
 	blocks.clear()

@@ -5,11 +5,8 @@ class_name ConnectionPoint extends CollisionShape3D
 var depth: int
 var block_behind_this: ConnectionPoint
 
-func get_my_position() -> Vector3i:
-	return Block.vector3_to_vector3i(global_position)
-
 func viable_direction(direction: Vector3) -> bool:
-	var start_pos: Vector3 = get_my_position()
+	var start_pos: Vector3 = Main.get_position(self)
 	var space_state: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
 	var end_pos: Vector3 = start_pos + (direction / 2)
 	var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(start_pos, end_pos)

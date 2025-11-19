@@ -1,7 +1,7 @@
 class_name BlockRamp3x extends Block
 
 func get_data() -> String:
-	var my_position: Vector3i = vector3_to_vector3i(global_position)
+	var my_position: Vector3i = Main.get_position(self)
 	var data_dict: Dictionary = {
 		"type" : "ramp3x",
 		"pos_x" : my_position.x,
