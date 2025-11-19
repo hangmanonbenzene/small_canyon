@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://7fq1kwupps50"]
+
+[ext_resource type="PackedScene" uid="uid://q6gl0qwsdmxx" path="res://app/meshes/scenes/cube.tscn" id="1_s4gr6"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_s4gr6"]
+radius = 0.3
+height = 1.5
+
+[node name="Start" type="Node3D"]
+
+[node name="Cube" parent="." instance=ExtResource("1_s4gr6")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+mesh = SubResource("CapsuleMesh_s4gr6")
