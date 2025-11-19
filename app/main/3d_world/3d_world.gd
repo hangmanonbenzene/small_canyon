@@ -30,7 +30,7 @@ enum {CUBE, STAIRS, ARCH1X, ARCH2X, ARCH3X, RAMP1X, RAMP2X, RAMP3X, LADDER, DOOR
 var selected_block_type: int = CUBE
 var block_types: Array[int] = [0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2]
 var blocks: Array[Block]
-var current_pressed_block_coordinates: Vector3i
+var current_pressed_block: ConnectionPoint
 var current_length: int
 var current_direction: Vector3i
 
@@ -141,14 +141,14 @@ func get_data() -> Array[String]:
 func change_selected_block_type(new_block_type: int) -> void:
 	selected_block_type = new_block_type
 
-func block_pressed(coordinates: Vector3i) -> void:
-	current_pressed_block_coordinates = coordinates
+func block_pressed(block: ConnectionPoint) -> void:
+	current_pressed_block = block
 
 func create_block_preview(direction: Vector3i, length: int) -> void:
 	if block_types[selected_block_type] == 0:
 		if length > current_length:
 			for i in range(current_length, length):
-				var new_position: Vector3i = current_pressed_block_coordinates + current_direction * (i + 1)
+				var new_position: Vector3i = Main.get_position(current_pressed_block) + current_direction * (i + 1)
 				if new_position in blocked_space:
 					length = i
 					break
@@ -164,7 +164,7 @@ func create_block_preview(direction: Vector3i, length: int) -> void:
 			current_direction = direction
 			var is_blocked: bool = false
 			for i in blocks.size():
-				var new_position: Vector3i = current_pressed_block_coordinates + current_direction * (i + 1)
+				var new_position: Vector3i = Main.get_position(current_pressed_block) + current_direction * (i + 1)
 				if new_position in blocked_space:
 					length = i
 					is_blocked = true
@@ -176,7 +176,7 @@ func create_block_preview(direction: Vector3i, length: int) -> void:
 				current_length = length
 	elif block_types[selected_block_type] == 1:
 		if current_length == 0 and length > 0:
-			var new_position: Vector3i = current_pressed_block_coordinates + direction
+			var new_position: Vector3i = Main.get_position(current_pressed_block) + direction
 			var new_block: Block = block_prefabs[selected_block_type].instantiate()
 			blocks.append(new_block)
 			level.add_child(new_block)
@@ -188,7 +188,7 @@ func create_block_preview(direction: Vector3i, length: int) -> void:
 					break
 		elif current_length > 0 and length > 0:
 			if current_direction != direction or current_length != length:
-				var new_position: Vector3i = current_pressed_block_coordinates + direction
+				var new_position: Vector3i = Main.get_position(current_pressed_block) + direction
 				blocks[0].set_new_position(new_position, direction, (length - 1) % 4)
 				for space in blocks[0].blocks_space():
 					if space in blocked_space:

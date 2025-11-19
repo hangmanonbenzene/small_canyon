@@ -142,6 +142,6 @@ func _on_area_3d_input_event(camera: Node, event: InputEvent, _event_position: V
 			one_is_pressed = true
 			current_camera = camera
 			current_point = connection_points[_shape_idx]
-			world3d.block_pressed(Main.get_position(current_point))
+			world3d.block_pressed(current_point)
 		if event is InputEventMouseButton and event.pressed and event.button_index == 2:
 			world3d.delete_block(self)
