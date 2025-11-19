@@ -52,43 +52,7 @@ func set_new_position(new_position: Vector3i, new_direction: Vector3i, new_rotat
 	global_position = new_position
 	current_direction = new_direction
 	current_rotation = new_rotation
-	match new_direction:
-		Vector3i.UP: 
-			match new_rotation:
-				0: rotation_degrees = Vector3i(0, 0, 0)
-				1: rotation_degrees = Vector3i(0, 90, 0)
-				2: rotation_degrees = Vector3i(0, 180, 0)
-				3: rotation_degrees = Vector3i(0, 270, 0)
-		Vector3i.DOWN:
-			match new_rotation:
-				0: rotation_degrees = Vector3i(0, 0, 180)
-				1: rotation_degrees = Vector3i(0, -90, 180)
-				2: rotation_degrees = Vector3i(0, -180, 180)
-				3: rotation_degrees = Vector3i(0, -270, 180)
-		Vector3i.LEFT: 
-			match new_rotation:
-				0: rotation_degrees = Vector3i(0, 0, 90)
-				1: rotation_degrees = Vector3i(-90, 90, 0)
-				2: rotation_degrees = Vector3i(0, 180, -90)
-				3: rotation_degrees = Vector3i(90, -90, 0)
-		Vector3i.RIGHT: 
-			match new_rotation:
-				0: rotation_degrees = Vector3i(0, 0, -90)
-				1: rotation_degrees = Vector3i(90, 90, 0)
-				2: rotation_degrees = Vector3i(0, 180, 90)
-				3: rotation_degrees = Vector3i(-90, -90, 0)
-		Vector3i.FORWARD: 
-			match new_rotation:
-				0: rotation_degrees = Vector3i(90, 180, 0)
-				1: rotation_degrees = Vector3i(0, -90, 90)
-				2: rotation_degrees = Vector3i(-90, 0, 0)
-				3: rotation_degrees = Vector3i(0, 90, -90)
-		Vector3i.BACK: 
-			match new_rotation:
-				0: rotation_degrees = Vector3i(90, 0, 0)
-				1: rotation_degrees = Vector3i(0, 90, 90)
-				2: rotation_degrees = Vector3i(-90, 180, 0)
-				3: rotation_degrees = Vector3i(0, -90, -90)
+	rotation_degrees = Main.rotation_in_degrees(new_direction, new_rotation)
 
 func _input(event: InputEvent) -> void:
 	if current_mode == EDIT:
