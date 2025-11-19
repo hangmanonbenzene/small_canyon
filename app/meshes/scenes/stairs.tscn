@@ -20,6 +20,7 @@ mesh = ExtResource("1_eeycb")
 [node name="Col2" type="Area3D" parent="."]
 collision_layer = 2
 collision_mask = 2
+input_ray_pickable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Col2"]
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.4, 0, 0)
@@ -40,6 +41,7 @@ shape = SubResource("SphereShape3D_dgk2g")
 [node name="Col3" type="Area3D" parent="."]
 collision_layer = 4
 collision_mask = 4
+input_ray_pickable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Col3"]
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -0.4, 0, 0)

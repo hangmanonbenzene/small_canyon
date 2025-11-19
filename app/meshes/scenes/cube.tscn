@@ -12,6 +12,7 @@ radius = 0.05
 mesh = ExtResource("1_dy872")
 
 [node name="Col1" type="Area3D" parent="."]
+input_ray_pickable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Col1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
@@ -20,6 +21,7 @@ shape = SubResource("BoxShape3D_2s86g")
 [node name="Col2" type="Area3D" parent="."]
 collision_layer = 2
 collision_mask = 2
+input_ray_pickable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Col2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
