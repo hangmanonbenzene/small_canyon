@@ -84,6 +84,7 @@ func open_level(level_name: String, edit_mode: bool) -> void:
 					"start":
 						new_side = block_prefabs[START].instantiate()
 						new_side.type = "start"
+						start_position = new_side
 				var direction: Vector3i = Vector3i(sides[i][j][1][0], sides[i][j][1][1], sides[i][j][1][2])
 				point.set_special_side(new_side, direction, sides[i][j][2])
 				point.activate_special_side(direction)
