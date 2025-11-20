@@ -46,14 +46,18 @@ func get_data() -> String:
 	var my_position: Vector3i = Main.get_position(self)
 	var data_dict: Dictionary = {
 		"type" : type,
-		"pos_x" : my_position.x,
-		"pos_y" : my_position.y,
-		"pos_z" : my_position.z,
-		"dir_x" : current_direction.x,
-		"dir_y" : current_direction.y,
-		"dir_z" : current_direction.z,
-		"rot"   : current_rotation,
+		"pos" : [my_position.x, my_position.y, my_position.z],
+		"dir" : [current_direction.x, current_direction.y, current_direction.z],
+		"rot" : current_rotation,
 	}
+	var sp_sides: Array
+	for i in range(connection_points.size()):
+		var point: Array
+		for entry in connection_points[i].special_sides:
+			var side: SideBlock = connection_points[i].special_sides.get(entry)
+			point.append([side.type, [entry.x, entry.y, entry.z], side.my_rotation])
+		sp_sides.append(point)
+	data_dict.set("sides", sp_sides)
 	return JSON.stringify(data_dict)
 
 func blocks_space() -> Array[Vector3i]:

@@ -29,6 +29,7 @@ func set_special_side(new_side: SideBlock, new_direction: Vector3i, new_rotation
 
 func set_special_side_rotation(new_direction: Vector3i, new_rotation: int) -> void:
 	new_special_side.global_rotation_degrees = Main.rotation_in_degrees(new_direction, new_rotation)
+	new_special_side.my_rotation = new_rotation
 
 func remove_special_side() -> void:
 	var side: SideBlock = new_special_side

@@ -17,6 +17,7 @@ radius = 0.05
 mesh = ExtResource("1_bel8j")
 script = ExtResource("1_kpoqn")
 meshes = [NodePath("."), NodePath("MeshInstance3D")]
+type = "start"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)

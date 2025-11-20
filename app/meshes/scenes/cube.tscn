@@ -15,6 +15,7 @@ script = ExtResource("2_v7nqq")
 col1 = NodePath("Col1")
 col2 = NodePath("Col2")
 meshes = [NodePath(".")]
+type = "cube"
 
 [node name="Col1" type="Area3D" parent="."]
 input_ray_pickable = false

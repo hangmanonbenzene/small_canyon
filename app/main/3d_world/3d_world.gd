@@ -52,25 +52,41 @@ func open_level(level_name: String, edit_mode: bool) -> void:
 		var parse_result: Error = json.parse(json_string)
 		if not parse_result == OK: continue
 		var node_data: Dictionary = json.data
+		var new_block: Block
 		match node_data["type"]:
 			"cube":
-				create_new_block(block_prefabs[CUBE].instantiate(), Vector3i(node_data["pos_x"], node_data["pos_y"], node_data["pos_z"]), Vector3i.UP, 0)
+				new_block = create_new_block(block_prefabs[CUBE].instantiate(), Vector3i(node_data["pos"][0], node_data["pos"][1], node_data["pos"][2]), Vector3i.UP, 0)
 			"stairs":
-				create_new_block(block_prefabs[STAIRS].instantiate(), Vector3i(node_data["pos_x"], node_data["pos_y"], node_data["pos_z"]), Vector3i(node_data["dir_x"], node_data["dir_y"], node_data["dir_z"]), node_data["rot"])
+				new_block = create_new_block(block_prefabs[STAIRS].instantiate(), Vector3i(node_data["pos"][0], node_data["pos"][1], node_data["pos"][2]), Vector3i(node_data["dir"][0], node_data["dir"][1], node_data["dir"][2]), node_data["rot"])
 			"arch1x":
-				create_new_block(block_prefabs[ARCH1X].instantiate(), Vector3i(node_data["pos_x"], node_data["pos_y"], node_data["pos_z"]), Vector3i(node_data["dir_x"], node_data["dir_y"], node_data["dir_z"]), node_data["rot"])
+				new_block = create_new_block(block_prefabs[ARCH1X].instantiate(), Vector3i(node_data["pos"][0], node_data["pos"][1], node_data["pos"][2]), Vector3i(node_data["dir"][0], node_data["dir"][1], node_data["dir"][2]), node_data["rot"])
 			"arch2x":
-				create_new_block(block_prefabs[ARCH2X].instantiate(), Vector3i(node_data["pos_x"], node_data["pos_y"], node_data["pos_z"]), Vector3i(node_data["dir_x"], node_data["dir_y"], node_data["dir_z"]), node_data["rot"])
+				new_block = create_new_block(block_prefabs[ARCH2X].instantiate(), Vector3i(node_data["pos"][0], node_data["pos"][1], node_data["pos"][2]), Vector3i(node_data["dir"][0], node_data["dir"][1], node_data["dir"][2]), node_data["rot"])
 			"arch3x":
-				create_new_block(block_prefabs[ARCH3X].instantiate(), Vector3i(node_data["pos_x"], node_data["pos_y"], node_data["pos_z"]), Vector3i(node_data["dir_x"], node_data["dir_y"], node_data["dir_z"]), node_data["rot"])
+				new_block = create_new_block(block_prefabs[ARCH3X].instantiate(), Vector3i(node_data["pos"][0], node_data["pos"][1], node_data["pos"][2]), Vector3i(node_data["dir"][0], node_data["dir"][1], node_data["dir"][2]), node_data["rot"])
 			"ramp1x":
-				create_new_block(block_prefabs[RAMP1X].instantiate(), Vector3i(node_data["pos_x"], node_data["pos_y"], node_data["pos_z"]), Vector3i(node_data["dir_x"], node_data["dir_y"], node_data["dir_z"]), node_data["rot"])
+				new_block = create_new_block(block_prefabs[RAMP1X].instantiate(), Vector3i(node_data["pos"][0], node_data["pos"][1], node_data["pos"][2]), Vector3i(node_data["dir"][0], node_data["dir"][1], node_data["dir"][2]), node_data["rot"])
 			"ramp2x":
-				create_new_block(block_prefabs[RAMP2X].instantiate(), Vector3i(node_data["pos_x"], node_data["pos_y"], node_data["pos_z"]), Vector3i(node_data["dir_x"], node_data["dir_y"], node_data["dir_z"]), node_data["rot"])
+				new_block = create_new_block(block_prefabs[RAMP2X].instantiate(), Vector3i(node_data["pos"][0], node_data["pos"][1], node_data["pos"][2]), Vector3i(node_data["dir"][0], node_data["dir"][1], node_data["dir"][2]), node_data["rot"])
 			"ramp3x":
-				create_new_block(block_prefabs[RAMP3X].instantiate(), Vector3i(node_data["pos_x"], node_data["pos_y"], node_data["pos_z"]), Vector3i(node_data["dir_x"], node_data["dir_y"], node_data["dir_z"]), node_data["rot"])
+				new_block = create_new_block(block_prefabs[RAMP3X].instantiate(), Vector3i(node_data["pos"][0], node_data["pos"][1], node_data["pos"][2]), Vector3i(node_data["dir"][0], node_data["dir"][1], node_data["dir"][2]), node_data["rot"])
 			_:
 				print("Unknown type!")
+		var sides: Array = node_data["sides"]
+		for i in range(sides.size()):
+			var point: ConnectionPoint = new_block.connection_points[i]
+			for j in range(sides[i].size()):
+				var new_side: SideBlock
+				match sides[i][j][0]:
+					"ladder":
+						new_side = block_prefabs[LADDER].instantiate()
+						new_side.type = "ladder"
+					"start":
+						new_side = block_prefabs[START].instantiate()
+						new_side.type = "start"
+				var direction: Vector3i = Vector3i(sides[i][j][1][0], sides[i][j][1][1], sides[i][j][1][2])
+				point.set_special_side(new_side, direction, sides[i][j][2])
+				point.activate_special_side(direction)
 
 func open_main_menu() -> void:
 	for object in objects:
@@ -87,7 +103,7 @@ func change_mode(edit_mode: bool) -> void:
 	for object in objects:
 		object.change_mode(edit_mode)
 
-func create_new_block(new_block: Block, block_position: Vector3i, block_direction: Vector3i, block_rotation: int) -> void:
+func create_new_block(new_block: Block, block_position: Vector3i, block_direction: Vector3i, block_rotation: int) -> Block:
 	objects.append(new_block)
 	level.add_child(new_block)
 	new_block.initialize(current_mode, self)
@@ -113,6 +129,7 @@ func create_new_block(new_block: Block, block_position: Vector3i, block_directio
 			next_point = next_point.block_behind_this
 		previous_point.block_behind_this = point
 		point.block_behind_this = next_point
+	return new_block
 
 func delete_block(block: Block) -> void:
 	if objects.size() <= 1: return
