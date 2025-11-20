@@ -72,6 +72,7 @@ func open_level(level_name: String, edit_mode: bool) -> void:
 				new_block = create_new_block(block_prefabs[RAMP3X].instantiate(), Vector3i(node_data["pos"][0], node_data["pos"][1], node_data["pos"][2]), Vector3i(node_data["dir"][0], node_data["dir"][1], node_data["dir"][2]), node_data["rot"])
 			_:
 				print("Unknown type!")
+		await get_tree().process_frame
 		var sides: Array = node_data["sides"]
 		for i in range(sides.size()):
 			var point: ConnectionPoint = new_block.connection_points[i]
