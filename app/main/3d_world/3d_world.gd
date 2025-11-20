@@ -14,7 +14,7 @@ const block_prefabs: Array[PackedScene] = [
 	preload("res://app/blocks/ramp_1x.tscn"),
 	preload("res://app/blocks/ramp_2x.tscn"),
 	preload("res://app/blocks/ramp_3x.tscn"),
-	null,
+	preload("res://app/blocks/ladder.tscn"),
 	null,
 	preload("res://app/blocks/start.tscn"),
 	null,
