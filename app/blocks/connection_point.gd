@@ -37,7 +37,7 @@ func remove_special_side() -> void:
 	new_special_side = null
 	current_old_side = null
 
-func activate_special_side(direction: Vector3i) -> void:
+func activate_special_side(direction: Vector3i) -> SideBlock:
 	if special_sides.has(direction):
 		var old_side: SideBlock = special_sides.get(direction)
 		block.remove_child(old_side)
@@ -46,4 +46,4 @@ func activate_special_side(direction: Vector3i) -> void:
 		current_old_side.activate(false)
 	special_sides.set(direction, new_special_side)
 	current_old_side = null
-	new_special_side = null
+	return new_special_side

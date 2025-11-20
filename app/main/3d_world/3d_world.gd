@@ -34,6 +34,8 @@ var current_pressed_block: ConnectionPoint
 var current_length: int
 var current_direction: Vector3i
 
+var start_position: SideBlock
+
 func open_new_level() -> void:
 	main_menu_3d.visible = false
 	current_mode = true
@@ -217,7 +219,8 @@ func create_block_preview(direction: Vector3i, length: int) -> void:
 
 func create_blocks() -> void:
 	if block_types[selected_block_type] == 2 and current_length > 0:
-		current_pressed_block.activate_special_side(current_direction)
+		var side: SideBlock = current_pressed_block.activate_special_side(current_direction)
+		if selected_block_type == START: start_position = side
 	for block in blocks:
 		var block_position: Vector3i = Main.get_position(block)
 		level.remove_child(block)
