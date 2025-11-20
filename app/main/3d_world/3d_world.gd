@@ -201,14 +201,14 @@ func create_block_preview(direction: Vector3i, length: int) -> void:
 		current_length = length
 	elif block_types[selected_block_type] == 2:
 		if current_length == 0 and length > 0:
-			var new_block: Node3D = block_prefabs[selected_block_type].instantiate()
+			var new_block: SideBlock = block_prefabs[selected_block_type].instantiate()
 			current_pressed_block.set_special_side(new_block, direction, length)
 		elif current_length > 0 and length > 0:
 			if current_direction == direction:
 				current_pressed_block.set_special_side_rotation(direction, length)
 			else:
 				current_pressed_block.side_active(current_direction, true)
-				var new_block: Node3D = block_prefabs[selected_block_type].instantiate()
+				var new_block: SideBlock = block_prefabs[selected_block_type].instantiate()
 				current_pressed_block.set_special_side(new_block, direction, length)
 		elif current_length > 0 and length == 0:
 			current_pressed_block.side_active(current_direction, true)
@@ -216,8 +216,8 @@ func create_block_preview(direction: Vector3i, length: int) -> void:
 		current_length = length
 
 func create_blocks() -> void:
-	if block_types[selected_block_type] == 2:
-		current_pressed_block.side_active(current_direction, true)
+	if block_types[selected_block_type] == 2 and current_length > 0:
+		current_pressed_block.activate_special_side(current_direction)
 	for block in blocks:
 		var block_position: Vector3i = Main.get_position(block)
 		level.remove_child(block)
