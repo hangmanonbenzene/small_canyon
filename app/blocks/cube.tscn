@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://64ira8a8ohu3"]
 
-[ext_resource type="Script" uid="uid://cux5yoykv4hfm" path="res://app/blocks/cube.gd" id="1_2824d"]
+[ext_resource type="Script" uid="uid://c0ry5lhfhtqa1" path="res://app/blocks/block.gd" id="1_2s86g"]
 [ext_resource type="PackedScene" uid="uid://q6gl0qwsdmxx" path="res://app/meshes/scenes/cube.tscn" id="2_gemhn"]
 [ext_resource type="Script" uid="uid://bgeoq0ktdjhot" path="res://app/blocks/connection_point.gd" id="3_2s86g"]
 
@@ -8,7 +8,8 @@
 size = Vector3(0.5, 0.5, 0.5)
 
 [node name="cube" type="Node3D" node_paths=PackedStringArray("sides", "blocker", "connection_points")]
-script = ExtResource("1_2824d")
+script = ExtResource("1_2s86g")
+type = "cube"
 sides = [NodePath("Cube"), NodePath("Cube2"), NodePath("Cube3"), NodePath("Cube4"), NodePath("Cube5"), NodePath("Cube6")]
 blocker = [NodePath(".")]
 connection_points = [NodePath("Area3D/CollisionShape3D")]

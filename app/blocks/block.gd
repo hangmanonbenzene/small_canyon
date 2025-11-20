@@ -1,9 +1,11 @@
-@abstract class_name Block extends Node3D
+class_name Block extends Node3D
 
 var world3d: World
 
 var current_direction: Vector3i
 var current_rotation: int
+
+@export var type: String
 
 @export var sides: Array[MeshInstance3D]
 var side_color: Color:
@@ -40,7 +42,19 @@ func initialize(mode: bool, world: World) -> void:
 	change_mode(mode)
 	world3d = world
 
-@abstract func get_data() -> String
+func get_data() -> String:
+	var my_position: Vector3i = Main.get_position(self)
+	var data_dict: Dictionary = {
+		"type" : type,
+		"pos_x" : my_position.x,
+		"pos_y" : my_position.y,
+		"pos_z" : my_position.z,
+		"dir_x" : current_direction.x,
+		"dir_y" : current_direction.y,
+		"dir_z" : current_direction.z,
+		"rot"   : current_rotation,
+	}
+	return JSON.stringify(data_dict)
 
 func blocks_space() -> Array[Vector3i]:
 	var blocked_space: Array[Vector3i]
