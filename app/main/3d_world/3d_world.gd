@@ -239,7 +239,11 @@ func create_block_preview(direction: Vector3i, length: int) -> void:
 func create_blocks() -> void:
 	if block_types[selected_block_type] == 2 and current_length > 0:
 		var side: SideBlock = current_pressed_block.activate_special_side(current_direction)
-		if selected_block_type == START: start_position = side
+		if selected_block_type == START: 
+			if start_position != null:
+				var start_direction: Vector3i = start_position.connection_point.special_sides.find_key(start_position)
+				start_position.connection_point.reset_side(start_direction)
+			start_position = side
 	for block in blocks:
 		var block_position: Vector3i = Main.get_position(block)
 		level.remove_child(block)

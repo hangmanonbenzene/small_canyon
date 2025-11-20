@@ -4,6 +4,7 @@ class_name SideBlock extends MeshInstance3D
 @export var type: String
 
 var my_rotation: int
+var connection_point: ConnectionPoint
 
 func set_visibility(value: bool) -> void:
 	for a_mesh in meshes:

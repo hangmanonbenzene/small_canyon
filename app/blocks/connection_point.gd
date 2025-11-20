@@ -7,6 +7,7 @@ var block_behind_this: ConnectionPoint
 
 var special_sides: Dictionary[Vector3i, SideBlock]
 var new_special_side: SideBlock
+var old_sides: Dictionary[Vector3i, CubeSide]
 var current_old_side: SideBlock
 
 func viable_direction(direction: Vector3i) -> bool:
@@ -19,6 +20,7 @@ func side_active(direction: Vector3i, active: bool) -> SideBlock:
 	return side
 
 func set_special_side(new_side: SideBlock, new_direction: Vector3i, new_rotation: int) -> void:
+	new_side.connection_point = self
 	var side: SideBlock = side_active(new_direction, false)
 	current_old_side = side
 	new_special_side = new_side
@@ -45,6 +47,16 @@ func activate_special_side(direction: Vector3i) -> SideBlock:
 		old_side.queue_free()
 	else:
 		current_old_side.activate(false)
+		old_sides.set(direction, current_old_side)
 	special_sides.set(direction, new_special_side)
 	current_old_side = null
 	return new_special_side
+
+func reset_side(direction: Vector3i) -> void:
+	var old_side: CubeSide = old_sides.get(direction)
+	old_side.activate(true)
+	var current_side: SideBlock = special_sides.get(direction)
+	block.remove_child(current_side)
+	current_side.queue_free()
+	special_sides.erase(direction)
+	
