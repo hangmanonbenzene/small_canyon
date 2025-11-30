@@ -29,7 +29,7 @@ var current_mode: bool
 enum {CUBE, STAIRS, ARCH1X, ARCH2X, ARCH3X, RAMP1X, RAMP2X, RAMP3X, LADDER, DOOR, START, END}
 var selected_block_type: int = CUBE
 var block_types: Array[int] = [0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2]
-var blocks: Array[Block]
+var blocks_preview: Array[Block]
 var current_pressed_block: ConnectionPoint
 var current_length: int
 var current_direction: Vector3i
@@ -170,54 +170,51 @@ func create_block_preview(direction: Vector3i, length: int) -> void:
 		if length > current_length:
 			for i in range(current_length, length):
 				var new_position: Vector3i = Main.get_position(current_pressed_block) + current_direction * (i + 1)
-				if new_position in blocked_space:
-					length = i
-					break
+				var is_blocked: bool = false
+				if new_position in blocked_space: is_blocked = true
 				var new_block: Block = block_prefabs[selected_block_type].instantiate()
-				blocks.append(new_block)
+				blocks_preview.append(new_block)
 				level.add_child(new_block)
 				new_block.set_new_position(new_position, direction, (length - 1) % 4)
+				if is_blocked: new_block.change_mode(Block.INVALID)
 		elif length < current_length:
 			for i in range(current_length - length):
-				blocks.pop_back().queue_free()
+				blocks_preview.pop_back().queue_free()
 		current_length = length
 		if direction != current_direction:
 			current_direction = direction
-			var is_blocked: bool = false
-			for i in blocks.size():
+			for i in blocks_preview.size():
 				var new_position: Vector3i = Main.get_position(current_pressed_block) + current_direction * (i + 1)
+				var is_blocked: bool = false
 				if new_position in blocked_space:
-					length = i
 					is_blocked = true
-					break
-				blocks[i].set_new_position(new_position, direction, (length - 1) % 4)
-			if is_blocked:
-				for i in range(current_length - length):
-					blocks.pop_back().queue_free()
-				current_length = length
+				blocks_preview[i].set_new_position(new_position, direction, (length - 1) % 4)
+				blocks_preview[i].change_mode(Block.INVALID if is_blocked else Block.NEW)
 	elif block_types[selected_block_type] == 1:
 		if current_length == 0 and length > 0:
 			var new_position: Vector3i = Main.get_position(current_pressed_block) + direction
 			var new_block: Block = block_prefabs[selected_block_type].instantiate()
-			blocks.append(new_block)
+			blocks_preview.append(new_block)
 			level.add_child(new_block)
 			new_block.set_new_position(new_position, direction, (length - 1) % 4)
+			var is_blocked: bool = false
 			for space in new_block.blocks_space():
 				if space in blocked_space:
-					blocks.pop_back().queue_free()
-					length = 0
+					is_blocked = true
 					break
+			if is_blocked: new_block.change_mode(Block.INVALID)
 		elif current_length > 0 and length > 0:
 			if current_direction != direction or current_length != length:
 				var new_position: Vector3i = Main.get_position(current_pressed_block) + direction
-				blocks[0].set_new_position(new_position, direction, (length - 1) % 4)
-				for space in blocks[0].blocks_space():
+				blocks_preview[0].set_new_position(new_position, direction, (length - 1) % 4)
+				var is_blocked: bool = false
+				for space in blocks_preview[0].blocks_space():
 					if space in blocked_space:
-						blocks.pop_back().queue_free()
-						length = 0
+						is_blocked = true
 						break
+				blocks_preview[0].change_mode(Block.INVALID if is_blocked else Block.NEW)
 		elif current_length > 0 and length == 0:
-			blocks.pop_back().queue_free()
+			blocks_preview.pop_back().queue_free()
 		current_direction = direction
 		current_length = length
 	elif block_types[selected_block_type] == 2:
@@ -244,10 +241,13 @@ func create_blocks() -> void:
 				var start_direction: Vector3i = start_position.connection_point.special_sides.find_key(start_position)
 				start_position.connection_point.reset_side(start_direction)
 			start_position = side
-	for block in blocks:
+	for block in blocks_preview:
 		var block_position: Vector3i = Main.get_position(block)
 		level.remove_child(block)
-		create_new_block(block, block_position, current_direction, (current_length - 1))
-	blocks.clear()
+		if block.current_mode == Block.NEW:
+			create_new_block(block, block_position, current_direction, (current_length - 1))
+		else:
+			block.queue_free()
+	blocks_preview.clear()
 	current_length = 0
 	current_direction = Vector3i.ZERO

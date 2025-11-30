@@ -33,6 +33,8 @@ func _ready() -> void:
 
 func change_mode(new_mode: int) -> void:
 	current_mode = new_mode
+	if new_mode == NEW: side_color = Color(1.0, 0.647, 0.0, 0.498)
+	elif new_mode == INVALID: side_color = Color(1.0, 0.0, 0.0, 1.0)
 
 func initialize(mode: bool, world: World) -> void:
 	sides[0].material_override.transparency = BaseMaterial3D.TRANSPARENCY_DISABLED
