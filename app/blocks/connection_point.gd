@@ -59,4 +59,3 @@ func reset_side(direction: Vector3i) -> void:
 	block.remove_child(current_side)
 	current_side.queue_free()
 	special_sides.erase(direction)
-	

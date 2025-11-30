@@ -117,8 +117,8 @@ func create_new_block(new_block: Block, block_position: Vector3i, block_directio
 	for i in range(new_block.connection_points.size()):
 		var point: ConnectionPoint = new_block.connection_points[i]
 		var point3d: Vector3i = Main.get_position(point)
-		var point2d: Vector2i = Vector2i(point3d.x - point3d.z, point3d.y - point3d.z)
-		point.depth = point3d.x + point3d.z
+		var point2d: Vector2i = Vector2i(point3d.x - point3d.z, 2 * point3d.y - point3d.x - point3d.z)
+		point.depth = point3d.x + point3d.y + point3d.z
 		var next_point: ConnectionPoint = map2d.get(point2d)
 		if next_point == null or point.depth > next_point.depth:
 			map2d.set(point2d, point)
@@ -143,7 +143,7 @@ func delete_block(block: Block) -> void:
 	for i in range(block.connection_points.size()):
 		var point: ConnectionPoint = block.connection_points[i]
 		var point3d: Vector3i = Main.get_position(point)
-		var point2d: Vector2i = Vector2i(point3d.x - point3d.z, point3d.y - point3d.z)
+		var point2d: Vector2i = Vector2i(point3d.x - point3d.z, 2 * point3d.y - point3d.x - point3d.z)
 		var current_point: ConnectionPoint = map2d.get(point2d)
 		if current_point == point: 
 			map2d.set(point2d, point.block_behind_this)
