@@ -103,7 +103,7 @@ func open_main_menu() -> void:
 func change_mode(edit_mode: bool) -> void:
 	current_mode = edit_mode
 	for object in objects:
-		object.change_mode(edit_mode)
+		object.change_mode(Block.EDIT if edit_mode else Block.PLAY)
 
 func create_new_block(new_block: Block, block_position: Vector3i, block_direction: Vector3i, block_rotation: int) -> Block:
 	objects.append(new_block)

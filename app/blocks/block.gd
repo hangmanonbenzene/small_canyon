@@ -21,7 +21,7 @@ static var one_is_pressed: bool
 var current_camera: Camera3D
 var current_point: ConnectionPoint
 
-enum {NEW, PLAY, EDIT}
+enum {NEW, INVALID, PLAY, EDIT}
 var current_mode: int = NEW
 
 func _ready() -> void:
@@ -31,15 +31,14 @@ func _ready() -> void:
 	for side in sides:
 		side.material_override = material
 
-func change_mode(edit_mode: bool) -> void:
-	if edit_mode: current_mode = EDIT
-	else: current_mode = PLAY
+func change_mode(new_mode: int) -> void:
+	current_mode = new_mode
 
 func initialize(mode: bool, world: World) -> void:
 	sides[0].material_override.transparency = BaseMaterial3D.TRANSPARENCY_DISABLED
 	if is_entered: side_color = Color.ORANGE
 	else: side_color = Color.WHITE
-	change_mode(mode)
+	change_mode(EDIT if mode else PLAY)
 	world3d = world
 
 func get_data() -> String:
@@ -102,7 +101,7 @@ func _input(event: InputEvent) -> void:
 				world3d.create_block_preview(direction, 0)
 
 func _on_area_3d_mouse_entered() -> void:
-	if current_mode == NEW: 
+	if current_mode == NEW or current_mode == INVALID: 
 		is_entered = true
 	elif current_mode == EDIT: 
 		is_entered = true
@@ -110,9 +109,9 @@ func _on_area_3d_mouse_entered() -> void:
 			side_color = Color.ORANGE
 
 func _on_area_3d_mouse_exited() -> void:
-	if current_mode == NEW: 
+	if current_mode == NEW or current_mode == INVALID: 
 		is_entered = false
-	elif current_mode == EDIT: 
+	elif current_mode == EDIT:
 		is_entered = false
 		if not one_is_pressed:
 			side_color = Color.WHITE
