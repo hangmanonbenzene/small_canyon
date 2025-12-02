@@ -3,7 +3,10 @@ class_name Main extends Node
 @export var world_3d: Node
 @export var menus: Node
 
+static var me: Main
+
 func _ready() -> void:
+	me = self
 	menus.call("load_levels")
 
 
@@ -65,3 +68,21 @@ static func rotation_in_degrees(direction: Vector3i, rotation: int) -> Vector3i:
 				2: rotation_degrees = Vector3i(-90, 180, 0)
 				3: rotation_degrees = Vector3i(0, -90, -90)
 	return rotation_degrees
+
+static func place_block_animation(block: Block, block_direction: Vector3, time: float, start_time: float) -> float:
+	var start_position: Vector3 = block.global_position
+	var target: Vector3 = start_position + block_direction * 0.1
+	var overflow_time: float = await move_block_to_position(block, target, time, start_time)
+	return await move_block_to_position(block, start_position, time, overflow_time)
+
+static func move_block_to_position(block: Block, target_position: Vector3, time: float, start_time: float) -> float:
+	var start_position: Vector3 = block.global_position
+	var passed_time: float = start_time
+	while passed_time < time:
+		await me.get_tree().process_frame
+		var delta: float = me.get_process_delta_time()
+		passed_time += delta
+		var t: float = clamp(passed_time / time, 0.0, 1.0)
+		block.global_position = start_position.lerp(target_position, t)
+	block.global_position = target_position
+	return passed_time - time

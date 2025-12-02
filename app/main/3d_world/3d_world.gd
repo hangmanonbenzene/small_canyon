@@ -39,7 +39,7 @@ var start_position: SideBlock
 func open_new_level() -> void:
 	main_menu_3d.visible = false
 	current_mode = true
-	create_new_block(block_prefabs[CUBE].instantiate(), Vector3i.ZERO, Vector3i.UP, 0, 2)
+	create_new_block(block_prefabs[CUBE].instantiate(), Vector3i.ZERO, Vector3i.UP, 0)
 
 func open_level(level_name: String, edit_mode: bool) -> void:
 	main_menu_3d.visible = false
@@ -53,27 +53,27 @@ func open_level(level_name: String, edit_mode: bool) -> void:
 		if not parse_result == OK: continue
 		var node_data: Dictionary = json.data
 		var new_block: Block
-		var speed: float = save_file.get_length() / 20.0
 		match node_data["type"]:
 			"cube":
-				new_block = await create_new_block(block_prefabs[CUBE].instantiate(), Vector3i(node_data["pos"][0], node_data["pos"][1], node_data["pos"][2]), Vector3i(node_data["dir"][0], node_data["dir"][1], node_data["dir"][2]), node_data["rot"], speed)
+				new_block = create_new_block(block_prefabs[CUBE].instantiate(), Vector3i(node_data["pos"][0], node_data["pos"][1], node_data["pos"][2]), Vector3i(node_data["dir"][0], node_data["dir"][1], node_data["dir"][2]), node_data["rot"])
 			"stairs":
-				new_block = await create_new_block(block_prefabs[STAIRS].instantiate(), Vector3i(node_data["pos"][0], node_data["pos"][1], node_data["pos"][2]), Vector3i(node_data["dir"][0], node_data["dir"][1], node_data["dir"][2]), node_data["rot"], speed)
+				new_block = create_new_block(block_prefabs[STAIRS].instantiate(), Vector3i(node_data["pos"][0], node_data["pos"][1], node_data["pos"][2]), Vector3i(node_data["dir"][0], node_data["dir"][1], node_data["dir"][2]), node_data["rot"])
 			"arch1x":
-				new_block = await create_new_block(block_prefabs[ARCH1X].instantiate(), Vector3i(node_data["pos"][0], node_data["pos"][1], node_data["pos"][2]), Vector3i(node_data["dir"][0], node_data["dir"][1], node_data["dir"][2]), node_data["rot"], speed)
+				new_block = create_new_block(block_prefabs[ARCH1X].instantiate(), Vector3i(node_data["pos"][0], node_data["pos"][1], node_data["pos"][2]), Vector3i(node_data["dir"][0], node_data["dir"][1], node_data["dir"][2]), node_data["rot"])
 			"arch2x":
-				new_block = await create_new_block(block_prefabs[ARCH2X].instantiate(), Vector3i(node_data["pos"][0], node_data["pos"][1], node_data["pos"][2]), Vector3i(node_data["dir"][0], node_data["dir"][1], node_data["dir"][2]), node_data["rot"], speed)
+				new_block = create_new_block(block_prefabs[ARCH2X].instantiate(), Vector3i(node_data["pos"][0], node_data["pos"][1], node_data["pos"][2]), Vector3i(node_data["dir"][0], node_data["dir"][1], node_data["dir"][2]), node_data["rot"])
 			"arch3x":
-				new_block = await create_new_block(block_prefabs[ARCH3X].instantiate(), Vector3i(node_data["pos"][0], node_data["pos"][1], node_data["pos"][2]), Vector3i(node_data["dir"][0], node_data["dir"][1], node_data["dir"][2]), node_data["rot"], speed)
+				new_block = create_new_block(block_prefabs[ARCH3X].instantiate(), Vector3i(node_data["pos"][0], node_data["pos"][1], node_data["pos"][2]), Vector3i(node_data["dir"][0], node_data["dir"][1], node_data["dir"][2]), node_data["rot"])
 			"ramp1x":
-				new_block = await create_new_block(block_prefabs[RAMP1X].instantiate(), Vector3i(node_data["pos"][0], node_data["pos"][1], node_data["pos"][2]), Vector3i(node_data["dir"][0], node_data["dir"][1], node_data["dir"][2]), node_data["rot"], speed)
+				new_block = create_new_block(block_prefabs[RAMP1X].instantiate(), Vector3i(node_data["pos"][0], node_data["pos"][1], node_data["pos"][2]), Vector3i(node_data["dir"][0], node_data["dir"][1], node_data["dir"][2]), node_data["rot"])
 			"ramp2x":
-				new_block = await create_new_block(block_prefabs[RAMP2X].instantiate(), Vector3i(node_data["pos"][0], node_data["pos"][1], node_data["pos"][2]), Vector3i(node_data["dir"][0], node_data["dir"][1], node_data["dir"][2]), node_data["rot"], speed)
+				new_block = create_new_block(block_prefabs[RAMP2X].instantiate(), Vector3i(node_data["pos"][0], node_data["pos"][1], node_data["pos"][2]), Vector3i(node_data["dir"][0], node_data["dir"][1], node_data["dir"][2]), node_data["rot"])
 			"ramp3x":
-				new_block = await create_new_block(block_prefabs[RAMP3X].instantiate(), Vector3i(node_data["pos"][0], node_data["pos"][1], node_data["pos"][2]), Vector3i(node_data["dir"][0], node_data["dir"][1], node_data["dir"][2]), node_data["rot"], speed)
+				new_block = create_new_block(block_prefabs[RAMP3X].instantiate(), Vector3i(node_data["pos"][0], node_data["pos"][1], node_data["pos"][2]), Vector3i(node_data["dir"][0], node_data["dir"][1], node_data["dir"][2]), node_data["rot"])
 			_:
 				print("Unknown type!")
-		#await get_tree().create_timer(0.02).timeout
+		#Main.place_block_animation(new_block, )
+		await get_tree().create_timer(0.02).timeout
 		var sides: Array = node_data["sides"]
 		for i in range(sides.size()):
 			var point: ConnectionPoint = new_block.connection_points[i]
@@ -106,35 +106,11 @@ func change_mode(edit_mode: bool) -> void:
 	for object in objects:
 		object.change_mode(Block.EDIT if edit_mode else Block.PLAY)
 
-func create_new_block(new_block: Block, block_position: Vector3i, block_direction: Vector3i, block_rotation: int, speed: float) -> Block:
+func create_new_block(new_block: Block, block_position: Vector3i, block_direction: Vector3i, block_rotation: int) -> Block:
 	objects.append(new_block)
 	level.add_child(new_block)
 	new_block.initialize(current_mode, self)
 	new_block.set_new_position(block_position, block_direction, block_rotation)
-	
-	var target := Vector3(block_position) + Vector3(block_direction) * 0.1
-	while new_block.global_position.distance_to(target) > 0.01:
-		await get_tree().process_frame
-		var dir := (target - new_block.global_position).normalized()
-		var delta := get_process_delta_time()
-		var step := dir * speed * delta
-		if step.length() > new_block.global_position.distance_to(target):
-			new_block.global_position = target
-		else:
-			new_block.global_position += step
-	new_block.global_position = target
-	target = Vector3(block_position)
-	while new_block.global_position.distance_to(target) > 0.01:
-		await get_tree().process_frame
-		var dir := (target - new_block.global_position).normalized()
-		var delta := get_process_delta_time()
-		var step := dir * speed * delta
-		if step.length() > new_block.global_position.distance_to(target):
-			new_block.global_position = target
-		else:
-			new_block.global_position += step
-	new_block.global_position = block_position
-	
 	for space in new_block.blocks_space():
 		blocked_space.set(space, new_block)
 	for connection in new_block.connection_points:
@@ -271,9 +247,10 @@ func create_blocks() -> void:
 		block_positions.append(Main.get_position(block))
 		level.remove_child(block)
 	for i in range(blocks_preview.size()):
+		var overflow: float = 0.0
 		if blocks_preview[i].current_mode == Block.NEW:
-			create_new_block(blocks_preview[i], block_positions[i], current_direction, (current_length - 1), 2)
-			await get_tree().create_timer(0.05).timeout
+			create_new_block(blocks_preview[i], block_positions[i], current_direction, (current_length - 1))
+			overflow = await Main.place_block_animation(blocks_preview[i], current_direction, 0.03, overflow)
 		else:
 			blocks_preview[i].queue_free()
 	blocks_preview.clear()
