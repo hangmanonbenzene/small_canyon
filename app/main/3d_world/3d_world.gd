@@ -17,7 +17,7 @@ const block_prefabs: Array[PackedScene] = [
 	preload("res://app/blocks/ladder.tscn"),
 	null,
 	preload("res://app/blocks/start.tscn"),
-	null,
+	preload("res://app/blocks/end.tscn"),
 ]
 
 var objects: Array[Block]
@@ -35,6 +35,7 @@ var current_length: int
 var current_direction: Vector3i
 
 var start_position: SideBlock
+var end_position: SideBlock
 
 func open_new_level() -> void:
 	main_menu_3d.visible = false
@@ -221,6 +222,11 @@ func create_blocks() -> void:
 				var start_direction: Vector3i = start_position.connection_point.special_sides.find_key(start_position)
 				start_position.connection_point.reset_side(start_direction)
 			start_position = side
+		elif selected_block_type == END: 
+			if end_position != null:
+				var end_direction: Vector3i = end_position.connection_point.special_sides.find_key(end_position)
+				end_position.connection_point.reset_side(end_direction)
+			end_position = side
 	var block_positions: Array[Vector3i]
 	for block in blocks_preview:
 		block_positions.append(Main.get_position(block))
