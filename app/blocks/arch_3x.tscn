@@ -10,7 +10,7 @@ size = Vector3(0.5, 0.5, 0.5)
 
 [node name="Arch3x" type="Node3D" node_paths=PackedStringArray("sides", "blocker", "connection_points")]
 script = ExtResource("1_j3ejw")
-type = "arch3x"
+type = 4
 sides = [NodePath("Arch3x"), NodePath("Cube"), NodePath("Cube2")]
 blocker = [NodePath("Blocker/Node3D"), NodePath("Blocker/Node3D2"), NodePath("Blocker/Node3D3"), NodePath("Blocker/Node3D4"), NodePath("Blocker/Node3D5"), NodePath("Blocker/Node3D6"), NodePath("Blocker/Node3D7"), NodePath("Blocker/Node3D8")]
 connection_points = [NodePath("Area3D/CollisionShape3D"), NodePath("Area3D/CollisionShape3D2")]

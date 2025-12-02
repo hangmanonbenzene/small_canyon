@@ -10,7 +10,7 @@ size = Vector3(0.5, 0.5, 0.5)
 
 [node name="Ramp3x" type="Node3D" node_paths=PackedStringArray("sides", "blocker", "connection_points")]
 script = ExtResource("1_610ty")
-type = "ramp3x"
+type = 7
 sides = [NodePath("Ramp3x"), NodePath("Cube"), NodePath("Cube2"), NodePath("Cube3"), NodePath("Cube4"), NodePath("Cube5"), NodePath("Cube6")]
 blocker = [NodePath("Blocker/Node3D"), NodePath("Blocker/Node3D2"), NodePath("Blocker/Node3D3"), NodePath("Blocker/Node3D4"), NodePath("Blocker/Node3D5"), NodePath("Blocker/Node3D6")]
 connection_points = [NodePath("Area3D/CollisionShape3D"), NodePath("Area3D/CollisionShape3D2"), NodePath("Area3D/CollisionShape3D3"), NodePath("Area3D/CollisionShape3D4"), NodePath("Area3D/CollisionShape3D5")]

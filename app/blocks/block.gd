@@ -5,7 +5,7 @@ var world3d: World
 var current_direction: Vector3i
 var current_rotation: int
 
-@export var type: String
+@export var type: int
 
 @export var sides: Array[MeshInstance3D]
 var side_color: Color:

@@ -1,7 +1,7 @@
 class_name SideBlock extends MeshInstance3D
 
 @export var meshes: Array[MeshInstance3D]
-@export var type: String
+@export var type: int
 
 var my_rotation: int
 var connection_point: ConnectionPoint

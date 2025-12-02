@@ -10,7 +10,7 @@ size = Vector3(0.5, 0.5, 0.5)
 
 [node name="Stairs" type="Node3D" node_paths=PackedStringArray("sides", "blocker", "connection_points")]
 script = ExtResource("1_ovf11")
-type = "stairs"
+type = 1
 sides = [NodePath("Stairs"), NodePath("Cube"), NodePath("Cube2")]
 blocker = [NodePath(".")]
 connection_points = [NodePath("Area3D/CollisionShape3D")]
