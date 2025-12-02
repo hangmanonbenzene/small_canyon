@@ -203,14 +203,11 @@ func create_block_preview(direction: Vector3i, length: int) -> void:
 			var new_block: SideBlock = block_prefabs[selected_block_type].instantiate()
 			current_pressed_block.set_special_side(new_block, direction, length)
 		elif current_length > 0 and length > 0:
-			if current_direction == direction:
-				current_pressed_block.set_special_side_rotation(direction, length)
-			else:
-				current_pressed_block.side_active(current_direction, true)
-				var new_block: SideBlock = block_prefabs[selected_block_type].instantiate()
-				current_pressed_block.set_special_side(new_block, direction, length)
+			current_pressed_block.reactivate_side(current_direction)
+			var new_block: SideBlock = block_prefabs[selected_block_type].instantiate()
+			current_pressed_block.set_special_side(new_block, direction, length)
 		elif current_length > 0 and length == 0:
-			current_pressed_block.side_active(current_direction, true)
+			current_pressed_block.reactivate_side(current_direction)
 		current_direction = direction
 		current_length = length
 
