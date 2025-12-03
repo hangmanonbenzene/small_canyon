@@ -155,13 +155,13 @@ text = "Ramp 3x"
 layout_mode = 2
 focus_mode = 0
 theme_override_font_sizes/font_size = 50
-text = "Ladder"
+text = "Door"
 
 [node name="Button10" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
 theme_override_font_sizes/font_size = 50
-text = "Door"
+text = "Ladder"
 
 [node name="Button11" type="Button" parent="VBoxContainer"]
 layout_mode = 2

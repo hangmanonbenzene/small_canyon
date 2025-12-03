@@ -14,8 +14,8 @@ const block_prefabs: Array[PackedScene] = [
 	preload("res://app/blocks/ramp_1x.tscn"),
 	preload("res://app/blocks/ramp_2x.tscn"),
 	preload("res://app/blocks/ramp_3x.tscn"),
+	preload("res://app/blocks/door.tscn"),
 	preload("res://app/blocks/ladder.tscn"),
-	null,
 	preload("res://app/blocks/start.tscn"),
 	preload("res://app/blocks/end.tscn"),
 ]
@@ -26,9 +26,9 @@ var connection_points: Dictionary[Vector3i, ConnectionPoint]
 var map2d: Dictionary[Vector2i, ConnectionPoint]
 var current_mode: bool
 
-enum {CUBE, STAIRS, ARCH1X, ARCH2X, ARCH3X, RAMP1X, RAMP2X, RAMP3X, LADDER, DOOR, START, END}
+enum {CUBE, STAIRS, ARCH1X, ARCH2X, ARCH3X, RAMP1X, RAMP2X, RAMP3X, DOOR, LADDER, START, END}
 var selected_block_type: int = CUBE
-var block_types: Array[int] = [0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2]
+var block_types: Array[int] = [0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2]
 var blocks_preview: Array[Block]
 var current_pressed_block: ConnectionPoint
 var current_length: int
@@ -147,6 +147,7 @@ func block_pressed(block: ConnectionPoint) -> void:
 	current_pressed_block = block
 
 func create_block_preview(direction: Vector3i, length: int) -> void:
+	if current_length == length and current_direction == direction: return
 	if block_types[selected_block_type] == 0:
 		if length > current_length:
 			for i in range(current_length, length):

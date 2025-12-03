@@ -1,0 +1,76 @@
+[gd_scene load_steps=7 format=3 uid="uid://84w87c0obn6g"]
+
+[ext_resource type="Script" uid="uid://c0ry5lhfhtqa1" path="res://app/blocks/block.gd" id="1_qk8qt"]
+[ext_resource type="PackedScene" uid="uid://cqgomxnx3m021" path="res://app/meshes/scenes/door.tscn" id="2_1g1fv"]
+[ext_resource type="PackedScene" uid="uid://q6gl0qwsdmxx" path="res://app/meshes/scenes/cube.tscn" id="3_5vsur"]
+[ext_resource type="ArrayMesh" uid="uid://ctoa5osm25at1" path="res://app/meshes/cubic/cube_side.obj" id="4_5tp1h"]
+[ext_resource type="Script" uid="uid://bgeoq0ktdjhot" path="res://app/blocks/connection_point.gd" id="5_sfotg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uulyo"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[node name="Door" type="Node3D" node_paths=PackedStringArray("sides", "blocker", "connection_points")]
+script = ExtResource("1_qk8qt")
+type = 8
+sides = [NodePath("Door"), NodePath("Cube"), NodePath("Cube2"), NodePath("Cube3"), NodePath("Cube4"), NodePath("Cube5"), NodePath("Cube6"), NodePath("Cube7"), NodePath("MeshInstance3D")]
+blocker = [NodePath("Blocker/Node3D"), NodePath("Blocker/Node3D2")]
+connection_points = [NodePath("Area3D/CollisionShape3D"), NodePath("Area3D/CollisionShape3D2")]
+
+[node name="Door" parent="." instance=ExtResource("2_1g1fv")]
+transform = Transform3D(4.371139e-08, 1, 8.742278e-08, 1, -4.371139e-08, 0, 3.821371e-15, 8.742278e-08, -1, 0.5, 0, 0)
+
+[node name="Cube" parent="." instance=ExtResource("3_5vsur")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+type = 0
+
+[node name="Cube2" parent="." instance=ExtResource("3_5vsur")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.5, 1, 0)
+type = 0
+
+[node name="Cube3" parent="." instance=ExtResource("3_5vsur")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.5, 0, 0)
+type = 0
+
+[node name="Cube4" parent="." instance=ExtResource("3_5vsur")]
+transform = Transform3D(1.9106855e-15, 4.371139e-08, 1, 1, -4.371139e-08, 0, 4.371139e-08, 1, -4.371139e-08, 0, 1, 0.5)
+type = 0
+
+[node name="Cube5" parent="." instance=ExtResource("3_5vsur")]
+transform = Transform3D(1.9106855e-15, 4.371139e-08, 1, 1, -4.371139e-08, 0, 4.371139e-08, 1, -4.371139e-08, 0, 0, 0.5)
+type = 0
+
+[node name="Cube6" parent="." instance=ExtResource("3_5vsur")]
+transform = Transform3D(1.9106855e-15, 4.371139e-08, -1, 1, -4.371139e-08, 0, -4.371139e-08, -1, -4.371139e-08, 0, 1, -0.5)
+type = 0
+
+[node name="Cube7" parent="." instance=ExtResource("3_5vsur")]
+transform = Transform3D(1.9106855e-15, 4.371139e-08, -1, 1, -4.371139e-08, 0, -4.371139e-08, -1, -4.371139e-08, 0, 0, -0.5)
+type = 0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 0, -0.5, 0)
+mesh = ExtResource("4_5tp1h")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" node_paths=PackedStringArray("block")]
+shape = SubResource("BoxShape3D_uulyo")
+script = ExtResource("5_sfotg")
+block = NodePath("../..")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D" node_paths=PackedStringArray("block")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_uulyo")
+script = ExtResource("5_sfotg")
+block = NodePath("../..")
+
+[node name="Blocker" type="Node3D" parent="."]
+
+[node name="Node3D" type="Node3D" parent="Blocker"]
+
+[node name="Node3D2" type="Node3D" parent="Blocker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[connection signal="input_event" from="Area3D" to="." method="_on_area_3d_input_event"]
+[connection signal="mouse_entered" from="Area3D" to="." method="_on_area_3d_mouse_entered"]
+[connection signal="mouse_exited" from="Area3D" to="." method="_on_area_3d_mouse_exited"]
