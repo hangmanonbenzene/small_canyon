@@ -1,10 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://d4lueuk4efef3"]
+[gd_scene load_steps=6 format=3 uid="uid://d4lueuk4efef3"]
 
 [ext_resource type="Script" uid="uid://c0ry5lhfhtqa1" path="res://app/blocks/block.gd" id="1_j3ejw"]
 [ext_resource type="PackedScene" uid="uid://q6gl0qwsdmxx" path="res://app/meshes/scenes/cube.tscn" id="2_j3ejw"]
 [ext_resource type="PackedScene" uid="uid://n4jtt8of3gif" path="res://app/meshes/scenes/arch_3x.tscn" id="2_r5665"]
 [ext_resource type="Script" uid="uid://bgeoq0ktdjhot" path="res://app/blocks/connection_point.gd" id="2_ygxv2"]
-[ext_resource type="ArrayMesh" uid="uid://66xiga24kxuf" path="res://app/meshes/round/3_donut.obj" id="3_r5665"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_r5665"]
 size = Vector3(0.5, 0.5, 0.5)
@@ -18,7 +17,6 @@ connection_points = [NodePath("Area3D/CollisionShape3D"), NodePath("Area3D/Colli
 
 [node name="Arch3x" parent="." instance=ExtResource("2_r5665")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, -0.5, 0)
-mesh = ExtResource("3_r5665")
 
 [node name="Cube" parent="." instance=ExtResource("2_j3ejw")]
 transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, 0, -0.5, 0)
