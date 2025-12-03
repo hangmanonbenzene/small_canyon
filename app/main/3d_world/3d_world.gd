@@ -2,7 +2,7 @@ class_name World extends Node3D
 
 @export var menus: Node
 @export var main_menu_3d: Node3D
-@export var camera: Camera3D
+@export var environment: MyEnvirement
 @export var level: Node3D
 
 const block_prefabs: Array[PackedScene] = [
@@ -41,11 +41,13 @@ var end_position: SideBlock
 func open_new_level() -> void:
 	main_menu_3d.visible = false
 	current_mode = true
+	environment.mode = environment.MODE2D
 	create_new_block(block_prefabs[CUBE].instantiate(), Vector3i.ZERO, Vector3i.UP, 0)
 
 func open_level(level_name: String, edit_mode: bool) -> void:
 	main_menu_3d.visible = false
 	current_mode = edit_mode
+	environment.mode = environment.MODE2D
 	if not FileAccess.file_exists("user://created_levels/" + level_name): return
 	var save_file: FileAccess = FileAccess.open("user://created_levels/" + level_name, FileAccess.READ)
 	#var overflow: float = 0.0
@@ -79,11 +81,12 @@ func open_main_menu() -> void:
 	blocked_space.clear()
 	connection_points.clear()
 	map2d.clear()
-	#camera.size = 7
+	environment.mode = environment.DISABLED
 	main_menu_3d.visible = true
 
 func change_mode(edit_mode: bool) -> void:
 	current_mode = edit_mode
+	environment.mode = environment.MODE2D
 	for object in objects:
 		object.change_mode(Block.EDIT if edit_mode else Block.PLAY)
 
@@ -253,3 +256,8 @@ func create_blocks() -> void:
 	blocks_preview.clear()
 	current_length = 0
 	current_direction = Vector3i.ZERO
+
+func _input(event: InputEvent) -> void:
+	if current_mode and event.is_action_pressed("toggle_cam"):
+		environment.mode = environment.MODE3D if environment.mode == environment.MODE2D else environment.MODE2D
+	

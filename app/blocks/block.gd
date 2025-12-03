@@ -69,7 +69,6 @@ func blocks_space() -> Array[Vector3i]:
 
 func update_blocked_space() -> void:
 	var blocked_space: Array[Vector3i] = blocks_space()
-	print(blocked_space)
 	for key: Vector3i in world3d.blocked_space.keys():
 		if world3d.blocked_space.get(key) == self:
 			if key not in blocked_space: 
@@ -84,33 +83,34 @@ func set_new_position(new_position: Vector3i, new_direction: Vector3i, new_rotat
 	rotation_degrees = Main.rotation_in_degrees(new_direction, new_rotation)
 
 func _input(event: InputEvent) -> void:
-	if current_mode == EDIT:
-		if event is InputEventMouseButton and not event.pressed and event.button_index == 1:
-			if is_pressed:
-				is_pressed = false
-				one_is_pressed = false
-				if not is_entered:
-					side_color = Color.WHITE
-					world3d.create_blocks()
-			elif is_entered: 
-				side_color = Color.ORANGE
-		if event is InputEventMouseMotion and is_pressed:
-			var mouse_vector: Vector2 = event.position - current_camera.unproject_position(Main.get_position(current_point))
-			var step: float = (840 / current_camera.size)
-			var length: int = clampi(floori((mouse_vector.length() + step / 2) / step), 0, 10)
-			var angle: float = rad_to_deg(mouse_vector.angle())
-			var direction: Vector3i = (
-				Vector3i.LEFT if angle < -120
-				else Vector3i.UP if angle < -60
-				else Vector3i.FORWARD if angle < 0
-				else Vector3i.RIGHT if angle < 60
-				else Vector3i.DOWN if angle < 120
-				else Vector3i.BACK
-			)
-			if current_point.viable_direction(direction, (world3d.selected_block_type == world3d.LADDER)):
-				world3d.create_block_preview(direction, length)
-			else:
-				world3d.create_block_preview(direction, 0)
+	if current_mode == EDIT and event is InputEventMouseButton and not event.pressed and event.button_index == 1:
+		if is_pressed:
+			is_pressed = false
+			one_is_pressed = false
+			if not is_entered:
+				side_color = Color.WHITE
+				world3d.create_blocks()
+		elif is_entered: 
+			side_color = Color.ORANGE
+
+func _process(_delta: float) -> void:
+	if current_mode == EDIT and is_pressed:
+		var mouse_vector: Vector2 = get_viewport().get_mouse_position() - current_camera.unproject_position(Main.get_position(current_point))
+		var step: float = (840 / current_camera.size)
+		var length: int = clampi(floori((mouse_vector.length() + step / 2) / step), 0, 10)
+		var angle: float = rad_to_deg(mouse_vector.angle())
+		var direction: Vector3i = (
+			Vector3i.LEFT if angle < -120
+			else Vector3i.UP if angle < -60
+			else Vector3i.FORWARD if angle < 0
+			else Vector3i.RIGHT if angle < 60
+			else Vector3i.DOWN if angle < 120
+			else Vector3i.BACK
+		)
+		if current_point.viable_direction(direction, (world3d.selected_block_type == world3d.LADDER)):
+			world3d.create_block_preview(direction, length)
+		else:
+			world3d.create_block_preview(direction, 0)
 
 func _on_area_3d_mouse_entered() -> void:
 	if current_mode == NEW or current_mode == INVALID: 

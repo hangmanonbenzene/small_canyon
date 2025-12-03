@@ -14,10 +14,11 @@ script = ExtResource("1_ig7tw")
 world_3d = NodePath("3d_world")
 menus = NodePath("menus")
 
-[node name="3d_world" type="Node3D" parent="." node_paths=PackedStringArray("menus", "main_menu_3d", "level")]
+[node name="3d_world" type="Node3D" parent="." node_paths=PackedStringArray("menus", "main_menu_3d", "environment", "level")]
 script = ExtResource("2_3hrc4")
 menus = NodePath("../menus")
 main_menu_3d = NodePath("main_menu")
+environment = NodePath("CameraAndLight")
 level = NodePath("level")
 
 [node name="CameraAndLight" parent="3d_world" instance=ExtResource("3_revbh")]
