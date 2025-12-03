@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dglje8t36uqd6"]
 
 [ext_resource type="ArrayMesh" uid="uid://yc8ndv7puci5" path="res://app/meshes/cubic/ladder.obj" id="1_m07n4"]
-[ext_resource type="Script" uid="uid://6uvdpe1t1uwl" path="res://app/blocks/side_block.gd" id="2_0ntr3"]
+[ext_resource type="Script" uid="uid://6uvdpe1t1uwl" path="res://app/blocks/side_blocks/side_block.gd" id="2_0ntr3"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_m07n4"]
 size = Vector3(0.5, 0.01, 0.5)
