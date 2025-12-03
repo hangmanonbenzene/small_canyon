@@ -41,11 +41,13 @@ func reactivate_side(direction: Vector3i) -> SideBlock:
 	current_old_side = null
 	return set_visibility(direction, true)
 
-func activate_special_side(direction: Vector3i) -> SideBlock:
+func activate_special_side(direction: Vector3i) -> void:
 	var ladder: bool
 	if special_sides.has(direction):
 		var old_side: SideBlock = special_sides.get(direction)
 		ladder = old_side.ladder_possible
+		for blocker in old_side.blocker:
+			block.blocker.erase(blocker)
 		block.remove_child(old_side)
 		old_side.queue_free()
 	else:
@@ -53,14 +55,18 @@ func activate_special_side(direction: Vector3i) -> SideBlock:
 		current_old_side.activate(false)
 		old_sides.set(direction, current_old_side)
 	special_sides.set(direction, new_special_side)
+	block.blocker.append_array(new_special_side.blocker)
+	block.update_blocked_space()
 	new_special_side.ladder_possible = ladder
 	current_old_side = null
-	return new_special_side
 
 func reset_side(direction: Vector3i) -> void:
-	var old_side: CubeSide = old_sides.get(direction)
-	old_side.activate(true)
 	var current_side: SideBlock = special_sides.get(direction)
+	for blocker in current_side.blocker:
+		block.blocker.erase(blocker)
+	block.update_blocked_space()
 	block.remove_child(current_side)
 	current_side.queue_free()
 	special_sides.erase(direction)
+	var old_side: CubeSide = old_sides.get(direction)
+	old_side.activate(true)

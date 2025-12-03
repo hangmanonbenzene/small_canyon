@@ -67,6 +67,16 @@ func blocks_space() -> Array[Vector3i]:
 		blocked_space.append(Main.get_position(space))
 	return blocked_space
 
+func update_blocked_space() -> void:
+	var blocked_space: Array[Vector3i] = blocks_space()
+	print(blocked_space)
+	for key: Vector3i in world3d.blocked_space.keys():
+		if world3d.blocked_space.get(key) == self:
+			if key not in blocked_space: 
+				world3d.blocked_space.erase(key)
+	for space in blocked_space:
+		world3d.blocked_space.set(space, self)
+
 func set_new_position(new_position: Vector3i, new_direction: Vector3i, new_rotation: int) -> void:
 	global_position = new_position
 	current_direction = new_direction

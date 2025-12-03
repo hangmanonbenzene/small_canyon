@@ -30,6 +30,7 @@ enum {CUBE, STAIRS, ARCH1X, ARCH2X, ARCH3X, RAMP1X, RAMP2X, RAMP3X, DOOR, LADDER
 var selected_block_type: int = CUBE
 var block_types: Array[int] = [0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2]
 var blocks_preview: Array[Block]
+var sideblock_preview: SideBlock
 var current_pressed_block: ConnectionPoint
 var current_length: int
 var current_direction: Vector3i
@@ -179,12 +180,10 @@ func create_block_preview(direction: Vector3i, length: int) -> void:
 			blocks_preview.append(new_block)
 			level.add_child(new_block)
 			new_block.set_new_position(new_position, direction, (length - 1) % 4)
-			var is_blocked: bool = false
 			for space in new_block.blocks_space():
 				if space in blocked_space:
-					is_blocked = true
+					new_block.change_mode(Block.INVALID)
 					break
-			if is_blocked: new_block.change_mode(Block.INVALID)
 		elif current_length > 0 and length > 0:
 			if current_direction != direction or current_length != length:
 				var new_position: Vector3i = Main.get_position(current_pressed_block) + direction
@@ -202,29 +201,44 @@ func create_block_preview(direction: Vector3i, length: int) -> void:
 	elif block_types[selected_block_type] == 2:
 		if current_length == 0 and length > 0:
 			var new_block: SideBlock = block_prefabs[selected_block_type].instantiate()
+			sideblock_preview = new_block
 			current_pressed_block.set_special_side(new_block, direction, length)
+			for space in new_block.blocks_space():
+				if space in blocked_space:
+					new_block.invalid = true
+					break
 		elif current_length > 0 and length > 0:
 			current_pressed_block.reactivate_side(current_direction)
 			var new_block: SideBlock = block_prefabs[selected_block_type].instantiate()
+			sideblock_preview = new_block
 			current_pressed_block.set_special_side(new_block, direction, length)
+			for space in new_block.blocks_space():
+				if space in blocked_space:
+					new_block.invalid = true
+					break
 		elif current_length > 0 and length == 0:
 			current_pressed_block.reactivate_side(current_direction)
+			sideblock_preview = null
 		current_direction = direction
 		current_length = length
 
 func create_blocks() -> void:
 	if block_types[selected_block_type] == 2 and current_length > 0:
-		var side: SideBlock = current_pressed_block.activate_special_side(current_direction)
-		if selected_block_type == START: 
-			if start_position != null:
-				var start_direction: Vector3i = start_position.connection_point.special_sides.find_key(start_position)
-				start_position.connection_point.reset_side(start_direction)
-			start_position = side
-		elif selected_block_type == END: 
-			if end_position != null:
-				var end_direction: Vector3i = end_position.connection_point.special_sides.find_key(end_position)
-				end_position.connection_point.reset_side(end_direction)
-			end_position = side
+		if sideblock_preview.invalid:
+			current_pressed_block.reactivate_side(current_direction)
+		else:
+			current_pressed_block.activate_special_side(current_direction)
+			if selected_block_type == START: 
+				if start_position != null:
+					var start_direction: Vector3i = start_position.connection_point.special_sides.find_key(start_position)
+					start_position.connection_point.reset_side(start_direction)
+				start_position = sideblock_preview
+			elif selected_block_type == END: 
+				if end_position != null:
+					var end_direction: Vector3i = end_position.connection_point.special_sides.find_key(end_position)
+					end_position.connection_point.reset_side(end_direction)
+				end_position = sideblock_preview
+		sideblock_preview = null
 	var block_positions: Array[Vector3i]
 	for block in blocks_preview:
 		block_positions.append(Main.get_position(block))
