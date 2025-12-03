@@ -23,8 +23,6 @@ func set_visibility(direction: Vector3i, visibility: bool) -> SideBlock:
 
 func set_special_side(new_side: SideBlock, new_direction: Vector3i, new_rotation: int) -> void:
 	current_old_side = set_visibility(new_direction, false)
-	#if door also deactivate more
-	
 	new_side.connection_point = self
 	new_special_side = new_side
 	block.add_child(new_side)
@@ -44,14 +42,18 @@ func reactivate_side(direction: Vector3i) -> SideBlock:
 	return set_visibility(direction, true)
 
 func activate_special_side(direction: Vector3i) -> SideBlock:
+	var ladder: bool
 	if special_sides.has(direction):
 		var old_side: SideBlock = special_sides.get(direction)
+		ladder = old_side.ladder_possible
 		block.remove_child(old_side)
 		old_side.queue_free()
 	else:
+		ladder = current_old_side.ladder_possible
 		current_old_side.activate(false)
 		old_sides.set(direction, current_old_side)
 	special_sides.set(direction, new_special_side)
+	new_special_side.ladder_possible = ladder
 	current_old_side = null
 	return new_special_side
 
