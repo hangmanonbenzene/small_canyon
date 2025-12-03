@@ -2,6 +2,7 @@ class_name SideBlock extends MeshInstance3D
 
 @export var meshes: Array[MeshInstance3D]
 @export var type: int
+@export var ladder_possible: bool = true
 
 var my_rotation: int
 var connection_point: ConnectionPoint

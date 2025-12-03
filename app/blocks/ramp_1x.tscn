@@ -20,9 +20,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.5, 0)
 
 [node name="Cube" parent="." instance=ExtResource("3_y1pmc")]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.5, 0, 0)
+type = 0
+ladder_possible = false
 
 [node name="Cube2" parent="." instance=ExtResource("3_y1pmc")]
 transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, 0, -0.5, 0)
+type = 0
+ladder_possible = false
 
 [node name="Area3D" type="Area3D" parent="."]
 

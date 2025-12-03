@@ -10,8 +10,11 @@ var new_special_side: SideBlock
 var old_sides: Dictionary[Vector3i, CubeSide]
 var current_old_side: SideBlock
 
-func viable_direction(direction: Vector3i) -> bool:
-	return not Main.raycast(self, direction, 1).is_empty()
+func viable_direction(direction: Vector3i, ladder: bool) -> bool:
+	var result: Dictionary = Main.raycast(self, direction, 1)
+	if result.is_empty(): return false
+	if ladder: return result.get("collider").get_parent().ladder_possible
+	return true
 
 func set_visibility(direction: Vector3i, visibility: bool) -> SideBlock:
 	var side: SideBlock = Main.raycast(self, direction, 1).get("collider").get_parent()

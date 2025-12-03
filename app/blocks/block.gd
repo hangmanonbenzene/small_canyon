@@ -97,7 +97,7 @@ func _input(event: InputEvent) -> void:
 				else Vector3i.DOWN if angle < 120
 				else Vector3i.BACK
 			)
-			if current_point.viable_direction(direction):
+			if current_point.viable_direction(direction, (world3d.selected_block_type == world3d.LADDER)):
 				world3d.create_block_preview(direction, length)
 			else:
 				world3d.create_block_preview(direction, 0)
