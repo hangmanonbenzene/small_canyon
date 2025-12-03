@@ -4,11 +4,14 @@ importer="wavefront_obj"
 importer_version=1
 type="Mesh"
 uid="uid://1i72qk7nmuix"
-valid=false
+path="res://.godot/imported/3_ramp.obj-01c3592e7fa843258581a3f51f228446.mesh"
 
 [deps]
 
+files=["res://.godot/imported/3_ramp.obj-01c3592e7fa843258581a3f51f228446.mesh"]
+
 source_file="res://app/meshes/round/3_ramp.obj"
+dest_files=["res://.godot/imported/3_ramp.obj-01c3592e7fa843258581a3f51f228446.mesh", "res://.godot/imported/3_ramp.obj-01c3592e7fa843258581a3f51f228446.mesh"]
 
 [params]
 

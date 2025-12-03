@@ -4,11 +4,14 @@ importer="wavefront_obj"
 importer_version=1
 type="Mesh"
 uid="uid://o20a776njv1p"
-valid=false
+path="res://.godot/imported/3_circle.obj-dfe3f162bdacc547beebf7e19e4a946e.mesh"
 
 [deps]
 
+files=["res://.godot/imported/3_circle.obj-dfe3f162bdacc547beebf7e19e4a946e.mesh"]
+
 source_file="res://app/meshes/round/3_circle.obj"
+dest_files=["res://.godot/imported/3_circle.obj-dfe3f162bdacc547beebf7e19e4a946e.mesh", "res://.godot/imported/3_circle.obj-dfe3f162bdacc547beebf7e19e4a946e.mesh"]
 
 [params]
 

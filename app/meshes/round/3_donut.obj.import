@@ -4,11 +4,14 @@ importer="wavefront_obj"
 importer_version=1
 type="Mesh"
 uid="uid://66xiga24kxuf"
-valid=false
+path="res://.godot/imported/3_donut.obj-0fab6790ee49793ce0e2fb040bf1e615.mesh"
 
 [deps]
 
+files=["res://.godot/imported/3_donut.obj-0fab6790ee49793ce0e2fb040bf1e615.mesh"]
+
 source_file="res://app/meshes/round/3_donut.obj"
+dest_files=["res://.godot/imported/3_donut.obj-0fab6790ee49793ce0e2fb040bf1e615.mesh", "res://.godot/imported/3_donut.obj-0fab6790ee49793ce0e2fb040bf1e615.mesh"]
 
 [params]
 
