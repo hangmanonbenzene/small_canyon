@@ -3,18 +3,22 @@ class_name MyEnvirement extends Node3D
 @export var camera: Camera3D
 @export var camera_control: CharacterBody3D
 var speed: float = 5.0
+var camera_size_2d: float
 enum {DISABLED, MODE2D, MODE3D}
 var mode: int = DISABLED:
 	set(value):
 		match value:
 			DISABLED:
 				mode = value
+				camera.size = 7
 				reset_camera()
 			MODE2D:
 				mode = value
+				camera.size = camera_size_2d
 				reset_camera()
 			MODE3D:
 				mode = value
+				camera.size = 7
 				camera.projection = Camera3D.PROJECTION_PERSPECTIVE
 
 func _ready() -> void:
@@ -27,6 +31,12 @@ func reset_camera() -> void:
 
 func _physics_process(_delta: float) -> void:
 	if mode == MODE2D:
+		if Input.is_action_just_pressed("zoom_in"):
+			camera.size = max(5, camera.size - 1)
+			camera_size_2d = camera.size
+		if Input.is_action_just_pressed("zoom_out"):
+			camera.size = min(25, camera.size + 1)
+			camera_size_2d = camera.size
 		var velocity: Vector3 = Vector3.ZERO
 		if Input.is_action_pressed("move_forward"):
 			velocity += camera_control.transform.basis.y

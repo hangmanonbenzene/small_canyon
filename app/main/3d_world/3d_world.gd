@@ -47,7 +47,7 @@ func open_new_level() -> void:
 func open_level(level_name: String, edit_mode: bool) -> void:
 	main_menu_3d.visible = false
 	current_mode = edit_mode
-	environment.mode = environment.MODE2D
+	environment.mode = environment.MODE2D if edit_mode else environment.DISABLED
 	if not FileAccess.file_exists("user://created_levels/" + level_name): return
 	var save_file: FileAccess = FileAccess.open("user://created_levels/" + level_name, FileAccess.READ)
 	#var overflow: float = 0.0
