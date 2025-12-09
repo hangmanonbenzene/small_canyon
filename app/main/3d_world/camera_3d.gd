@@ -3,7 +3,7 @@ class_name MyEnvirement extends Node3D
 @export var camera: Camera3D
 @export var camera_control: CharacterBody3D
 var speed: float = 5.0
-var camera_size_2d: float
+var camera_size_2d: float = 7.0
 enum {DISABLED, MODE2D, MODE3D}
 var mode: int = DISABLED:
 	set(value):
