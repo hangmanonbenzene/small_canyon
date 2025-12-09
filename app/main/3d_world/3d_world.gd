@@ -88,7 +88,7 @@ func change_mode(edit_mode: bool) -> void:
 	current_mode = edit_mode
 	environment.mode = environment.MODE2D
 	for object in objects:
-		object.change_mode(Block.EDIT if edit_mode else Block.PLAY)
+		object.current_mode = Block.EDIT if edit_mode else Block.PLAY
 
 func create_new_block(new_block: Block, block_position: Vector3i, block_direction: Vector3i, block_rotation: int) -> Block:
 	objects.append(new_block)
@@ -162,7 +162,7 @@ func create_block_preview(direction: Vector3i, length: int) -> void:
 				blocks_preview.append(new_block)
 				level.add_child(new_block)
 				new_block.set_new_position(new_position, direction, (length - 1) % 4)
-				if is_blocked: new_block.change_mode(Block.INVALID)
+				if is_blocked: new_block.current_mode = Block.INVALID
 		elif length < current_length:
 			for i in range(current_length - length):
 				blocks_preview.pop_back().queue_free()
@@ -175,7 +175,7 @@ func create_block_preview(direction: Vector3i, length: int) -> void:
 				if new_position in blocked_space:
 					is_blocked = true
 				blocks_preview[i].set_new_position(new_position, direction, (length - 1) % 4)
-				blocks_preview[i].change_mode(Block.INVALID if is_blocked else Block.NEW)
+				blocks_preview[i].current_mode = Block.INVALID if is_blocked else Block.NEW
 	elif block_types[selected_block_type] == 1:
 		if current_length == 0 and length > 0:
 			var new_position: Vector3i = Main.get_position(current_pressed_block) + direction

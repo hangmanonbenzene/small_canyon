@@ -22,7 +22,11 @@ var current_camera: Camera3D
 var current_point: ConnectionPoint
 
 enum {NEW, INVALID, PLAY, EDIT}
-var current_mode: int = NEW
+var current_mode: int = NEW:
+	set(value):
+		current_mode = value
+		if value == NEW: side_color = Color(1.0, 0.647, 0.0, 0.498)
+		elif value == INVALID: side_color = Color(1.0, 0.0, 0.0, 1.0)
 
 func _ready() -> void:
 	var material: BaseMaterial3D = StandardMaterial3D.new()
@@ -31,16 +35,11 @@ func _ready() -> void:
 	for side in sides:
 		side.material_override = material
 
-func change_mode(new_mode: int) -> void:
-	current_mode = new_mode
-	if new_mode == NEW: side_color = Color(1.0, 0.647, 0.0, 0.498)
-	elif new_mode == INVALID: side_color = Color(1.0, 0.0, 0.0, 1.0)
-
 func initialize(mode: bool, world: World) -> void:
 	sides[0].material_override.transparency = BaseMaterial3D.TRANSPARENCY_DISABLED
 	if is_entered: side_color = Color.ORANGE
 	else: side_color = Color.WHITE
-	change_mode(EDIT if mode else PLAY)
+	current_mode = EDIT if mode else PLAY
 	world3d = world
 
 func get_data() -> String:
