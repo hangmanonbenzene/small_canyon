@@ -16,6 +16,12 @@ var invalid: bool = false:
 var my_rotation: int
 var connection_point: ConnectionPoint
 
+@export var play_mode_collider: Area3D
+var play_mode_active: bool = false:
+	set(value):
+		play_mode_collider.input_ray_pickable = value
+		play_mode_active = value
+
 func set_visibility(value: bool) -> void:
 	for a_mesh in meshes:
 		a_mesh.visible = value
@@ -25,3 +31,8 @@ func blocks_space() -> Array[Vector3i]:
 	for space in blocker:
 		blocked_space.append(Main.get_position(space))
 	return blocked_space
+
+func _on_side_clicked(_camera: Node, event: InputEvent, _event_position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
+	if play_mode_active:
+		if event is InputEventMouseButton and event.pressed and event.button_index == 1:
+			print(type)

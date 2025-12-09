@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dglje8t36uqd6"]
+[gd_scene load_steps=6 format=3 uid="uid://dglje8t36uqd6"]
 
 [ext_resource type="ArrayMesh" uid="uid://yc8ndv7puci5" path="res://app/meshes/cubic/ladder.obj" id="1_m07n4"]
 [ext_resource type="Script" uid="uid://6uvdpe1t1uwl" path="res://app/blocks/side_blocks/side_block.gd" id="2_0ntr3"]
@@ -9,11 +9,15 @@ size = Vector3(0.5, 0.01, 0.5)
 [sub_resource type="SphereShape3D" id="SphereShape3D_0ntr3"]
 radius = 0.05
 
-[node name="Ladder" type="MeshInstance3D" node_paths=PackedStringArray("meshes")]
+[sub_resource type="BoxShape3D" id="BoxShape3D_pqeqy"]
+size = Vector3(1, 0.02, 1)
+
+[node name="Ladder" type="MeshInstance3D" node_paths=PackedStringArray("meshes", "play_mode_collider")]
 mesh = ExtResource("1_m07n4")
 script = ExtResource("2_0ntr3")
 meshes = [NodePath(".")]
 type = 9
+play_mode_collider = NodePath("Area3D")
 
 [node name="Col1" type="Area3D" parent="."]
 input_ray_pickable = false
@@ -67,3 +71,12 @@ shape = SubResource("SphereShape3D_0ntr3")
 [node name="CollisionShape3D5" type="CollisionShape3D" parent="Col3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, -0.1, 0)
 shape = SubResource("SphereShape3D_0ntr3")
+
+[node name="Area3D" type="Area3D" parent="."]
+input_ray_pickable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
+shape = SubResource("BoxShape3D_pqeqy")
+
+[connection signal="input_event" from="Area3D" to="." method="_on_side_clicked"]

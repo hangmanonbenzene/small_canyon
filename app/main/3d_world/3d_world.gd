@@ -73,6 +73,7 @@ func open_level(level_name: String, edit_mode: bool) -> void:
 				var direction: Vector3i = Vector3i(sides[i][j][1][0], sides[i][j][1][1], sides[i][j][1][2])
 				point.set_special_side(new_side, direction, sides[i][j][2])
 				point.activate_special_side(direction)
+		new_block.current_mode = Block.EDIT if edit_mode else Block.PLAY
 
 func open_main_menu() -> void:
 	for object in objects:
@@ -196,7 +197,7 @@ func create_block_preview(direction: Vector3i, length: int) -> void:
 					if space in blocked_space:
 						is_blocked = true
 						break
-				blocks_preview[0].change_mode(Block.INVALID if is_blocked else Block.NEW)
+				blocks_preview[0].current_mode = Block.INVALID if is_blocked else Block.NEW
 		elif current_length > 0 and length == 0:
 			blocks_preview.pop_back().queue_free()
 		current_direction = direction

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://byugde3xgeywj"]
+[gd_scene load_steps=8 format=3 uid="uid://byugde3xgeywj"]
 
 [ext_resource type="ArrayMesh" uid="uid://ctoa5osm25at1" path="res://app/meshes/cubic/cube_side.obj" id="1_ama65"]
 [ext_resource type="Script" uid="uid://6uvdpe1t1uwl" path="res://app/blocks/side_blocks/side_block.gd" id="2_lmv27"]
@@ -13,12 +13,16 @@ size = Vector3(0.5, 0.01, 0.5)
 [sub_resource type="SphereShape3D" id="SphereShape3D_ama65"]
 radius = 0.05
 
-[node name="End" type="MeshInstance3D" node_paths=PackedStringArray("meshes", "blocker")]
+[sub_resource type="BoxShape3D" id="BoxShape3D_2ri8b"]
+size = Vector3(1, 0.02, 1)
+
+[node name="End" type="MeshInstance3D" node_paths=PackedStringArray("meshes", "blocker", "play_mode_collider")]
 mesh = ExtResource("1_ama65")
 script = ExtResource("2_lmv27")
 meshes = [NodePath("."), NodePath("MeshInstance3D")]
 type = 11
 blocker = [NodePath("Blocker/Node3D"), NodePath("Blocker/Node3D2")]
+play_mode_collider = NodePath("Area3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.5, 0)
@@ -64,3 +68,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="Node3D2" type="Node3D" parent="Blocker"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="Area3D" type="Area3D" parent="."]
+input_ray_pickable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
+shape = SubResource("BoxShape3D_2ri8b")
+
+[connection signal="input_event" from="Area3D" to="." method="_on_side_clicked"]

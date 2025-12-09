@@ -7,7 +7,6 @@ var block_behind_this: ConnectionPoint
 
 var special_sides: Dictionary[Vector3i, SideBlock]
 var new_special_side: SideBlock
-var old_sides: Dictionary[Vector3i, CubeSide]
 var current_old_side: SideBlock
 
 func viable_direction(direction: Vector3i, ladder: bool) -> bool:
@@ -26,13 +25,10 @@ func set_special_side(new_side: SideBlock, new_direction: Vector3i, new_rotation
 	new_side.connection_point = self
 	new_special_side = new_side
 	block.add_child(new_side)
-	new_side.material_override = block.sides[0].material_override
+	new_side.material_override = block.material
 	new_side.global_position = current_old_side.global_position
-	set_special_side_rotation(new_direction, new_rotation)
-
-func set_special_side_rotation(new_direction: Vector3i, new_rotation: int) -> void:
-	new_special_side.global_rotation_degrees = Main.rotation_in_degrees(new_direction, new_rotation)
-	new_special_side.my_rotation = new_rotation
+	new_side.global_rotation_degrees = Main.rotation_in_degrees(new_direction, new_rotation)
+	new_side.my_rotation = new_rotation
 
 func reactivate_side(direction: Vector3i) -> SideBlock:
 	block.remove_child(new_special_side)
@@ -42,31 +38,34 @@ func reactivate_side(direction: Vector3i) -> SideBlock:
 	return set_visibility(direction, true)
 
 func activate_special_side(direction: Vector3i) -> void:
-	var ladder: bool
-	if special_sides.has(direction):
-		var old_side: SideBlock = special_sides.get(direction)
-		ladder = old_side.ladder_possible
-		for blocker in old_side.blocker:
-			block.blocker.erase(blocker)
-		block.remove_child(old_side)
-		old_side.queue_free()
-	else:
-		ladder = current_old_side.ladder_possible
-		current_old_side.activate(false)
-		old_sides.set(direction, current_old_side)
-	special_sides.set(direction, new_special_side)
+	new_special_side.ladder_possible = current_old_side.ladder_possible
+	for blocker in current_old_side.blocker:
+		block.blocker.erase(blocker)
 	block.blocker.append_array(new_special_side.blocker)
 	block.update_blocked_space()
-	new_special_side.ladder_possible = ladder
+	block.sides.erase(current_old_side)
+	block.sides.append(new_special_side)
+	block.remove_child(current_old_side)
+	current_old_side.queue_free()
+	special_sides.set(direction, new_special_side)
+	new_special_side = null
 	current_old_side = null
 
 func reset_side(direction: Vector3i) -> void:
 	var current_side: SideBlock = special_sides.get(direction)
+	var new_side: SideBlock = preload("res://app/meshes/scenes/cube.tscn").instantiate()
+	new_side.ladder_possible = current_side.ladder_possible
+	new_side.connection_point = self
+	block.add_child(new_side)
+	new_side.material_override = block.material
+	new_side.global_position = current_side.global_position
+	new_side.global_rotation_degrees = Main.rotation_in_degrees(direction, current_side.my_rotation)
+	new_side.my_rotation = current_side.my_rotation
 	for blocker in current_side.blocker:
 		block.blocker.erase(blocker)
 	block.update_blocked_space()
+	block.sides.erase(current_side)
+	block.sides.append(new_side)
 	block.remove_child(current_side)
 	current_side.queue_free()
 	special_sides.erase(direction)
-	var old_side: CubeSide = old_sides.get(direction)
-	old_side.activate(true)

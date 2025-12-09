@@ -8,9 +8,10 @@ var current_rotation: int
 @export var type: int
 
 @export var sides: Array[SideBlock]
+var material: Material
 var side_color: Color:
 	set(value):
-		sides[0].material_override.albedo_color = value
+		material.albedo_color = value
 		side_color = value
 @export var blocker: Array[Node3D]
 @export var connection_points: Array[ConnectionPoint]
@@ -25,18 +26,22 @@ enum {NEW, INVALID, PLAY, EDIT}
 var current_mode: int = NEW:
 	set(value):
 		current_mode = value
+		for side in sides:
+			side.play_mode_active = value == PLAY
+		for point in connection_points:
+			point.get_parent().input_ray_pickable = value == EDIT
 		if value == NEW: side_color = Color(1.0, 0.647, 0.0, 0.498)
 		elif value == INVALID: side_color = Color(1.0, 0.0, 0.0, 1.0)
 
 func _ready() -> void:
-	var material: BaseMaterial3D = StandardMaterial3D.new()
+	material = StandardMaterial3D.new()
 	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	material.albedo_color = Color(1.0, 0.647, 0.0, 0.498)
 	for side in sides:
 		side.material_override = material
 
 func initialize(mode: bool, world: World) -> void:
-	sides[0].material_override.transparency = BaseMaterial3D.TRANSPARENCY_DISABLED
+	material.transparency = BaseMaterial3D.TRANSPARENCY_DISABLED
 	if is_entered: side_color = Color.ORANGE
 	else: side_color = Color.WHITE
 	current_mode = EDIT if mode else PLAY
