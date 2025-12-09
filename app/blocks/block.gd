@@ -7,7 +7,7 @@ var current_rotation: int
 
 @export var type: int
 
-@export var sides: Array[MeshInstance3D]
+@export var sides: Array[SideBlock]
 var side_color: Color:
 	set(value):
 		sides[0].material_override.albedo_color = value
