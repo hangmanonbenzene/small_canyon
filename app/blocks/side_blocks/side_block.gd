@@ -21,6 +21,7 @@ var play_mode_active: bool = false:
 	set(value):
 		for coll in play_mode_collider:
 			coll.input_ray_pickable = value
+			coll.process_mode = PROCESS_MODE_INHERIT if value else PROCESS_MODE_DISABLED
 		play_mode_active = value
 
 func set_visibility(value: bool) -> void:
