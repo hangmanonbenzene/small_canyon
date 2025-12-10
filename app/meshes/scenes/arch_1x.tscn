@@ -75,6 +75,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.1, -0.4)
 shape = SubResource("SphereShape3D_333fg")
 
 [node name="Area3D" type="Area3D" parent="." node_paths=PackedStringArray("side_block")]
+process_mode = 4
 input_ray_pickable = false
 script = ExtResource("3_xye8h")
 side_block = NodePath("..")
@@ -92,6 +93,7 @@ transform = Transform3D(0.25881904, 0.96592593, 0, -0.96592593, 0.25881904, 0, 0
 shape = SubResource("BoxShape3D_cb6b5")
 
 [node name="Area3D2" type="Area3D" parent="." node_paths=PackedStringArray("side_block")]
+process_mode = 4
 input_ray_pickable = false
 script = ExtResource("3_xye8h")
 side_block = NodePath("..")
@@ -113,6 +115,7 @@ transform = Transform3D(-4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-
 shape = SubResource("BoxShape3D_cxlvu")
 
 [node name="Area3D3" type="Area3D" parent="." node_paths=PackedStringArray("side_block")]
+process_mode = 4
 input_ray_pickable = false
 script = ExtResource("3_xye8h")
 side_block = NodePath("..")

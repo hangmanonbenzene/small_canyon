@@ -15,18 +15,21 @@ sides = [NodePath("Arch3x"), NodePath("Cube"), NodePath("Cube2")]
 blocker = [NodePath("Blocker/Node3D"), NodePath("Blocker/Node3D2"), NodePath("Blocker/Node3D3"), NodePath("Blocker/Node3D4"), NodePath("Blocker/Node3D5"), NodePath("Blocker/Node3D6"), NodePath("Blocker/Node3D7"), NodePath("Blocker/Node3D8")]
 connection_points = [NodePath("Area3D/CollisionShape3D"), NodePath("Area3D/CollisionShape3D2")]
 
-[node name="Arch3x" parent="." instance=ExtResource("2_r5665")]
+[node name="Arch3x" parent="." node_paths=PackedStringArray("block") instance=ExtResource("2_r5665")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, -0.5, 0)
+block = NodePath("..")
 
-[node name="Cube" parent="." instance=ExtResource("2_j3ejw")]
+[node name="Cube" parent="." node_paths=PackedStringArray("block") instance=ExtResource("2_j3ejw")]
 transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, 0, -0.5, 0)
-type = 0
+block = NodePath("..")
 
-[node name="Cube2" parent="." instance=ExtResource("2_j3ejw")]
+[node name="Cube2" parent="." node_paths=PackedStringArray("block") instance=ExtResource("2_j3ejw")]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -2.5, 2, 0)
-type = 0
+block = NodePath("..")
 
 [node name="Area3D" type="Area3D" parent="."]
+process_mode = 4
+input_ray_pickable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" node_paths=PackedStringArray("block")]
 shape = SubResource("BoxShape3D_r5665")

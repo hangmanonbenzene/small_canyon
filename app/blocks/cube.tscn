@@ -13,25 +13,33 @@ sides = [NodePath("Cube"), NodePath("Cube2"), NodePath("Cube3"), NodePath("Cube4
 blocker = [NodePath(".")]
 connection_points = [NodePath("Area3D/CollisionShape3D")]
 
-[node name="Cube" parent="." instance=ExtResource("2_gemhn")]
+[node name="Cube" parent="." node_paths=PackedStringArray("block") instance=ExtResource("2_gemhn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+block = NodePath("..")
 
-[node name="Cube2" parent="." instance=ExtResource("2_gemhn")]
+[node name="Cube2" parent="." node_paths=PackedStringArray("block") instance=ExtResource("2_gemhn")]
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.5, 0, 0)
+block = NodePath("..")
 
-[node name="Cube3" parent="." instance=ExtResource("2_gemhn")]
+[node name="Cube3" parent="." node_paths=PackedStringArray("block") instance=ExtResource("2_gemhn")]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.5, 0, 0)
+block = NodePath("..")
 
-[node name="Cube4" parent="." instance=ExtResource("2_gemhn")]
+[node name="Cube4" parent="." node_paths=PackedStringArray("block") instance=ExtResource("2_gemhn")]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0.5)
+block = NodePath("..")
 
-[node name="Cube5" parent="." instance=ExtResource("2_gemhn")]
+[node name="Cube5" parent="." node_paths=PackedStringArray("block") instance=ExtResource("2_gemhn")]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, -0.5)
+block = NodePath("..")
 
-[node name="Cube6" parent="." instance=ExtResource("2_gemhn")]
+[node name="Cube6" parent="." node_paths=PackedStringArray("block") instance=ExtResource("2_gemhn")]
 transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 0, -0.5, 0)
+block = NodePath("..")
 
 [node name="Area3D" type="Area3D" parent="."]
+process_mode = 4
+input_ray_pickable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" node_paths=PackedStringArray("block")]
 shape = SubResource("BoxShape3D_2824d")

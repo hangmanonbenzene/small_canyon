@@ -50,12 +50,11 @@ var player_position: Player
 
 func open_new_level() -> void:
 	main_menu_3d.visible = false
-	current_mode = true
 	create_new_block(block_prefabs[CUBE].instantiate(), Vector3i.ZERO, Vector3i.UP, 0)
+	current_mode = true
 
 func open_level(level_name: String, edit_mode: bool) -> void:
 	main_menu_3d.visible = false
-	current_mode = edit_mode
 	if not FileAccess.file_exists("user://created_levels/" + level_name): return
 	var save_file: FileAccess = FileAccess.open("user://created_levels/" + level_name, FileAccess.READ)
 	#var overflow: float = 0.0
@@ -81,7 +80,8 @@ func open_level(level_name: String, edit_mode: bool) -> void:
 				var direction: Vector3i = Vector3i(sides[i][j][1][0], sides[i][j][1][1], sides[i][j][1][2])
 				point.set_special_side(new_side, direction, sides[i][j][2])
 				point.activate_special_side(direction)
-		new_block.current_mode = Block.EDIT if edit_mode else Block.PLAY
+		#new_block.current_mode = Block.EDIT if edit_mode else Block.PLAY
+	current_mode = edit_mode
 
 func open_main_menu() -> void:
 	for object in objects:
@@ -253,6 +253,7 @@ func create_blocks() -> void:
 		var overflow: float = 0.0
 		if blocks_preview[i].current_mode == Block.NEW:
 			create_new_block(blocks_preview[i], block_positions[i], current_direction, (current_length - 1))
+			blocks_preview[i].current_mode = Block.EDIT if current_mode else Block.PLAY
 			overflow = await Main.place_block_animation(blocks_preview[i], current_direction, 0.03, overflow)
 		else:
 			blocks_preview[i].queue_free()

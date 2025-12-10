@@ -74,6 +74,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, -0.1, 0)
 shape = SubResource("SphereShape3D_0ntr3")
 
 [node name="Area3D" type="Area3D" parent="." node_paths=PackedStringArray("side_block")]
+process_mode = 4
 input_ray_pickable = false
 script = ExtResource("3_v8xv2")
 side_block = NodePath("..")

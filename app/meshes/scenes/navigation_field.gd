@@ -4,4 +4,9 @@ class_name NavigationField extends Area3D
 
 func _on_side_clicked(_camera: Node, event: InputEvent, _event_position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == 1:
+		if player() != null:
+			player().destination = self
 		print(side_block.type)
+
+func player() -> Player:
+	return side_block.block.world3d.player_position

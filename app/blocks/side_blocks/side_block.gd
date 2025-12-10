@@ -15,6 +15,7 @@ var invalid: bool = false:
 
 var my_rotation: int
 var connection_point: ConnectionPoint
+@export var block: Block
 
 @export var player: Player
 @export var play_mode_collider: Array[NavigationField]

@@ -23,6 +23,7 @@ func set_visibility(direction: Vector3i, visibility: bool) -> SideBlock:
 func set_special_side(new_side: SideBlock, new_direction: Vector3i, new_rotation: int) -> void:
 	current_old_side = set_visibility(new_direction, false)
 	new_side.connection_point = self
+	new_side.block = block
 	new_special_side = new_side
 	block.add_child(new_side)
 	new_side.material_override = block.material
@@ -56,6 +57,7 @@ func reset_side(direction: Vector3i) -> void:
 	var new_side: SideBlock = preload("res://app/meshes/scenes/cube.tscn").instantiate()
 	new_side.ladder_possible = current_side.ladder_possible
 	new_side.connection_point = self
+	new_side.block = block
 	block.add_child(new_side)
 	new_side.material_override = block.material
 	new_side.global_position = current_side.global_position

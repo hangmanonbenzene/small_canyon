@@ -30,6 +30,7 @@ var current_mode: int = NEW:
 			side.play_mode_active = value == PLAY
 		for point in connection_points:
 			point.get_parent().input_ray_pickable = value == EDIT
+			point.get_parent().process_mode = PROCESS_MODE_INHERIT if value == EDIT else PROCESS_MODE_DISABLED
 		if value == NEW: side_color = Color(1.0, 0.647, 0.0, 0.498)
 		elif value == INVALID: side_color = Color(1.0, 0.0, 0.0, 1.0)
 
@@ -40,11 +41,11 @@ func _ready() -> void:
 	for side in sides:
 		side.material_override = material
 
-func initialize(mode: bool, world: World) -> void:
+func initialize(_mode: bool, world: World) -> void:
 	material.transparency = BaseMaterial3D.TRANSPARENCY_DISABLED
 	if is_entered: side_color = Color.ORANGE
 	else: side_color = Color.WHITE
-	current_mode = EDIT if mode else PLAY
+	#current_mode = EDIT if mode else PLAY
 	world3d = world
 
 func get_data() -> String:
