@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://n4jtt8of3gif"]
+[gd_scene load_steps=11 format=3 uid="uid://n4jtt8of3gif"]
 
 [ext_resource type="ArrayMesh" uid="uid://66xiga24kxuf" path="res://app/meshes/round/3_donut.obj" id="1_vjwow"]
 [ext_resource type="Script" uid="uid://6uvdpe1t1uwl" path="res://app/blocks/side_blocks/side_block.gd" id="2_a723v"]
+[ext_resource type="Script" uid="uid://bt10m15n3aehi" path="res://app/meshes/scenes/navigation_field.gd" id="3_0jrt1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jaive"]
 size = Vector3(0.5, 0.01, 0.5)
@@ -100,8 +101,10 @@ shape = SubResource("SphereShape3D_jaive")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0.1, -0.4)
 shape = SubResource("SphereShape3D_jaive")
 
-[node name="Area3D" type="Area3D" parent="."]
+[node name="Area3D" type="Area3D" parent="." node_paths=PackedStringArray("side_block")]
 input_ray_pickable = false
+script = ExtResource("3_0jrt1")
+side_block = NodePath("..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, 0, 1, 2.025, 2.025, 0)
@@ -115,9 +118,11 @@ shape = SubResource("BoxShape3D_a723v")
 transform = Transform3D(0.25881904, 0.96592593, 0, -0.96592593, 0.25881904, 0, 0, 0, 1, 2.76, 0.75, 0)
 shape = SubResource("BoxShape3D_a723v")
 
-[node name="Area3D2" type="Area3D" parent="."]
+[node name="Area3D2" type="Area3D" parent="." node_paths=PackedStringArray("side_block")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.04, 0.04, 0)
 input_ray_pickable = false
+script = ExtResource("3_0jrt1")
+side_block = NodePath("..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D2"]
 transform = Transform3D(0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, 0, 1, 1.35, 1.35, 0)
@@ -131,8 +136,10 @@ shape = SubResource("BoxShape3D_0jrt1")
 transform = Transform3D(0.25881904, 0.96592593, 0, -0.96592593, 0.25881904, 0, 0, 0, 1, 1.84, 0.5, 0)
 shape = SubResource("BoxShape3D_0jrt1")
 
-[node name="Area3D3" type="Area3D" parent="."]
+[node name="Area3D3" type="Area3D" parent="." node_paths=PackedStringArray("side_block")]
 input_ray_pickable = false
+script = ExtResource("3_0jrt1")
+side_block = NodePath("..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.425, 0.425, 0.49)
@@ -154,8 +161,10 @@ shape = SubResource("BoxShape3D_bllaw")
 transform = Transform3D(0.25881898, -0.9659258, 0, 0.9659258, 0.25881898, 0, 0, 0, 1, 0.88, 2.26, 0.49)
 shape = SubResource("BoxShape3D_bllaw")
 
-[node name="Area3D4" type="Area3D" parent="."]
+[node name="Area3D4" type="Area3D" parent="." node_paths=PackedStringArray("side_block")]
 input_ray_pickable = false
+script = ExtResource("3_0jrt1")
+side_block = NodePath("..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.425, 0.425, -0.49)
@@ -177,7 +186,7 @@ shape = SubResource("BoxShape3D_bllaw")
 transform = Transform3D(0.25881898, -0.9659258, 0, 0.9659258, 0.25881898, 0, 0, 0, 1, 0.88, 2.26, -0.49)
 shape = SubResource("BoxShape3D_bllaw")
 
-[connection signal="input_event" from="Area3D" to="." method="_on_side_clicked"]
-[connection signal="input_event" from="Area3D2" to="." method="_on_side_clicked"]
-[connection signal="input_event" from="Area3D3" to="." method="_on_side_clicked"]
-[connection signal="input_event" from="Area3D4" to="." method="_on_side_clicked"]
+[connection signal="input_event" from="Area3D" to="Area3D" method="_on_side_clicked"]
+[connection signal="input_event" from="Area3D2" to="Area3D2" method="_on_side_clicked"]
+[connection signal="input_event" from="Area3D3" to="Area3D3" method="_on_side_clicked"]
+[connection signal="input_event" from="Area3D4" to="Area3D4" method="_on_side_clicked"]

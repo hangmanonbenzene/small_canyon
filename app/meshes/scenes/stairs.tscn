@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dygh0yjgqg378"]
+[gd_scene load_steps=9 format=3 uid="uid://dygh0yjgqg378"]
 
 [ext_resource type="ArrayMesh" uid="uid://cyk4kkcbsrk7l" path="res://app/meshes/cubic/stairs.obj" id="1_eeycb"]
 [ext_resource type="Script" uid="uid://6uvdpe1t1uwl" path="res://app/blocks/side_blocks/side_block.gd" id="2_dgk2g"]
+[ext_resource type="Script" uid="uid://bt10m15n3aehi" path="res://app/meshes/scenes/navigation_field.gd" id="3_4xr3r"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_eeycb"]
 size = Vector3(0.5, 0.01, 0.5)
@@ -67,11 +68,13 @@ shape = SubResource("SphereShape3D_4xr3r")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.39999998, -0.4, 0)
 shape = SubResource("SphereShape3D_4xr3r")
 
-[node name="Area3D" type="Area3D" parent="."]
+[node name="Area3D" type="Area3D" parent="." node_paths=PackedStringArray("side_block")]
 input_ray_pickable = false
+script = ExtResource("3_4xr3r")
+side_block = NodePath("..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_4xr3r")
 
-[connection signal="input_event" from="Area3D" to="." method="_on_side_clicked"]
+[connection signal="input_event" from="Area3D" to="Area3D" method="_on_side_clicked"]
