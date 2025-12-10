@@ -45,7 +45,6 @@ func initialize(_mode: bool, world: World) -> void:
 	material.transparency = BaseMaterial3D.TRANSPARENCY_DISABLED
 	if is_entered: side_color = Color.ORANGE
 	else: side_color = Color.WHITE
-	#current_mode = EDIT if mode else PLAY
 	world3d = world
 
 func get_data() -> String:

@@ -57,7 +57,6 @@ func open_level(level_name: String, edit_mode: bool) -> void:
 	main_menu_3d.visible = false
 	if not FileAccess.file_exists("user://created_levels/" + level_name): return
 	var save_file: FileAccess = FileAccess.open("user://created_levels/" + level_name, FileAccess.READ)
-	#var overflow: float = 0.0
 	while save_file.get_position() < save_file.get_length():
 		var json_string: String = save_file.get_line()
 		var json: JSON = JSON.new()
@@ -69,7 +68,6 @@ func open_level(level_name: String, edit_mode: bool) -> void:
 		var block_position: Vector3i = Vector3i(node_data["pos"][0], node_data["pos"][1], node_data["pos"][2])
 		var block_direction: Vector3i = Vector3i(node_data["dir"][0], node_data["dir"][1], node_data["dir"][2])
 		var new_block: Block = create_new_block(block_prefab, block_position, block_direction, node_data["rot"])
-		#overflow = await Main.place_block_animation(new_block, block_direction, 0.02, overflow)
 		await get_tree().create_timer(0.02).timeout
 		var sides: Array = node_data["sides"]
 		for i in range(sides.size()):
@@ -80,7 +78,6 @@ func open_level(level_name: String, edit_mode: bool) -> void:
 				var direction: Vector3i = Vector3i(sides[i][j][1][0], sides[i][j][1][1], sides[i][j][1][2])
 				point.set_special_side(new_side, direction, sides[i][j][2])
 				point.activate_special_side(direction)
-		#new_block.current_mode = Block.EDIT if edit_mode else Block.PLAY
 	current_mode = edit_mode
 
 func open_main_menu() -> void:
