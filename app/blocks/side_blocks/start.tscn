@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://7fq1kwupps50"]
+[gd_scene load_steps=10 format=3 uid="uid://7fq1kwupps50"]
 
 [ext_resource type="ArrayMesh" uid="uid://ctoa5osm25at1" path="res://app/meshes/cubic/cube_side.obj" id="1_bel8j"]
 [ext_resource type="Script" uid="uid://6uvdpe1t1uwl" path="res://app/blocks/side_blocks/side_block.gd" id="1_kpoqn"]
+[ext_resource type="Script" uid="uid://c3qvq8ymdogls" path="res://app/main/3d_world/player.gd" id="3_3kgjr"]
 [ext_resource type="Script" uid="uid://bt10m15n3aehi" path="res://app/meshes/scenes/navigation_field.gd" id="3_3uw46"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kpoqn"]
@@ -19,18 +20,24 @@ radius = 0.05
 [sub_resource type="BoxShape3D" id="BoxShape3D_2mdku"]
 size = Vector3(1, 0.02, 1)
 
-[node name="Start" type="MeshInstance3D" node_paths=PackedStringArray("meshes", "blocker", "play_mode_collider")]
+[node name="Start" type="MeshInstance3D" node_paths=PackedStringArray("meshes", "blocker", "player", "play_mode_collider")]
 mesh = ExtResource("1_bel8j")
 script = ExtResource("1_kpoqn")
-meshes = [NodePath("."), NodePath("MeshInstance3D")]
+meshes = [NodePath("."), NodePath("Player/PlayerMesh")]
 type = 10
 blocker = [NodePath("Blocker/Node3D"), NodePath("Blocker/Node3D2")]
+player = NodePath("Player")
 play_mode_collider = [NodePath("Area3D")]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Player" type="Node3D" parent="." node_paths=PackedStringArray("starting_on")]
+script = ExtResource("3_3kgjr")
+starting_on = NodePath("../Area3D")
+
+[node name="PlayerMesh" type="MeshInstance3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 material_override = SubResource("StandardMaterial3D_kpoqn")
 mesh = SubResource("CapsuleMesh_s4gr6")
+skeleton = NodePath("../..")
 
 [node name="Col1" type="Area3D" parent="."]
 input_ray_pickable = false

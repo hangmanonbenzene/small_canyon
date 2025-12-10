@@ -1,6 +1,6 @@
 extends Node
 
-@export var world_3d: Node
+@export var world_3d: World
 @export var main_menu: Control
 @export var play_ui: Control
 @export var edit_ui: Control
@@ -30,7 +30,7 @@ func open_main_menu() -> void:
 func change_level_mode(edit_mode: bool) -> void:
 	play_ui.set_active(not edit_mode)
 	edit_ui.set_active(edit_mode)
-	world_3d.change_mode(edit_mode)
+	world_3d.current_mode = edit_mode
 
 func change_selected_block_type(new_block_type: int) -> void:
 	world_3d.change_selected_block_type(new_block_type)

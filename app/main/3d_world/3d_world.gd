@@ -24,7 +24,16 @@ var objects: Array[Block]
 var blocked_space: Dictionary[Vector3i, Block]
 var connection_points: Dictionary[Vector3i, ConnectionPoint]
 var map2d: Dictionary[Vector2i, ConnectionPoint]
-var current_mode: bool
+var current_mode: bool:
+	set(value):
+		current_mode = value
+		environment.mode = environment.MODE2D if value else environment.DISABLED
+		for object in objects:
+			object.current_mode = Block.EDIT if value else Block.PLAY
+		if not value:
+			player_position = start_position.player if start_position != null else null
+		if player_position != null:
+			player_position.reset()
 
 enum {CUBE, STAIRS, ARCH1X, ARCH2X, ARCH3X, RAMP1X, RAMP2X, RAMP3X, DOOR, LADDER, START, END}
 var selected_block_type: int = CUBE
@@ -37,17 +46,16 @@ var current_direction: Vector3i
 
 var start_position: SideBlock
 var end_position: SideBlock
+var player_position: Player
 
 func open_new_level() -> void:
 	main_menu_3d.visible = false
 	current_mode = true
-	environment.mode = environment.MODE2D
 	create_new_block(block_prefabs[CUBE].instantiate(), Vector3i.ZERO, Vector3i.UP, 0)
 
 func open_level(level_name: String, edit_mode: bool) -> void:
 	main_menu_3d.visible = false
 	current_mode = edit_mode
-	environment.mode = environment.MODE2D if edit_mode else environment.DISABLED
 	if not FileAccess.file_exists("user://created_levels/" + level_name): return
 	var save_file: FileAccess = FileAccess.open("user://created_levels/" + level_name, FileAccess.READ)
 	#var overflow: float = 0.0
@@ -84,12 +92,6 @@ func open_main_menu() -> void:
 	map2d.clear()
 	environment.mode = environment.DISABLED
 	main_menu_3d.visible = true
-
-func change_mode(edit_mode: bool) -> void:
-	current_mode = edit_mode
-	environment.mode = environment.MODE2D
-	for object in objects:
-		object.current_mode = Block.EDIT if edit_mode else Block.PLAY
 
 func create_new_block(new_block: Block, block_position: Vector3i, block_direction: Vector3i, block_rotation: int) -> Block:
 	objects.append(new_block)
