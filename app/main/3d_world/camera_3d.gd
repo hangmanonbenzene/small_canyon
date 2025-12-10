@@ -5,7 +5,7 @@ class_name MyEnvirement extends Node3D
 var speed2d: float = 1.0
 var speed3d: float = 5.0
 var camera_size_2d: float = 7.0
-enum {DISABLED, MODE2D, MODE3D}
+enum {DISABLED, MODE2D, MODE3D, PLAY}
 var mode: int = DISABLED:
 	set(value):
 		match value:
@@ -21,6 +21,10 @@ var mode: int = DISABLED:
 				mode = value
 				camera.size = 7
 				camera.projection = Camera3D.PROJECTION_PERSPECTIVE
+			PLAY:
+				mode = value
+				camera.size = 7
+				reset_camera()
 
 func _ready() -> void:
 	reset_camera()
@@ -67,3 +71,5 @@ func _physics_process(_delta: float) -> void:
 		if velocity.length() > 0:
 			camera_control.velocity = velocity.normalized() * speed3d
 			camera_control.move_and_slide()
+	elif mode == PLAY:
+		pass

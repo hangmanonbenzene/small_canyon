@@ -27,7 +27,7 @@ var map2d: Dictionary[Vector2i, ConnectionPoint]
 var current_mode: bool:
 	set(value):
 		current_mode = value
-		environment.mode = environment.MODE2D if value else environment.DISABLED
+		environment.mode = environment.MODE2D if value else environment.PLAY
 		for object in objects:
 			object.current_mode = Block.EDIT if value else Block.PLAY
 		if not value:
