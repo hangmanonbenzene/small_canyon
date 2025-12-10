@@ -22,7 +22,7 @@ script = ExtResource("2_lmv27")
 meshes = [NodePath("."), NodePath("MeshInstance3D")]
 type = 11
 blocker = [NodePath("Blocker/Node3D"), NodePath("Blocker/Node3D2")]
-play_mode_collider = NodePath("Area3D")
+play_mode_collider = [NodePath("Area3D")]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.5, 0)

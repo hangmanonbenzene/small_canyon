@@ -16,10 +16,11 @@ var invalid: bool = false:
 var my_rotation: int
 var connection_point: ConnectionPoint
 
-@export var play_mode_collider: Area3D
+@export var play_mode_collider: Array[Area3D]
 var play_mode_active: bool = false:
 	set(value):
-		play_mode_collider.input_ray_pickable = value
+		for coll in play_mode_collider:
+			coll.input_ray_pickable = value
 		play_mode_active = value
 
 func set_visibility(value: bool) -> void:

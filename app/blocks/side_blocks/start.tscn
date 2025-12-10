@@ -24,7 +24,7 @@ script = ExtResource("1_kpoqn")
 meshes = [NodePath("."), NodePath("MeshInstance3D")]
 type = 10
 blocker = [NodePath("Blocker/Node3D"), NodePath("Blocker/Node3D2")]
-play_mode_collider = NodePath("Area3D")
+play_mode_collider = [NodePath("Area3D")]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)

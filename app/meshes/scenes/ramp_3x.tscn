@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bm587tr1gx6fr"]
+[gd_scene load_steps=6 format=3 uid="uid://bm587tr1gx6fr"]
 
 [ext_resource type="ArrayMesh" uid="uid://1i72qk7nmuix" path="res://app/meshes/round/3_ramp.obj" id="1_m45p1"]
 [ext_resource type="Script" uid="uid://6uvdpe1t1uwl" path="res://app/blocks/side_blocks/side_block.gd" id="2_e100t"]
@@ -9,11 +9,15 @@ size = Vector3(0.5, 0.01, 0.5)
 [sub_resource type="SphereShape3D" id="SphereShape3D_d7vyh"]
 radius = 0.05
 
-[node name="Ramp3x" type="MeshInstance3D" node_paths=PackedStringArray("meshes")]
+[sub_resource type="BoxShape3D" id="BoxShape3D_e100t"]
+size = Vector3(1.5, 0.02, 1)
+
+[node name="Ramp3x" type="MeshInstance3D" node_paths=PackedStringArray("meshes", "play_mode_collider")]
 mesh = ExtResource("1_m45p1")
 script = ExtResource("2_e100t")
 meshes = [NodePath(".")]
 type = -1
+play_mode_collider = [NodePath("Area3D")]
 
 [node name="Col3" type="Area3D" parent="."]
 collision_layer = 4
@@ -35,3 +39,21 @@ shape = SubResource("SphereShape3D_d7vyh")
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="Col3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 2.9, 0)
 shape = SubResource("SphereShape3D_d7vyh")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(-1, -8.742278e-08, 0, 8.742278e-08, -1, 0, 0, 0, 1, 2.94, 2.94, 0)
+input_ray_pickable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, 0, 1, 2.025, 2.025, 0)
+shape = SubResource("BoxShape3D_e100t")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(0.9659258, 0.258819, 0, -0.258819, 0.9659258, 0, 0, 0, 1, 0.75, 2.76, 0)
+shape = SubResource("BoxShape3D_e100t")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(0.25881904, 0.96592593, 0, -0.96592593, 0.25881904, 0, 0, 0, 1, 2.76, 0.75, 0)
+shape = SubResource("BoxShape3D_e100t")
+
+[connection signal="input_event" from="Area3D" to="." method="_on_side_clicked"]

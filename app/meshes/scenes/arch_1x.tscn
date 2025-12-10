@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://c0kxbp6m7vcmq"]
+[gd_scene load_steps=9 format=3 uid="uid://c0kxbp6m7vcmq"]
 
 [ext_resource type="ArrayMesh" uid="uid://bt8kfqwrexm77" path="res://app/meshes/round/1_circle.obj" id="1_333fg"]
 [ext_resource type="Script" uid="uid://6uvdpe1t1uwl" path="res://app/blocks/side_blocks/side_block.gd" id="2_cb6b5"]
@@ -9,11 +9,24 @@ size = Vector3(0.5, 0.01, 0.5)
 [sub_resource type="SphereShape3D" id="SphereShape3D_333fg"]
 radius = 0.05
 
-[node name="Arch1x" type="MeshInstance3D" node_paths=PackedStringArray("meshes")]
+[sub_resource type="BoxShape3D" id="BoxShape3D_cb6b5"]
+size = Vector3(0.5, 0.02, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xye8h"]
+size = Vector3(0.65, 0.25, 0.02)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tuvwa"]
+size = Vector3(0.7, 0.7, 0.02)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cxlvu"]
+size = Vector3(0.4, 0.25, 0.02)
+
+[node name="Arch1x" type="MeshInstance3D" node_paths=PackedStringArray("meshes", "play_mode_collider")]
 mesh = ExtResource("1_333fg")
 script = ExtResource("2_cb6b5")
 meshes = [NodePath(".")]
 type = -1
+play_mode_collider = [NodePath("Area3D"), NodePath("Area3D2"), NodePath("Area3D3")]
 
 [node name="Col2" type="Area3D" parent="."]
 collision_layer = 2
@@ -59,3 +72,60 @@ shape = SubResource("SphereShape3D_333fg")
 [node name="CollisionShape3D10" type="CollisionShape3D" parent="Col2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.1, -0.4)
 shape = SubResource("SphereShape3D_333fg")
+
+[node name="Area3D" type="Area3D" parent="."]
+input_ray_pickable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, 0, 1, 0.675, 0.675, 0)
+shape = SubResource("BoxShape3D_cb6b5")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(0.9659258, 0.258819, 0, -0.258819, 0.9659258, 0, 0, 0, 1, 0.25, 0.92, 0)
+shape = SubResource("BoxShape3D_cb6b5")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(0.25881904, 0.96592593, 0, -0.96592593, 0.25881904, 0, 0, 0, 1, 0.92, 0.25, 0)
+shape = SubResource("BoxShape3D_cb6b5")
+
+[node name="Area3D2" type="Area3D" parent="."]
+input_ray_pickable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D2"]
+transform = Transform3D(0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, 0, 1, 0.59, 0.59, 0.49)
+shape = SubResource("BoxShape3D_xye8h")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D2"]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 0.35, 0.35, 0.49)
+shape = SubResource("BoxShape3D_tuvwa")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Area3D2"]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 0.2, 0.8, 0.49)
+shape = SubResource("BoxShape3D_cxlvu")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Area3D2"]
+transform = Transform3D(-4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 0, 0, 0, 1, 0.8, 0.2, 0.49)
+shape = SubResource("BoxShape3D_cxlvu")
+
+[node name="Area3D3" type="Area3D" parent="."]
+input_ray_pickable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D3"]
+transform = Transform3D(0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, 0, 1, 0.59, 0.59, -0.49)
+shape = SubResource("BoxShape3D_xye8h")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D3"]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 0.35, 0.35, -0.49)
+shape = SubResource("BoxShape3D_tuvwa")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Area3D3"]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 0.2, 0.8, -0.49)
+shape = SubResource("BoxShape3D_cxlvu")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Area3D3"]
+transform = Transform3D(-4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 0, 0, 0, 1, 0.8, 0.2, -0.49)
+shape = SubResource("BoxShape3D_cxlvu")
+
+[connection signal="input_event" from="Area3D" to="." method="_on_side_clicked"]
+[connection signal="input_event" from="Area3D2" to="." method="_on_side_clicked"]
+[connection signal="input_event" from="Area3D3" to="." method="_on_side_clicked"]

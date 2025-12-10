@@ -16,7 +16,7 @@ size = Vector3(1, 0.02, 1)
 mesh = ExtResource("1_dy872")
 script = ExtResource("2_v7nqq")
 meshes = [NodePath(".")]
-play_mode_collider = NodePath("Area3D")
+play_mode_collider = [NodePath("Area3D")]
 
 [node name="Col1" type="Area3D" parent="."]
 input_ray_pickable = false
