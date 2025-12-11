@@ -24,8 +24,9 @@ func get_connections() -> Array[NavigationPoint]:
 		if next_block != null:
 			var collider1: Area3D = Main.raycast(next_block, up, 2).get("collider")
 			if collider1 != null:
-				var collider2: Area3D = Main.raycast(collider1.get_child(0), -dir, 2).get("collider")
+				var dic: Dictionary = Main.raycast(collider1.get_child(0), -dir, 2)
+				var collider2: Area3D = dic.get("collider")
 				if collider2 != null:
-					connections.append(collider2.get_child(0))
+					connections.append(collider2.get_child(dic.get("shape")))
 		return connections
 	return []
