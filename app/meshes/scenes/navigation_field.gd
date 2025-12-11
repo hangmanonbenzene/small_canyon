@@ -44,7 +44,7 @@ func find_path_to(destination: NavigationField) -> Path:
 					new_path.append(point)
 					next_paths.append(new_path)
 					was_already_there.append(point)
-					if (point.type == NavigationPoint.MIDDLE_FLAT or point.type == NavigationPoint.MIDDLE_ROUND) and point.field == destination:
+					if point.middle and point.field == destination:
 						return new_path
 		if next_paths.is_empty(): return Path.new()
 		else: 

@@ -20,4 +20,4 @@ func set_destination(destination: NavigationField) -> void:
 
 func _process(_delta: float) -> void:
 	if not path.is_empty():
-		print(path.pop())
+		print(path.pop().coordinates.global_position)
