@@ -34,6 +34,7 @@ func _on_dont_delete_pressed() -> void:
 
 
 func load_levels() -> void:
+	if not DirAccess.dir_exists_absolute("user://created_levels"): DirAccess.make_dir_absolute("user://created_levels")
 	for level: String in DirAccess.get_files_at("user://created_levels"):
 		var new_button: Control = level_button.instantiate()
 		new_button.set_up(self, level)
