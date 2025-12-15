@@ -261,4 +261,3 @@ func create_blocks() -> void:
 func _input(event: InputEvent) -> void:
 	if current_mode and event.is_action_pressed("toggle_cam"):
 		environment.mode = environment.MODE3D if environment.mode == environment.MODE2D else environment.MODE2D
-	

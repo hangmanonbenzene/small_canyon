@@ -27,12 +27,12 @@ input_ray_pickable = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 shape = SubResource("BoxShape3D_2s86g")
 
-[node name="Col2" type="Area3D" parent="."]
+[node name="Middle" type="Area3D" parent="."]
 collision_layer = 2
 collision_mask = 2
 input_ray_pickable = false
 
-[node name="Middle" type="CollisionShape3D" parent="Col2" node_paths=PackedStringArray("coordinates", "field", "edge_connections")]
+[node name="Middle" type="CollisionShape3D" parent="Middle" node_paths=PackedStringArray("coordinates", "field", "edge_connections")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 shape = SubResource("BoxShape3D_2s86g")
 script = ExtResource("3_ap1f4")
@@ -40,61 +40,85 @@ coordinates = NodePath("MiddlePoint")
 field = NodePath("../../Area3D")
 middle = true
 flat = true
-edge_connections = [NodePath("../Edge1"), NodePath("../Edge2"), NodePath("../Edge3"), NodePath("../Edge4")]
+edge_connections = [NodePath("../../Edge1/Edge1"), NodePath("../../Edge2/Edge2"), NodePath("../../Edge3/Edge3"), NodePath("../../Edge4/Edge4")]
 
-[node name="MiddlePoint" type="Node3D" parent="Col2/Middle"]
+[node name="MiddlePoint" type="Node3D" parent="Middle/Middle"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 
-[node name="Edge1" type="CollisionShape3D" parent="Col2" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point")]
+[node name="Edge1" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 2
+input_ray_pickable = false
+
+[node name="Edge1" type="CollisionShape3D" parent="Edge1" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0.3)
 shape = SubResource("SphereShape3D_dy872")
 script = ExtResource("3_ap1f4")
 coordinates = NodePath("Point1")
 field = NodePath("../../Area3D")
 flat = true
-middle_connection = NodePath("../Middle")
-direction_point = NodePath("../Middle/MiddlePoint")
+middle_connection = NodePath("../../Middle/Middle")
+direction_point = NodePath("../../Middle/Middle/MiddlePoint")
+up_point = NodePath("../../Middle/Middle/MiddlePoint")
 
-[node name="Point1" type="Node3D" parent="Col2/Edge1"]
+[node name="Point1" type="Node3D" parent="Edge1/Edge1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0.2)
 
-[node name="Edge2" type="CollisionShape3D" parent="Col2" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point")]
+[node name="Edge2" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 2
+input_ray_pickable = false
+
+[node name="Edge2" type="CollisionShape3D" parent="Edge2" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, -0.3)
 shape = SubResource("SphereShape3D_dy872")
 script = ExtResource("3_ap1f4")
 coordinates = NodePath("Point2")
 field = NodePath("../../Area3D")
 flat = true
-middle_connection = NodePath("../Middle")
-direction_point = NodePath("../Middle/MiddlePoint")
+middle_connection = NodePath("../../Middle/Middle")
+direction_point = NodePath("../../Middle/Middle/MiddlePoint")
+up_point = NodePath("../../Middle/Middle/MiddlePoint")
 
-[node name="Point2" type="Node3D" parent="Col2/Edge2"]
+[node name="Point2" type="Node3D" parent="Edge2/Edge2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, -0.2)
 
-[node name="Edge3" type="CollisionShape3D" parent="Col2" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point")]
+[node name="Edge3" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 2
+input_ray_pickable = false
+
+[node name="Edge3" type="CollisionShape3D" parent="Edge3" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, -0.1, 0)
 shape = SubResource("SphereShape3D_dy872")
 script = ExtResource("3_ap1f4")
 coordinates = NodePath("Point3")
 field = NodePath("../../Area3D")
 flat = true
-middle_connection = NodePath("../Middle")
-direction_point = NodePath("../Middle/MiddlePoint")
+middle_connection = NodePath("../../Middle/Middle")
+direction_point = NodePath("../../Middle/Middle/MiddlePoint")
+up_point = NodePath("../../Middle/Middle/MiddlePoint")
 
-[node name="Point3" type="Node3D" parent="Col2/Edge3"]
+[node name="Point3" type="Node3D" parent="Edge3/Edge3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0.1, 0)
 
-[node name="Edge4" type="CollisionShape3D" parent="Col2" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point")]
+[node name="Edge4" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 2
+input_ray_pickable = false
+
+[node name="Edge4" type="CollisionShape3D" parent="Edge4" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, -0.1, 0)
 shape = SubResource("SphereShape3D_dy872")
 script = ExtResource("3_ap1f4")
 coordinates = NodePath("Point4")
 field = NodePath("../../Area3D")
 flat = true
-middle_connection = NodePath("../Middle")
-direction_point = NodePath("../Middle/MiddlePoint")
+middle_connection = NodePath("../../Middle/Middle")
+direction_point = NodePath("../../Middle/Middle/MiddlePoint")
+up_point = NodePath("../../Middle/Middle/MiddlePoint")
 
-[node name="Point4" type="Node3D" parent="Col2/Edge4"]
+[node name="Point4" type="Node3D" parent="Edge4/Edge4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0.1, 0)
 
 [node name="Area3D" type="Area3D" parent="." node_paths=PackedStringArray("side_block", "middle")]
@@ -102,7 +126,7 @@ process_mode = 4
 input_ray_pickable = false
 script = ExtResource("3_4s8k0")
 side_block = NodePath("..")
-middle = NodePath("../Col2/Middle")
+middle = NodePath("../Middle/Middle")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
