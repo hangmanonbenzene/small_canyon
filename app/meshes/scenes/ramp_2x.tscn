@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cmuayj5g0x0vf"]
+[gd_scene load_steps=8 format=3 uid="uid://cmuayj5g0x0vf"]
 
 [ext_resource type="ArrayMesh" uid="uid://bnmcc65eqrari" path="res://app/meshes/round/2_ramp.obj" id="1_udu8q"]
 [ext_resource type="Script" uid="uid://6uvdpe1t1uwl" path="res://app/blocks/side_blocks/side_block.gd" id="2_6wjfm"]
 [ext_resource type="Script" uid="uid://bt10m15n3aehi" path="res://app/meshes/scenes/navigation_field.gd" id="3_i11qv"]
+[ext_resource type="Script" uid="uid://d0uwx7hlt3fw0" path="res://app/meshes/scenes/navigation_point.gd" id="3_mjudv"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_udu8q"]
 size = Vector3(0.5, 0.01, 0.5)
@@ -20,33 +21,91 @@ meshes = [NodePath(".")]
 type = -1
 play_mode_collider = [NodePath("Area3D")]
 
-[node name="Col3" type="Area3D" parent="."]
+[node name="Middle" type="Node3D" parent="." node_paths=PackedStringArray("coordinates", "field", "edge_connections")]
+script = ExtResource("3_mjudv")
+coordinates = NodePath(".")
+field = NodePath("../Area3D")
+middle = true
+inverse = true
+edge_connections = [NodePath("../Edge 1/Edge 1"), NodePath("../Edge 2/Edge 2")]
+
+[node name="Center 1" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.5, 0)
+
+[node name="Center 2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.5, 0)
+
+[node name="Middle 1" type="Area3D" parent="."]
 collision_layer = 4
 collision_mask = 4
 input_ray_pickable = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Col3"]
+[node name="Middle 1" type="CollisionShape3D" parent="Middle 1"]
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.1, 1.5, 0)
 shape = SubResource("BoxShape3D_udu8q")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Col3"]
+[node name="Middle 2" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 4
+input_ray_pickable = false
+
+[node name="Middle 2" type="CollisionShape3D" parent="Middle 2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.1, 0)
 shape = SubResource("BoxShape3D_udu8q")
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="Col3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9, 0.1, 0)
-shape = SubResource("SphereShape3D_udu8q")
+[node name="Edge 1" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 4
+input_ray_pickable = false
 
-[node name="CollisionShape3D4" type="CollisionShape3D" parent="Col3"]
+[node name="Edge 1" type="CollisionShape3D" parent="Edge 1" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point", "center")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 1.9, 0)
 shape = SubResource("SphereShape3D_udu8q")
+script = ExtResource("3_mjudv")
+coordinates = NodePath("Point 1")
+field = NodePath("../../Area3D")
+inverse = true
+middle_connection = NodePath("../../Middle")
+direction_point = NodePath("../../Middle")
+up_point = NodePath("Up 1")
+center = NodePath("../../Center 1")
 
-[node name="Area3D" type="Area3D" parent="." node_paths=PackedStringArray("side_block")]
+[node name="Point 1" type="Node3D" parent="Edge 1/Edge 1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0.1, 0)
+
+[node name="Up 1" type="Node3D" parent="Edge 1/Edge 1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9, -0.4, 0)
+
+[node name="Edge 2" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 4
+input_ray_pickable = false
+
+[node name="Edge 2" type="CollisionShape3D" parent="Edge 2" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point", "center")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9, 0.1, 0)
+shape = SubResource("SphereShape3D_udu8q")
+script = ExtResource("3_mjudv")
+coordinates = NodePath("Point 2")
+field = NodePath("../../Area3D")
+inverse = true
+middle_connection = NodePath("../../Middle")
+direction_point = NodePath("../../Middle")
+up_point = NodePath("Up 2")
+center = NodePath("../../Center 2")
+
+[node name="Point 2" type="Node3D" parent="Edge 2/Edge 2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, -0.1, 0)
+
+[node name="Up 2" type="Node3D" parent="Edge 2/Edge 2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0.9, 0)
+
+[node name="Area3D" type="Area3D" parent="." node_paths=PackedStringArray("side_block", "middle")]
 process_mode = 4
 transform = Transform3D(-1, -8.742278e-08, 0, 8.742278e-08, -1, 0, 0, 0, 1, 1.96, 1.96, 0)
 input_ray_pickable = false
 script = ExtResource("3_i11qv")
 side_block = NodePath("..")
+middle = NodePath("../Middle")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, 0, 1, 1.35, 1.35, 0)

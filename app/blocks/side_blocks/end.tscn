@@ -41,12 +41,15 @@ input_ray_pickable = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 shape = SubResource("BoxShape3D_8tqd5")
 
+[node name="Center" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
 [node name="Middle" type="Area3D" parent="."]
 collision_layer = 2
 collision_mask = 2
 input_ray_pickable = false
 
-[node name="Middle" type="CollisionShape3D" parent="Middle" node_paths=PackedStringArray("coordinates", "field", "edge_connections")]
+[node name="Middle" type="CollisionShape3D" parent="Middle" node_paths=PackedStringArray("coordinates", "field", "edge_connections", "center")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 shape = SubResource("BoxShape3D_bixvn")
 script = ExtResource("3_ifj2m")
@@ -55,6 +58,7 @@ field = NodePath("../../Area3D")
 middle = true
 flat = true
 edge_connections = [NodePath("../../Edge1/Edge1"), NodePath("../../Edge2/Edge2"), NodePath("../../Edge3/Edge3"), NodePath("../../Edge4/Edge4")]
+center = NodePath("../../Center")
 
 [node name="MiddlePoint" type="Node3D" parent="Middle/Middle"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
@@ -64,7 +68,7 @@ collision_layer = 2
 collision_mask = 2
 input_ray_pickable = false
 
-[node name="Edge1" type="CollisionShape3D" parent="Edge1" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point")]
+[node name="Edge1" type="CollisionShape3D" parent="Edge1" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point", "center")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0.3)
 shape = SubResource("SphereShape3D_4n3wn")
 script = ExtResource("3_ifj2m")
@@ -74,6 +78,7 @@ flat = true
 middle_connection = NodePath("../../Middle/Middle")
 direction_point = NodePath("../../Middle/Middle/MiddlePoint")
 up_point = NodePath("../../Middle/Middle/MiddlePoint")
+center = NodePath("../../Center")
 
 [node name="Point1" type="Node3D" parent="Edge1/Edge1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0.2)
@@ -83,7 +88,7 @@ collision_layer = 2
 collision_mask = 2
 input_ray_pickable = false
 
-[node name="Edge2" type="CollisionShape3D" parent="Edge2" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point")]
+[node name="Edge2" type="CollisionShape3D" parent="Edge2" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point", "center")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, -0.3)
 shape = SubResource("SphereShape3D_4n3wn")
 script = ExtResource("3_ifj2m")
@@ -93,6 +98,7 @@ flat = true
 middle_connection = NodePath("../../Middle/Middle")
 direction_point = NodePath("../../Middle/Middle/MiddlePoint")
 up_point = NodePath("../../Middle/Middle/MiddlePoint")
+center = NodePath("../../Center")
 
 [node name="Point2" type="Node3D" parent="Edge2/Edge2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, -0.2)
@@ -102,7 +108,7 @@ collision_layer = 2
 collision_mask = 2
 input_ray_pickable = false
 
-[node name="Edge3" type="CollisionShape3D" parent="Edge3" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point")]
+[node name="Edge3" type="CollisionShape3D" parent="Edge3" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point", "center")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, -0.1, 0)
 shape = SubResource("SphereShape3D_4n3wn")
 script = ExtResource("3_ifj2m")
@@ -112,6 +118,7 @@ flat = true
 middle_connection = NodePath("../../Middle/Middle")
 direction_point = NodePath("../../Middle/Middle/MiddlePoint")
 up_point = NodePath("../../Middle/Middle/MiddlePoint")
+center = NodePath("../../Center")
 
 [node name="Point3" type="Node3D" parent="Edge3/Edge3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0.1, 0)
@@ -121,7 +128,7 @@ collision_layer = 2
 collision_mask = 2
 input_ray_pickable = false
 
-[node name="Edge4" type="CollisionShape3D" parent="Edge4" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point")]
+[node name="Edge4" type="CollisionShape3D" parent="Edge4" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point", "center")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, -0.1, 0)
 shape = SubResource("SphereShape3D_4n3wn")
 script = ExtResource("3_ifj2m")
@@ -131,6 +138,7 @@ flat = true
 middle_connection = NodePath("../../Middle/Middle")
 direction_point = NodePath("../../Middle/Middle/MiddlePoint")
 up_point = NodePath("../../Middle/Middle/MiddlePoint")
+center = NodePath("../../Center")
 
 [node name="Point4" type="Node3D" parent="Edge4/Edge4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0.1, 0)

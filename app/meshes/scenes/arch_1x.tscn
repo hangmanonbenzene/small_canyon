@@ -38,6 +38,9 @@ field = NodePath("../Area3D")
 middle = true
 edge_connections = [NodePath("../EO1/Out Edge1"), NodePath("../EO2/Out Edge2")]
 
+[node name="Center" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0)
+
 [node name="MO1" type="Area3D" parent="."]
 collision_layer = 2
 collision_mask = 2
@@ -61,7 +64,7 @@ collision_layer = 2
 collision_mask = 2
 input_ray_pickable = false
 
-[node name="Out Edge1" type="CollisionShape3D" parent="EO1" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point")]
+[node name="Out Edge1" type="CollisionShape3D" parent="EO1" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point", "center")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0.9, 0)
 shape = SubResource("SphereShape3D_333fg")
 script = ExtResource("3_tuvwa")
@@ -70,6 +73,7 @@ field = NodePath("../../Area3D")
 middle_connection = NodePath("../../Middle Out")
 direction_point = NodePath("../../Middle Out")
 up_point = NodePath("../../MO1/Middle Out 1")
+center = NodePath("../../Center")
 
 [node name="Point 1 Out" type="Node3D" parent="EO1/Out Edge1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0.1, 0)
@@ -79,7 +83,7 @@ collision_layer = 2
 collision_mask = 2
 input_ray_pickable = false
 
-[node name="Out Edge2" type="CollisionShape3D" parent="EO2" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point")]
+[node name="Out Edge2" type="CollisionShape3D" parent="EO2" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point", "center")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9, 0.1, 0)
 shape = SubResource("SphereShape3D_333fg")
 script = ExtResource("3_tuvwa")
@@ -88,6 +92,7 @@ field = NodePath("../../Area3D")
 middle_connection = NodePath("../../Middle Out")
 direction_point = NodePath("../../Middle Out")
 up_point = NodePath("../../MO2/Middle Out 2")
+center = NodePath("../../Center")
 
 [node name="Point 2 Out" type="Node3D" parent="EO2/Out Edge2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, -0.1, 0)
@@ -114,7 +119,7 @@ collision_layer = 2
 collision_mask = 2
 input_ray_pickable = false
 
-[node name="Right Edge1" type="CollisionShape3D" parent="ER1" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point")]
+[node name="Right Edge1" type="CollisionShape3D" parent="ER1" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point", "center")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0.5, 0.4)
 shape = SubResource("SphereShape3D_333fg")
 script = ExtResource("3_tuvwa")
@@ -123,6 +128,7 @@ field = NodePath("../../Area3D2")
 middle_connection = NodePath("../../MR/Middle Right")
 direction_point = NodePath("../../MR/Middle Right/Middle Point R")
 up_point = NodePath("../../MR/Middle Right/Middle Point R")
+center = NodePath("../../Center")
 
 [node name="Point 1 R" type="Node3D" parent="ER1/Right Edge1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0, 0.1)
@@ -132,7 +138,7 @@ collision_layer = 2
 collision_mask = 2
 input_ray_pickable = false
 
-[node name="Right Edge2" type="CollisionShape3D" parent="ER2" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point")]
+[node name="Right Edge2" type="CollisionShape3D" parent="ER2" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point", "center")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.1, 0.4)
 shape = SubResource("SphereShape3D_333fg")
 script = ExtResource("3_tuvwa")
@@ -141,6 +147,7 @@ field = NodePath("../../Area3D2")
 middle_connection = NodePath("../../MR/Middle Right")
 direction_point = NodePath("../../MR/Middle Right/Middle Point R")
 up_point = NodePath("../../MR/Middle Right/Middle Point R")
+center = NodePath("../../Center")
 
 [node name="Point 2 R" type="Node3D" parent="ER2/Right Edge2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0.1)
@@ -167,7 +174,7 @@ collision_layer = 2
 collision_mask = 2
 input_ray_pickable = false
 
-[node name="Left Edge1" type="CollisionShape3D" parent="EL1" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point")]
+[node name="Left Edge1" type="CollisionShape3D" parent="EL1" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point", "center")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0.5, -0.4)
 shape = SubResource("SphereShape3D_333fg")
 script = ExtResource("3_tuvwa")
@@ -176,6 +183,7 @@ field = NodePath("../../Area3D3")
 middle_connection = NodePath("../../ML/Middle Left")
 direction_point = NodePath("../../ML/Middle Left/Middle Point L")
 up_point = NodePath("../../ML/Middle Left/Middle Point L")
+center = NodePath("../../Center")
 
 [node name="Point 1 L" type="Node3D" parent="EL1/Left Edge1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0, -0.1)
@@ -185,7 +193,7 @@ collision_layer = 2
 collision_mask = 2
 input_ray_pickable = false
 
-[node name="Left Edge2" type="CollisionShape3D" parent="EL2" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point")]
+[node name="Left Edge2" type="CollisionShape3D" parent="EL2" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point", "center")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.1, -0.4)
 shape = SubResource("SphereShape3D_333fg")
 script = ExtResource("3_tuvwa")
@@ -194,6 +202,7 @@ field = NodePath("../../Area3D3")
 middle_connection = NodePath("../../ML/Middle Left")
 direction_point = NodePath("../../ML/Middle Left/Middle Point L")
 up_point = NodePath("../../ML/Middle Left/Middle Point L")
+center = NodePath("../../Center")
 
 [node name="Point 2 L" type="Node3D" parent="EL2/Left Edge2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, -0.1)
