@@ -22,11 +22,12 @@ func get_connections() -> Array[NavigationPoint]:
 		
 		var dir: Vector3i = (coordinates.global_position - direction_point.global_position).normalized()
 		var up: Vector3i = -((up_point.global_position - field.side_block.block.global_position).normalized())
+		var inverse_correction: Vector3i = up if inverse else Vector3i.ZERO
 		
-		var next_block: ConnectionPoint = field.side_block.block.world3d.connection_points.get(Main.get_position(field.side_block.block) + dir - up)
+		var next_block: ConnectionPoint = field.side_block.block.world3d.connection_points.get(Main.get_position(field.side_block.block) + dir - up + inverse_correction)
 		var mask: int = 4
 		if next_block == null:
-			next_block = field.side_block.block.world3d.connection_points.get(Main.get_position(field.side_block.block) + dir)
+			next_block = field.side_block.block.world3d.connection_points.get(Main.get_position(field.side_block.block) + dir + inverse_correction)
 			mask = 2
 			up = -up
 		
