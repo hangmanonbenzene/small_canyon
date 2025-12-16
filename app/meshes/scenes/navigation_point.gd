@@ -21,15 +21,27 @@ func get_connections() -> Array[NavigationPoint]:
 		connections.append(middle_connection)
 		
 		var dir: Vector3i = (coordinates.global_position - direction_point.global_position).normalized()
-		var up: Vector3i = (up_point.global_position - field.side_block.block.global_position).normalized()
-		var next_block_coordinates: Vector3i = Main.get_position(field.side_block.block) + dir
-		var next_block: ConnectionPoint = field.side_block.block.world3d.connection_points.get(next_block_coordinates)
-		if next_block != null:
-			var dic1: Dictionary = Main.raycast(next_block, up, 2)
+		var up: Vector3i = -((up_point.global_position - field.side_block.block.global_position).normalized())
+		
+		var next_block: ConnectionPoint = field.side_block.block.world3d.connection_points.get(Main.get_position(field.side_block.block) + dir - up)
+		var mask: int = 4
+		if next_block == null:
+			next_block = field.side_block.block.world3d.connection_points.get(Main.get_position(field.side_block.block) + dir)
+			mask = 2
+			up = -up
+		
+		var connection: NavigationPoint = get_connection(next_block, up, dir, mask)
+		if connection != null: connections.append(connection)
+		
+		return connections
+
+func get_connection(next_block: ConnectionPoint, up: Vector3i, dir: Vector3i, mask: int) -> NavigationPoint:
+	if next_block != null:
+			var dic1: Dictionary = Main.raycast(next_block, up, mask)
 			var collider1: Area3D = dic1.get("collider")
 			if collider1 != null:
-				var dic2: Dictionary = Main.raycast(collider1.get_child(0), -dir, 2)
+				var dic2: Dictionary = Main.raycast(collider1.get_child(0), -dir, mask)
 				var collider2: Area3D = dic2.get("collider")
 				if collider2 != null:
-					connections.append(collider2.get_child(0))
-		return connections
+					return collider2.get_child(0)
+	return null
