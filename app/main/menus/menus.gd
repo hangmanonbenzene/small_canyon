@@ -34,3 +34,7 @@ func change_level_mode(edit_mode: bool) -> void:
 
 func change_selected_block_type(new_block_type: int) -> void:
 	world_3d.change_selected_block_type(new_block_type)
+
+func toggle_edit_menu(on: bool) -> void:
+	if on: world_3d.environment.mode = MyEnvirement.PAUSE2D if world_3d.environment.mode == MyEnvirement.MODE2D else MyEnvirement.PAUSE3D
+	else: world_3d.environment.mode = MyEnvirement.MODE2D if world_3d.environment.mode == MyEnvirement.PAUSE2D else MyEnvirement.MODE3D

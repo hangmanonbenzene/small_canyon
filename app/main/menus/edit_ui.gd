@@ -11,9 +11,11 @@ var level_name: String
 
 func _on_edit_pause_pressed() -> void:
 	edit_pause.visible = true
+	menus.toggle_edit_menu(true)
 	
 func _on_edit_pause_continue_pressed() -> void:
 	edit_pause.visible = false
+	menus.toggle_edit_menu(false)
 
 func _on_edit_pause_save_and_play_pressed() -> void:
 	if save():
