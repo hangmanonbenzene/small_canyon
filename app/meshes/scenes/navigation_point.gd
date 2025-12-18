@@ -28,9 +28,13 @@ func get_connections() -> Array[NavigationPoint]:
 		var next_block: ConnectionPoint = field.side_block.block.world3d.connection_points.get(Main.get_position(center) + dir - up + inverse_correction)
 		var mask: int = 4
 		if next_block == null:
+			var _debug: Vector3i = Main.get_position(center) + dir + inverse_correction
 			next_block = field.side_block.block.world3d.connection_points.get(Main.get_position(center) + dir + inverse_correction)
 			mask = 2
 			up = -up
+			if next_block == null:
+				next_block = field.side_block.block.world3d.connection_points.get(Main.get_position(center) + inverse_correction)
+				mask = 8
 		
 		var connection: NavigationPoint = get_connection(next_block, up, dir, mask)
 		if connection != null: connections.append(connection)

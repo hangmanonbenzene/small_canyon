@@ -31,10 +31,6 @@ func _process(delta: float) -> void:
 			going_to = dest
 		else:
 			going_to = dest
-		if (not going_to.middle) and (not coming_from.middle):
-			path.pop()
-			coming_from = going_to
-			going_to = path.get_next()
 		
 		var start_position: Vector3 = global_position
 		var end_position: Vector3 = going_to.coordinates.global_position
