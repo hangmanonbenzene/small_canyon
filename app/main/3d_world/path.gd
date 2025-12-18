@@ -17,6 +17,9 @@ func back() -> NavigationPoint:
 func pop() -> NavigationPoint:
 	return path.pop_front()
 
+func get_next() -> NavigationPoint:
+	return path.front()
+
 func create_copy() -> Path:
 	var new_path: Path = Path.new()
 	for point in path:
