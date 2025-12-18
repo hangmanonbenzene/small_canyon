@@ -37,7 +37,7 @@ func _ready() -> void:
 
 func reset_camera() -> void:
 	camera_control.rotation_degrees = Vector3(-35.26438968, 45, 0)
-	camera_control.global_position = Vector3i(10, 10, 10)
+	camera_control.global_position = Vector3i(100, 100, 100)
 	camera.projection = Camera3D.PROJECTION_ORTHOGONAL
 
 func _physics_process(_delta: float) -> void:
@@ -77,5 +77,29 @@ func _physics_process(_delta: float) -> void:
 		if velocity.length() > 0:
 			camera_control.velocity = velocity.normalized() * speed3d
 			camera_control.move_and_slide()
-	elif mode == PLAY:
-		pass
+
+var target: Node3D
+var follow_speed := 10.0
+
+func _process(delta: float) -> void:
+	if not target:
+		return
+	
+	# Convert target position into camera-local space
+	var local_target_pos: Vector3 = camera_control.global_transform.affine_inverse() * target.global_transform.origin
+
+	# We only care about X and Y (camera space)
+	var local_offset: Vector3 = Vector3(
+		local_target_pos.x,
+		local_target_pos.y,
+		0.0
+	)
+
+	# Convert back to world space
+	var desired_global_pos: Vector3 = camera_control.global_transform * local_offset
+
+	# Smooth follow
+	camera_control.global_transform.origin = camera_control.global_transform.origin.lerp(
+		desired_global_pos,
+		follow_speed * delta
+	)

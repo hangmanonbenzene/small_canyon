@@ -30,8 +30,11 @@ var current_mode: bool:
 		environment.mode = environment.MODE2D if value else environment.PLAY
 		for object in objects:
 			object.current_mode = Block.EDIT if value else Block.PLAY
-		if not value:
+		if value:
+			environment.target = null
+		else:
 			player_position = start_position.player if start_position != null else null
+			environment.target = player_position
 		if player_position != null:
 			player_position.reset()
 
