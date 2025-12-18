@@ -58,11 +58,14 @@ flat = true
 inverse = true
 middle_connection = NodePath("../../Middle/Middle")
 direction_point = NodePath("../../Middle/Middle/Middle Point")
-up_point = NodePath("../../Middle/Middle/Middle Point")
+up_point = NodePath("Up")
 center = NodePath("../../Center")
 
 [node name="Point" type="Node3D" parent="Edge/Edge"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0.1, 0)
+
+[node name="Up" type="Node3D" parent="Edge/Edge"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9, -0.4, 0)
 
 [node name="Area3D" type="Area3D" parent="." node_paths=PackedStringArray("side_block")]
 process_mode = 4

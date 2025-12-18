@@ -39,13 +39,13 @@ func get_connections() -> Array[NavigationPoint]:
 
 func get_connection(next_block: ConnectionPoint, up: Vector3i, dir: Vector3i, mask: int) -> NavigationPoint:
 	if next_block != null:
-			var dic1: Dictionary = Main.raycast(next_block, up, mask)
-			var collider1: Area3D = dic1.get("collider")
-			if collider1 != null:
-				var dic2: Dictionary = Main.raycast(collider1.get_child(0), -dir, mask)
-				var collider2: Area3D = dic2.get("collider")
-				if collider2 != null:
-					return collider2.get_child(0)
+		var dic1: Dictionary = Main.raycast(next_block, up, mask)
+		var collider1: Area3D = dic1.get("collider")
+		if collider1 != null:
+			var dic2: Dictionary = Main.raycast(collider1.get_child(0), -dir, mask)
+			var collider2: Area3D = dic2.get("collider")
+			if collider2 != null:
+				return collider2.get_child(0)
 	return null
 
 
