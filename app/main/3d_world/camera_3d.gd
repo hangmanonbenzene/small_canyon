@@ -25,7 +25,7 @@ var mode: int = DISABLED:
 				mode = value
 			PLAY:
 				mode = value
-				camera.size = 7
+				camera.size = 10
 				reset_camera()
 			PAUSE2D:
 				mode = value
@@ -79,7 +79,7 @@ func _physics_process(_delta: float) -> void:
 			camera_control.move_and_slide()
 
 var target: Node3D
-var follow_speed := 10.0
+var follow_speed := 5.0
 
 func _process(delta: float) -> void:
 	if not target:
