@@ -26,6 +26,8 @@ var mode: int = DISABLED:
 			MODE3D:
 				if mode != PAUSE3D:
 					camera.size = 7
+					camera_control.rotation_degrees = Vector3(0, 45, 0)
+					camera.rotation_degrees = Vector3(-35.26438968, 0, 0)
 					camera_control.global_position = Vector3i(10, 10, 10)
 					camera.projection = Camera3D.PROJECTION_PERSPECTIVE
 				mode = value
@@ -42,8 +44,8 @@ func _ready() -> void:
 	reset_camera()
 
 func reset_camera() -> void:
-	camera_control.rotation_degrees = Vector3(0, 45, 0)
-	camera.rotation_degrees = Vector3(-35.26438968, 0, 0)
+	camera_control.rotation_degrees = Vector3(-35.26438968, 45, 0)
+	camera.rotation_degrees = Vector3.ZERO
 	camera_control.global_position = Vector3i(100, 100, 100)
 	camera.projection = Camera3D.PROJECTION_ORTHOGONAL
 
