@@ -54,6 +54,5 @@ func get_connection(next_block: ConnectionPoint, up: Vector3i, dir: Vector3i, ma
 				return collider2.get_child(0)
 	return null
 
-
 func _on_edge_input_event(_camera: Node, event: InputEvent, _event_position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == 1: print("drgjhfgikfdjgdröl")

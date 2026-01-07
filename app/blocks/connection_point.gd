@@ -2,6 +2,7 @@ class_name ConnectionPoint extends CollisionShape3D
 
 @export var block: Block
 
+var coordinates_2D: Vector2i
 var depth: int
 var block_behind_this: ConnectionPoint
 
