@@ -1,5 +1,10 @@
 class_name MyEnvirement extends Node3D
 
+@export var mouse_sensitivity := 0.0025
+@export var pitch_limit := 80.0
+var yaw := 0.0
+var pitch := 0.0
+
 @export var camera: Camera3D
 @export var camera_control: CharacterBody3D
 var speed2d: float = 1.0
@@ -21,6 +26,7 @@ var mode: int = DISABLED:
 			MODE3D:
 				if mode != PAUSE3D:
 					camera.size = 7
+					camera_control.global_position = Vector3i(10, 10, 10)
 					camera.projection = Camera3D.PROJECTION_PERSPECTIVE
 				mode = value
 			PLAY:
@@ -36,7 +42,8 @@ func _ready() -> void:
 	reset_camera()
 
 func reset_camera() -> void:
-	camera_control.rotation_degrees = Vector3(-35.26438968, 45, 0)
+	camera_control.rotation_degrees = Vector3(0, 45, 0)
+	camera.rotation_degrees = Vector3(-35.26438968, 0, 0)
 	camera_control.global_position = Vector3i(100, 100, 100)
 	camera.projection = Camera3D.PROJECTION_ORTHOGONAL
 
@@ -103,3 +110,15 @@ func _process(delta: float) -> void:
 		desired_global_pos,
 		follow_speed * delta
 	)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if mode == MODE3D and event is InputEventMouseMotion:
+		# apply raw delta * sensitivity
+		yaw -= event.relative.x * mouse_sensitivity
+		pitch -= event.relative.y * mouse_sensitivity
+		
+		# clamp vertical
+		pitch = clamp(pitch, deg_to_rad(-pitch_limit), deg_to_rad(pitch_limit))
+		
+		camera_control.rotation.y = yaw
+		camera.rotation.x = pitch
