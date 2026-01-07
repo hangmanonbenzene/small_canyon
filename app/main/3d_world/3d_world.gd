@@ -188,7 +188,7 @@ func create_block_preview(direction: Vector3i, length: int) -> void:
 			new_block.set_new_position(new_position, direction, (length - 1) % 4)
 			for space in new_block.blocks_space():
 				if space in blocked_space:
-					new_block.change_mode(Block.INVALID)
+					new_block.current_mode = Block.INVALID
 					break
 		elif current_length > 0 and length > 0:
 			if current_direction != direction or current_length != length:

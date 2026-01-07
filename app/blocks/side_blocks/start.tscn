@@ -34,6 +34,7 @@ player = NodePath("Player")
 play_mode_collider = [NodePath("Area3D")]
 
 [node name="Player" type="Node3D" parent="." node_paths=PackedStringArray("standing_on", "starting_on", "going_to", "coming_from")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
 script = ExtResource("3_3kgjr")
 standing_on = NodePath("../Area3D")
 starting_on = NodePath("../Area3D")
@@ -41,13 +42,13 @@ going_to = NodePath("../Middle/Middle")
 coming_from = NodePath("../Middle/Middle")
 
 [node name="PlayerMesh" type="MeshInstance3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, -0.75)
 material_override = SubResource("StandardMaterial3D_kpoqn")
 mesh = SubResource("CapsuleMesh_s4gr6")
 skeleton = NodePath("../..")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, -1, -8.742278e-08, 0, 8.742278e-08, -1, 0, 0, -1)
 light_energy = 1.75
 light_negative = true
 spot_range = 1.5

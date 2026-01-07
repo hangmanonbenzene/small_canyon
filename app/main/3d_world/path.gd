@@ -18,6 +18,7 @@ func pop() -> NavigationPoint:
 	return path.pop_front()
 
 func get_next() -> NavigationPoint:
+	if path.is_empty(): return null
 	return path.front()
 
 func create_copy() -> Path:

@@ -6,6 +6,8 @@ class_name NavigationPoint extends Node3D
 @export var middle: bool
 @export var flat: bool
 @export var inverse: bool
+@export var flat_round: bool
+@export var walk_inverse: bool
 
 @export var middle_connection: NavigationPoint
 @export var edge_connections: Array[NavigationPoint]

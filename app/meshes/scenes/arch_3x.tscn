@@ -39,37 +39,44 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0.5, 0)
 [node name="Center U" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.5, 0)
 
-[node name="Middle O" type="Node3D" parent="." node_paths=PackedStringArray("coordinates", "field", "edge_connections")]
+[node name="Middle O" type="Node3D" parent="." node_paths=PackedStringArray("coordinates", "field", "edge_connections", "rotation_point")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 3, 0)
 script = ExtResource("3_oiemg")
 coordinates = NodePath(".")
 field = NodePath("../Area3D")
 middle = true
 edge_connections = [NodePath("../DEO/DEO"), NodePath("../UEO/UEO")]
+rotation_point = NodePath("../Rotation Point")
 
-[node name="Middle I" type="Node3D" parent="." node_paths=PackedStringArray("coordinates", "field", "edge_connections")]
+[node name="Middle I" type="Node3D" parent="." node_paths=PackedStringArray("coordinates", "field", "edge_connections", "rotation_point")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 0)
 script = ExtResource("3_oiemg")
 coordinates = NodePath(".")
 field = NodePath("../Area3D2")
 middle = true
+walk_inverse = true
 edge_connections = [NodePath("../DEI/DEI"), NodePath("../UEI/UEI")]
+rotation_point = NodePath("../Rotation Point")
 
-[node name="Middle R" type="Node3D" parent="." node_paths=PackedStringArray("coordinates", "field", "edge_connections")]
+[node name="Middle R" type="Node3D" parent="." node_paths=PackedStringArray("coordinates", "field", "edge_connections", "rotation_point")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 2.5, -0.5)
 script = ExtResource("3_oiemg")
 coordinates = NodePath(".")
 field = NodePath("../Area3D4")
 middle = true
+flat_round = true
 edge_connections = [NodePath("../DER/DER"), NodePath("../UER/UER")]
+rotation_point = NodePath("../Rotation Point2")
 
-[node name="Middle L" type="Node3D" parent="." node_paths=PackedStringArray("coordinates", "field", "edge_connections")]
+[node name="Middle L" type="Node3D" parent="." node_paths=PackedStringArray("coordinates", "field", "edge_connections", "rotation_point")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 2.5, 0.5)
 script = ExtResource("3_oiemg")
 coordinates = NodePath(".")
 field = NodePath("../Area3D3")
 middle = true
+flat_round = true
 edge_connections = [NodePath("../DEL/DEL"), NodePath("../UEL/UEL")]
+rotation_point = NodePath("../Rotation Point3")
 
 [node name="DMO" type="Area3D" parent="."]
 collision_layer = 2
@@ -85,13 +92,14 @@ collision_layer = 2
 collision_mask = 2
 input_ray_pickable = false
 
-[node name="DEO" type="CollisionShape3D" parent="DEO" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point", "center")]
+[node name="DEO" type="CollisionShape3D" parent="DEO" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "rotation_point", "direction_point", "up_point", "center")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9, 0.1, 0)
 shape = SubResource("SphereShape3D_jaive")
 script = ExtResource("3_oiemg")
 coordinates = NodePath("Point DEO")
 field = NodePath("../../Area3D")
 middle_connection = NodePath("../../Middle O")
+rotation_point = NodePath("../../Rotation Point")
 direction_point = NodePath("../../Middle O")
 up_point = NodePath("../../DMO/DMO")
 center = NodePath("../../Center D")
@@ -113,13 +121,14 @@ collision_layer = 2
 collision_mask = 2
 input_ray_pickable = false
 
-[node name="UEO" type="CollisionShape3D" parent="UEO" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point", "center")]
+[node name="UEO" type="CollisionShape3D" parent="UEO" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "rotation_point", "direction_point", "up_point", "center")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 2.9, 0)
 shape = SubResource("SphereShape3D_jaive")
 script = ExtResource("3_oiemg")
 coordinates = NodePath("Point UEO")
 field = NodePath("../../Area3D")
 middle_connection = NodePath("../../Middle O")
+rotation_point = NodePath("../../Rotation Point")
 direction_point = NodePath("../../Middle O")
 up_point = NodePath("../../UMO/UMO")
 center = NodePath("../../Center U")
@@ -141,13 +150,15 @@ collision_layer = 2
 collision_mask = 2
 input_ray_pickable = false
 
-[node name="DEI" type="CollisionShape3D" parent="DEI" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point", "center")]
+[node name="DEI" type="CollisionShape3D" parent="DEI" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "rotation_point", "direction_point", "up_point", "center")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1, 0.1, 0)
 shape = SubResource("SphereShape3D_jaive")
 script = ExtResource("3_oiemg")
 coordinates = NodePath("Point DEI")
 field = NodePath("../../Area3D2")
+walk_inverse = true
 middle_connection = NodePath("../../Middle I")
+rotation_point = NodePath("../../Rotation Point")
 direction_point = NodePath("../../Middle I")
 up_point = NodePath("../../DMI/DMI")
 center = NodePath("../../Center D")
@@ -169,13 +180,15 @@ collision_layer = 2
 collision_mask = 2
 input_ray_pickable = false
 
-[node name="UEI" type="CollisionShape3D" parent="UEI" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point", "center")]
+[node name="UEI" type="CollisionShape3D" parent="UEI" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "rotation_point", "direction_point", "up_point", "center")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 2.1, 0)
 shape = SubResource("SphereShape3D_jaive")
 script = ExtResource("3_oiemg")
 coordinates = NodePath("Point UEI")
 field = NodePath("../../Area3D2")
+walk_inverse = true
 middle_connection = NodePath("../../Middle I")
+rotation_point = NodePath("../../Rotation Point")
 direction_point = NodePath("../../Middle I")
 up_point = NodePath("../../UMI/UMI")
 center = NodePath("../../Center U")
@@ -197,13 +210,15 @@ collision_layer = 2
 collision_mask = 2
 input_ray_pickable = false
 
-[node name="DER" type="CollisionShape3D" parent="DER" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point", "center")]
+[node name="DER" type="CollisionShape3D" parent="DER" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "rotation_point", "direction_point", "up_point", "center")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0.1, -0.4)
 shape = SubResource("SphereShape3D_jaive")
 script = ExtResource("3_oiemg")
 coordinates = NodePath("Point DER")
 field = NodePath("../../Area3D4")
+flat_round = true
 middle_connection = NodePath("../../Middle R")
+rotation_point = NodePath("../../Rotation Point2")
 direction_point = NodePath("../../Middle R")
 up_point = NodePath("../../DMR/DMR")
 center = NodePath("../../Center D")
@@ -225,13 +240,15 @@ collision_layer = 2
 collision_mask = 2
 input_ray_pickable = false
 
-[node name="UER" type="CollisionShape3D" parent="UER" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point", "center")]
+[node name="UER" type="CollisionShape3D" parent="UER" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "rotation_point", "direction_point", "up_point", "center")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 2.5, -0.4)
 shape = SubResource("SphereShape3D_jaive")
 script = ExtResource("3_oiemg")
 coordinates = NodePath("Point UER")
 field = NodePath("../../Area3D4")
+flat_round = true
 middle_connection = NodePath("../../Middle R")
+rotation_point = NodePath("../../Rotation Point2")
 direction_point = NodePath("../../Middle R")
 up_point = NodePath("../../UMR/UMR")
 center = NodePath("../../Center U")
@@ -253,13 +270,15 @@ collision_layer = 2
 collision_mask = 2
 input_ray_pickable = false
 
-[node name="DEL" type="CollisionShape3D" parent="DEL" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point", "center")]
+[node name="DEL" type="CollisionShape3D" parent="DEL" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "rotation_point", "direction_point", "up_point", "center")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0.1, 0.4)
 shape = SubResource("SphereShape3D_jaive")
 script = ExtResource("3_oiemg")
 coordinates = NodePath("Point DEL")
 field = NodePath("../../Area3D3")
+flat_round = true
 middle_connection = NodePath("../../Middle L")
+rotation_point = NodePath("../../Rotation Point3")
 direction_point = NodePath("../../Middle L")
 up_point = NodePath("../../DML/DML")
 center = NodePath("../../Center D")
@@ -281,13 +300,15 @@ collision_layer = 2
 collision_mask = 2
 input_ray_pickable = false
 
-[node name="UEL" type="CollisionShape3D" parent="UEL" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point", "center")]
+[node name="UEL" type="CollisionShape3D" parent="UEL" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "rotation_point", "direction_point", "up_point", "center")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 2.5, 0.4)
 shape = SubResource("SphereShape3D_jaive")
 script = ExtResource("3_oiemg")
 coordinates = NodePath("Point UEL")
 field = NodePath("../../Area3D3")
+flat_round = true
 middle_connection = NodePath("../../Middle L")
+rotation_point = NodePath("../../Rotation Point3")
 direction_point = NodePath("../../Middle L")
 up_point = NodePath("../../UML/UML")
 center = NodePath("../../Center U")
@@ -387,6 +408,14 @@ shape = SubResource("BoxShape3D_bllaw")
 [node name="CollisionShape3D5" type="CollisionShape3D" parent="Area3D4"]
 transform = Transform3D(0.25881898, -0.9659258, 0, 0.9659258, 0.25881898, 0, 0, 0, 1, 0.88, 2.26, -0.49)
 shape = SubResource("BoxShape3D_bllaw")
+
+[node name="Rotation Point" type="Node3D" parent="."]
+
+[node name="Rotation Point2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+
+[node name="Rotation Point3" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
 
 [connection signal="input_event" from="Area3D" to="Area3D" method="_on_side_clicked"]
 [connection signal="input_event" from="Area3D2" to="Area3D2" method="_on_side_clicked"]

@@ -30,13 +30,14 @@ meshes = [NodePath(".")]
 type = -1
 play_mode_collider = [NodePath("Area3D"), NodePath("Area3D2"), NodePath("Area3D3")]
 
-[node name="Middle Out" type="Node3D" parent="." node_paths=PackedStringArray("coordinates", "field", "edge_connections")]
+[node name="Middle Out" type="Node3D" parent="." node_paths=PackedStringArray("coordinates", "field", "edge_connections", "rotation_point")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0)
 script = ExtResource("3_tuvwa")
 coordinates = NodePath(".")
 field = NodePath("../Area3D")
 middle = true
 edge_connections = [NodePath("../EO1/Out Edge1"), NodePath("../EO2/Out Edge2")]
+rotation_point = NodePath("../Rotation Point")
 
 [node name="Center" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0)
@@ -64,13 +65,14 @@ collision_layer = 2
 collision_mask = 2
 input_ray_pickable = false
 
-[node name="Out Edge1" type="CollisionShape3D" parent="EO1" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point", "center")]
+[node name="Out Edge1" type="CollisionShape3D" parent="EO1" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "rotation_point", "direction_point", "up_point", "center")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0.9, 0)
 shape = SubResource("SphereShape3D_333fg")
 script = ExtResource("3_tuvwa")
 coordinates = NodePath("Point 1 Out")
 field = NodePath("../../Area3D")
 middle_connection = NodePath("../../Middle Out")
+rotation_point = NodePath("../../Rotation Point")
 direction_point = NodePath("../../Middle Out")
 up_point = NodePath("../../MO1/Middle Out 1")
 center = NodePath("../../Center")
@@ -83,13 +85,14 @@ collision_layer = 2
 collision_mask = 2
 input_ray_pickable = false
 
-[node name="Out Edge2" type="CollisionShape3D" parent="EO2" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point", "center")]
+[node name="Out Edge2" type="CollisionShape3D" parent="EO2" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "rotation_point", "direction_point", "up_point", "center")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9, 0.1, 0)
 shape = SubResource("SphereShape3D_333fg")
 script = ExtResource("3_tuvwa")
 coordinates = NodePath("Point 2 Out")
 field = NodePath("../../Area3D")
 middle_connection = NodePath("../../Middle Out")
+rotation_point = NodePath("../../Rotation Point")
 direction_point = NodePath("../../Middle Out")
 up_point = NodePath("../../MO2/Middle Out 2")
 center = NodePath("../../Center")
@@ -102,14 +105,16 @@ collision_layer = 2
 collision_mask = 2
 input_ray_pickable = false
 
-[node name="Middle Right" type="CollisionShape3D" parent="MR" node_paths=PackedStringArray("coordinates", "field", "edge_connections")]
+[node name="Middle Right" type="CollisionShape3D" parent="MR" node_paths=PackedStringArray("coordinates", "field", "edge_connections", "rotation_point")]
 transform = Transform3D(1.9106855e-15, -4.371139e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, -4.371139e-08, 0.5, 0.5, 0.4)
 shape = SubResource("BoxShape3D_333fg")
 script = ExtResource("3_tuvwa")
 coordinates = NodePath("Middle Point R")
 field = NodePath("../../Area3D2")
 middle = true
+flat_round = true
 edge_connections = [NodePath("../../ER1/Right Edge1"), NodePath("../../ER2/Right Edge2")]
+rotation_point = NodePath("../../Rotation Point3")
 
 [node name="Middle Point R" type="Node3D" parent="MR/Middle Right"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
@@ -119,13 +124,15 @@ collision_layer = 2
 collision_mask = 2
 input_ray_pickable = false
 
-[node name="Right Edge1" type="CollisionShape3D" parent="ER1" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point", "center")]
+[node name="Right Edge1" type="CollisionShape3D" parent="ER1" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "rotation_point", "direction_point", "up_point", "center")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0.5, 0.4)
 shape = SubResource("SphereShape3D_333fg")
 script = ExtResource("3_tuvwa")
 coordinates = NodePath("Point 1 R")
 field = NodePath("../../Area3D2")
+flat_round = true
 middle_connection = NodePath("../../MR/Middle Right")
+rotation_point = NodePath("../../Rotation Point3")
 direction_point = NodePath("../../MR/Middle Right/Middle Point R")
 up_point = NodePath("../../MR/Middle Right/Middle Point R")
 center = NodePath("../../Center")
@@ -138,13 +145,15 @@ collision_layer = 2
 collision_mask = 2
 input_ray_pickable = false
 
-[node name="Right Edge2" type="CollisionShape3D" parent="ER2" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point", "center")]
+[node name="Right Edge2" type="CollisionShape3D" parent="ER2" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "rotation_point", "direction_point", "up_point", "center")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.1, 0.4)
 shape = SubResource("SphereShape3D_333fg")
 script = ExtResource("3_tuvwa")
 coordinates = NodePath("Point 2 R")
 field = NodePath("../../Area3D2")
+flat_round = true
 middle_connection = NodePath("../../MR/Middle Right")
+rotation_point = NodePath("../../Rotation Point3")
 direction_point = NodePath("../../MR/Middle Right/Middle Point R")
 up_point = NodePath("../../MR/Middle Right/Middle Point R")
 center = NodePath("../../Center")
@@ -157,14 +166,16 @@ collision_layer = 2
 collision_mask = 2
 input_ray_pickable = false
 
-[node name="Middle Left" type="CollisionShape3D" parent="ML" node_paths=PackedStringArray("coordinates", "field", "edge_connections")]
+[node name="Middle Left" type="CollisionShape3D" parent="ML" node_paths=PackedStringArray("coordinates", "field", "edge_connections", "rotation_point")]
 transform = Transform3D(-5.7320566e-15, 1.3113416e-07, 1, -1, -4.371139e-08, 0, 4.371139e-08, -1, 1.3113416e-07, 0.5, 0.5, -0.4)
 shape = SubResource("BoxShape3D_333fg")
 script = ExtResource("3_tuvwa")
 coordinates = NodePath("Middle Point L")
 field = NodePath("../../Area3D3")
 middle = true
+flat_round = true
 edge_connections = [NodePath("../../EL1/Left Edge1"), NodePath("../../EL2/Left Edge2")]
+rotation_point = NodePath("../../Rotation Point2")
 
 [node name="Middle Point L" type="Node3D" parent="ML/Middle Left"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
@@ -174,13 +185,15 @@ collision_layer = 2
 collision_mask = 2
 input_ray_pickable = false
 
-[node name="Left Edge1" type="CollisionShape3D" parent="EL1" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point", "center")]
+[node name="Left Edge1" type="CollisionShape3D" parent="EL1" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "rotation_point", "direction_point", "up_point", "center")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0.5, -0.4)
 shape = SubResource("SphereShape3D_333fg")
 script = ExtResource("3_tuvwa")
 coordinates = NodePath("Point 1 L")
 field = NodePath("../../Area3D3")
+flat_round = true
 middle_connection = NodePath("../../ML/Middle Left")
+rotation_point = NodePath("../../Rotation Point2")
 direction_point = NodePath("../../ML/Middle Left/Middle Point L")
 up_point = NodePath("../../ML/Middle Left/Middle Point L")
 center = NodePath("../../Center")
@@ -193,13 +206,15 @@ collision_layer = 2
 collision_mask = 2
 input_ray_pickable = false
 
-[node name="Left Edge2" type="CollisionShape3D" parent="EL2" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "direction_point", "up_point", "center")]
+[node name="Left Edge2" type="CollisionShape3D" parent="EL2" node_paths=PackedStringArray("coordinates", "field", "middle_connection", "rotation_point", "direction_point", "up_point", "center")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.1, -0.4)
 shape = SubResource("SphereShape3D_333fg")
 script = ExtResource("3_tuvwa")
 coordinates = NodePath("Point 2 L")
 field = NodePath("../../Area3D3")
+flat_round = true
 middle_connection = NodePath("../../ML/Middle Left")
+rotation_point = NodePath("../../Rotation Point2")
 direction_point = NodePath("../../ML/Middle Left/Middle Point L")
 up_point = NodePath("../../ML/Middle Left/Middle Point L")
 center = NodePath("../../Center")
@@ -271,6 +286,14 @@ shape = SubResource("BoxShape3D_cxlvu")
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="Area3D3"]
 transform = Transform3D(-4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 0, 0, 0, 1, 0.8, 0.2, -0.49)
 shape = SubResource("BoxShape3D_cxlvu")
+
+[node name="Rotation Point" type="Node3D" parent="."]
+
+[node name="Rotation Point2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+
+[node name="Rotation Point3" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
 
 [connection signal="input_event" from="Area3D" to="Area3D" method="_on_side_clicked"]
 [connection signal="input_event" from="Area3D2" to="Area3D2" method="_on_side_clicked"]
