@@ -4,7 +4,7 @@ class_name Player extends Node3D
 @export var starting_on: NavigationField
 @export var going_to: NavigationPoint
 @export var coming_from: NavigationPoint
-var speed: float = 2.5
+var speed: float = 3.0
 
 var path: Path = Path.new()
 

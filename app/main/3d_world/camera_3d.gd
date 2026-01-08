@@ -33,7 +33,7 @@ var mode: int = DISABLED:
 				mode = value
 			PLAY:
 				mode = value
-				camera.size = 10
+				camera.size = 15
 				reset_camera()
 			PAUSE2D:
 				mode = value
