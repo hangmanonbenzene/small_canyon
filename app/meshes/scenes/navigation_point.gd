@@ -16,12 +16,14 @@ class_name NavigationPoint extends Node3D
 @export var up_point: Node3D
 @export var center: Node3D
 
-func get_connections() -> Array[NavigationPoint]:
+func get_connections(from_middle: bool) -> Array[NavigationPoint]:
 	if middle:
 		return edge_connections
 	else:
 		var connections: Array[NavigationPoint] = []
-		connections.append(middle_connection)
+		if not from_middle:
+			connections.append(middle_connection)
+			return connections
 		
 		var dir: Vector3i = (coordinates.global_position - direction_point.global_position).normalized()
 		var up: Vector3i = -((up_point.global_position - center.global_position).normalized())

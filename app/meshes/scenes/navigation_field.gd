@@ -37,7 +37,9 @@ func find_path_to(destination: NavigationField) -> Path:
 	
 	while true:
 		for current_path in current_paths:
-			var new_points: Array[NavigationPoint] = current_path.back().get_connections()
+			var from_middle: bool = not current_path.back().middle
+			if current_path.before_back() != null: from_middle = current_path.before_back().middle
+			var new_points: Array[NavigationPoint] = current_path.back().get_connections(from_middle)
 			for point in new_points:
 				if not was_already_there.has(point):
 					new_path = current_path.create_copy()

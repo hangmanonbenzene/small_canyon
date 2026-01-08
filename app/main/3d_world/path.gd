@@ -13,7 +13,10 @@ func append(object: NavigationPoint) -> void:
 
 func back() -> NavigationPoint:
 	return path.back()
-	
+
+func before_back() -> NavigationPoint:
+	return path[-2] if path.size() >= 2 else  null
+
 func pop() -> NavigationPoint:
 	return path.pop_front()
 
