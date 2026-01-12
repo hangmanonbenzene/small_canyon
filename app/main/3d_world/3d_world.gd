@@ -60,6 +60,7 @@ func open_level(level_name: String, edit_mode: bool) -> void:
 	main_menu_3d.visible = false
 	if not FileAccess.file_exists("user://created_levels/" + level_name): return
 	var save_file: FileAccess = FileAccess.open("user://created_levels/" + level_name, FileAccess.READ)
+	var sideblocks: Dictionary[Block, Array]
 	while save_file.get_position() < save_file.get_length():
 		var json_string: String = save_file.get_line()
 		var json: JSON = JSON.new()
@@ -71,8 +72,11 @@ func open_level(level_name: String, edit_mode: bool) -> void:
 		var block_position: Vector3i = Vector3i(node_data["pos"][0], node_data["pos"][1], node_data["pos"][2])
 		var block_direction: Vector3i = Vector3i(node_data["dir"][0], node_data["dir"][1], node_data["dir"][2])
 		var new_block: Block = create_new_block(block_prefab, block_position, block_direction, node_data["rot"])
-		await get_tree().create_timer(0.02).timeout
 		var sides: Array = node_data["sides"]
+		if not sides.is_empty(): sideblocks.set(new_block, sides)
+	await get_tree().process_frame
+	for new_block: Block in sideblocks.keys():
+		var sides: Array = sideblocks.get(new_block)
 		for i in range(sides.size()):
 			var point: ConnectionPoint = new_block.connection_points[i]
 			for j in range(sides[i].size()):
