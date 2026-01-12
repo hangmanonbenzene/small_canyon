@@ -6,6 +6,8 @@ extends Control
 
 @export var block_buttons: Array[Button]
 var selected_block_type: int
+@export var color_buttons: Array[Button]
+var selected_color_type: int
 
 var level_name: String
 
@@ -61,3 +63,9 @@ func _on_block_selection_pressed(block_type: int) -> void:
 	selected_block_type = block_type
 	block_buttons[selected_block_type].disabled = true
 	menus.change_selected_block_type(selected_block_type)
+
+func _on_color_selection_pressed(color_type: int) -> void:
+	color_buttons[selected_color_type].disabled = false
+	selected_color_type = color_type
+	color_buttons[selected_color_type].disabled = true
+	menus.change_selected_color_type(selected_color_type)

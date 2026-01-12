@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bsxv3vmg5nvov" path="res://app/main/menus/edit_ui.gd" id="1_ckw20"]
 
-[node name="edit_ui" type="Control" node_paths=PackedStringArray("edit_pause", "name_text", "block_buttons")]
+[node name="edit_ui" type="Control" node_paths=PackedStringArray("edit_pause", "name_text", "block_buttons", "color_buttons")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -15,6 +15,7 @@ script = ExtResource("1_ckw20")
 edit_pause = NodePath("edit_pause")
 name_text = NodePath("edit_pause/VBoxContainer/LineEdit")
 block_buttons = [NodePath("VBoxContainer/Button"), NodePath("VBoxContainer/Button9"), NodePath("VBoxContainer/Button2"), NodePath("VBoxContainer/Button3"), NodePath("VBoxContainer/Button4"), NodePath("VBoxContainer/Button5"), NodePath("VBoxContainer/Button6"), NodePath("VBoxContainer/Button7"), NodePath("VBoxContainer/Button8"), NodePath("VBoxContainer/Button10"), NodePath("VBoxContainer/Button11"), NodePath("VBoxContainer/Button12")]
+color_buttons = [NodePath("VBoxContainer2/Button"), NodePath("VBoxContainer2/Button9"), NodePath("VBoxContainer2/Button2"), NodePath("VBoxContainer2/Button3"), NodePath("VBoxContainer2/Button4")]
 
 [node name="pause" type="Button" parent="."]
 layout_mode = 1
@@ -175,6 +176,52 @@ focus_mode = 0
 theme_override_font_sizes/font_size = 50
 text = "End"
 
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -198.0
+offset_top = -200.5
+offset_right = -10.0
+offset_bottom = 200.5
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 1
+
+[node name="Button" type="Button" parent="VBoxContainer2"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 50
+disabled = true
+text = "White"
+
+[node name="Button9" type="Button" parent="VBoxContainer2"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 50
+text = "Blue"
+
+[node name="Button2" type="Button" parent="VBoxContainer2"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 50
+text = "Green"
+
+[node name="Button3" type="Button" parent="VBoxContainer2"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 50
+text = "Yellow"
+
+[node name="Button4" type="Button" parent="VBoxContainer2"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 50
+text = "Pink"
+
 [connection signal="pressed" from="pause" to="." method="_on_edit_pause_pressed"]
 [connection signal="pressed" from="edit_pause/VBoxContainer/Button" to="." method="_on_edit_pause_continue_pressed"]
 [connection signal="pressed" from="edit_pause/VBoxContainer/Button2" to="." method="_on_edit_pause_save_and_play_pressed"]
@@ -192,3 +239,8 @@ text = "End"
 [connection signal="pressed" from="VBoxContainer/Button10" to="." method="_on_block_selection_pressed" binds= [9]]
 [connection signal="pressed" from="VBoxContainer/Button11" to="." method="_on_block_selection_pressed" binds= [10]]
 [connection signal="pressed" from="VBoxContainer/Button12" to="." method="_on_block_selection_pressed" binds= [11]]
+[connection signal="pressed" from="VBoxContainer2/Button" to="." method="_on_color_selection_pressed" binds= [0]]
+[connection signal="pressed" from="VBoxContainer2/Button9" to="." method="_on_color_selection_pressed" binds= [1]]
+[connection signal="pressed" from="VBoxContainer2/Button2" to="." method="_on_color_selection_pressed" binds= [2]]
+[connection signal="pressed" from="VBoxContainer2/Button3" to="." method="_on_color_selection_pressed" binds= [3]]
+[connection signal="pressed" from="VBoxContainer2/Button4" to="." method="_on_color_selection_pressed" binds= [4]]

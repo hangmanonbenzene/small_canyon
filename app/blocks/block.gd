@@ -13,6 +13,7 @@ var side_color: Color:
 	set(value):
 		material.albedo_color = value
 		side_color = value
+var base_color: Color = Color.WHITE
 @export var blocker: Array[Node3D]
 @export var connection_points: Array[ConnectionPoint]
 
@@ -41,10 +42,11 @@ func _ready() -> void:
 	for side in sides:
 		side.material_override = material
 
-func initialize(_mode: bool, world: World) -> void:
+func initialize(_mode: bool, world: World, new_color: Color) -> void:
 	material.transparency = BaseMaterial3D.TRANSPARENCY_DISABLED
+	base_color = new_color
 	if is_entered: side_color = Color.ORANGE
-	else: side_color = Color.WHITE
+	else: side_color = base_color
 	world3d = world
 
 func get_data() -> String:
@@ -54,6 +56,7 @@ func get_data() -> String:
 		"pos" : [my_position.x, my_position.y, my_position.z],
 		"dir" : [current_direction.x, current_direction.y, current_direction.z],
 		"rot" : current_rotation,
+		"col" : world3d.colors.find(base_color)
 	}
 	var sp_sides: Array
 	for i in range(connection_points.size()):
@@ -92,7 +95,7 @@ func _input(event: InputEvent) -> void:
 			is_pressed = false
 			one_is_pressed = false
 			if not is_entered:
-				side_color = Color.WHITE
+				side_color = base_color
 				world3d.create_blocks()
 		elif is_entered: 
 			side_color = Color.ORANGE
@@ -130,7 +133,7 @@ func _on_area_3d_mouse_exited() -> void:
 	elif current_mode == EDIT:
 		is_entered = false
 		if not one_is_pressed:
-			side_color = Color.WHITE
+			side_color = base_color
 
 func _on_area_3d_input_event(camera: Node, event: InputEvent, _event_position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
 	if current_mode == EDIT:

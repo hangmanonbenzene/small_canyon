@@ -38,6 +38,10 @@ var current_mode: bool:
 		if player_position != null:
 			player_position.reset()
 
+enum {WHITE, BLUE, GREEN, YELLOW, PINK}
+var selected_color_type: int = WHITE
+var colors: Array[Color] = [Color.WHITE, Color.MEDIUM_BLUE, Color.GREEN, Color.YELLOW, Color.DEEP_PINK]
+
 enum {CUBE, STAIRS, ARCH1X, ARCH2X, ARCH3X, RAMP1X, RAMP2X, RAMP3X, DOOR, LADDER, START, END}
 var selected_block_type: int = CUBE
 var block_types: Array[int] = [0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2]
@@ -53,7 +57,7 @@ var player_position: Player
 
 func open_new_level() -> void:
 	main_menu_3d.visible = false
-	create_new_block(block_prefabs[CUBE].instantiate(), Vector3i.ZERO, Vector3i.UP, 0)
+	create_new_block(block_prefabs[CUBE].instantiate(), Vector3i.ZERO, Vector3i.UP, 0, 0)
 	current_mode = true
 
 func open_level(level_name: String, edit_mode: bool) -> void:
@@ -71,7 +75,8 @@ func open_level(level_name: String, edit_mode: bool) -> void:
 		var block_prefab: Block = block_prefabs[node_data["type"] as int].instantiate()
 		var block_position: Vector3i = Vector3i(node_data["pos"][0], node_data["pos"][1], node_data["pos"][2])
 		var block_direction: Vector3i = Vector3i(node_data["dir"][0], node_data["dir"][1], node_data["dir"][2])
-		var new_block: Block = create_new_block(block_prefab, block_position, block_direction, node_data["rot"])
+		var block_color: int = 0 if not node_data.has("col") else node_data["col"]
+		var new_block: Block = create_new_block(block_prefab, block_position, block_direction, node_data["rot"], block_color)
 		var sides: Array = node_data["sides"]
 		if not sides.is_empty(): sideblocks.set(new_block, sides)
 	await get_tree().process_frame
@@ -97,10 +102,10 @@ func open_main_menu() -> void:
 	environment.mode = environment.DISABLED
 	main_menu_3d.visible = true
 
-func create_new_block(new_block: Block, block_position: Vector3i, block_direction: Vector3i, block_rotation: int) -> Block:
+func create_new_block(new_block: Block, block_position: Vector3i, block_direction: Vector3i, block_rotation: int, block_color: int) -> Block:
 	objects.append(new_block)
 	level.add_child(new_block)
-	new_block.initialize(current_mode, self)
+	new_block.initialize(current_mode, self, colors[block_color])
 	new_block.set_new_position(block_position, block_direction, block_rotation)
 	for space in new_block.blocks_space():
 		blocked_space.set(space, new_block)
@@ -154,6 +159,9 @@ func get_data() -> Array[String]:
 
 func change_selected_block_type(new_block_type: int) -> void:
 	selected_block_type = new_block_type
+
+func change_selected_color_type(new_color_type: int) -> void:
+	selected_color_type = new_color_type
 
 func block_pressed(block: ConnectionPoint) -> void:
 	current_pressed_block = block
@@ -257,7 +265,7 @@ func create_blocks() -> void:
 	for i in range(blocks_preview.size()):
 		var overflow: float = 0.0
 		if blocks_preview[i].current_mode == Block.NEW:
-			create_new_block(blocks_preview[i], block_positions[i], current_direction, (current_length - 1))
+			create_new_block(blocks_preview[i], block_positions[i], current_direction, (current_length - 1), selected_color_type)
 			blocks_preview[i].current_mode = Block.EDIT if current_mode else Block.PLAY
 			overflow = await Main.place_block_animation(blocks_preview[i], current_direction, 0.03, overflow)
 		else:
