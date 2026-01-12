@@ -41,3 +41,6 @@ func change_selected_color_type(new_color_type: int) -> void:
 func toggle_edit_menu(on: bool) -> void:
 	if on: world_3d.environment.mode = MyEnvirement.PAUSE2D if world_3d.environment.mode == MyEnvirement.MODE2D else MyEnvirement.PAUSE3D
 	else: world_3d.environment.mode = MyEnvirement.MODE2D if world_3d.environment.mode == MyEnvirement.PAUSE2D else MyEnvirement.MODE3D
+
+func level_cleared() -> void:
+	play_ui.end_screen.visible = true

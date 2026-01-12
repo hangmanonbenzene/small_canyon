@@ -36,6 +36,9 @@ func _process(delta: float) -> void:
 			move_flat(delta)
 		else:
 			move_round(delta)
+		
+		if coming_from == going_to and coming_from.field.side_block.type == World.END:
+			standing_on.side_block.block.world3d.menus.level_cleared()
 
 func move_flat(delta: float) -> void:
 	var start_position: Vector3 = global_position
@@ -43,6 +46,9 @@ func move_flat(delta: float) -> void:
 	var distance: float = start_position.distance_to(end_position)
 	var time_to_cross: float = distance / speed
 	var progress_to_dest: float = clamp(delta / time_to_cross, 0.0, 1.0)
+	if (not going_to.middle) and (not coming_from.middle): 
+		progress_to_dest = 1.0
+		time_to_cross = 0.0
 	if progress_to_dest == 1.0:
 		global_position = end_position
 		path.pop()
