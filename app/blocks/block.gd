@@ -20,6 +20,15 @@ var base_color: Color = Color.WHITE
 var is_entered: bool
 var is_pressed: bool
 static var one_is_pressed: bool
+var is_selected: bool:
+	set(value):
+		if value: 
+			if not selected_one == null: selected_one.is_selected = false
+			side_color = Color.REBECCA_PURPLE
+			selected_one = self
+		else: side_color = base_color
+		is_selected = value
+static var selected_one: Block
 var current_camera: Camera3D
 var current_point: ConnectionPoint
 
@@ -120,20 +129,33 @@ func _process(_delta: float) -> void:
 			world3d.create_block_preview(direction, 0)
 
 func _on_area_3d_mouse_entered() -> void:
-	if current_mode == NEW or current_mode == INVALID: 
-		is_entered = true
-	elif current_mode == EDIT: 
-		is_entered = true
-		if not one_is_pressed:
-			side_color = Color.ORANGE
+	if world3d.current_creation_mode == World.BUILD_MODE:
+		if current_mode == NEW or current_mode == INVALID: 
+			is_entered = true
+		elif current_mode == EDIT: 
+			is_entered = true
+			if not one_is_pressed:
+				side_color = Color.ORANGE
+	elif world3d.current_creation_mode == World.EDIT_MODE:
+		if current_mode == EDIT: 
+			is_entered = true
+			if is_selected: side_color = Color.REBECCA_PURPLE
+			else: side_color = Color.ORANGE
 
 func _on_area_3d_mouse_exited() -> void:
-	if current_mode == NEW or current_mode == INVALID: 
-		is_entered = false
-	elif current_mode == EDIT:
-		is_entered = false
-		if not one_is_pressed:
-			side_color = base_color
+	if world3d.current_creation_mode == World.BUILD_MODE:
+		if current_mode == NEW or current_mode == INVALID: 
+			is_entered = false
+		elif current_mode == EDIT:
+			is_entered = false
+			if not one_is_pressed:
+				side_color = base_color
+	elif world3d.current_creation_mode == World.EDIT_MODE:
+		if current_mode == EDIT: 
+			is_entered = false
+			is_pressed = false
+			if is_selected: side_color = Color.PURPLE
+			else: side_color = base_color
 
 func _on_area_3d_input_event(camera: Node, event: InputEvent, _event_position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
 	if current_mode == EDIT and world3d.current_creation_mode == World.BUILD_MODE:
@@ -145,3 +167,8 @@ func _on_area_3d_input_event(camera: Node, event: InputEvent, _event_position: V
 			world3d.block_pressed(current_point)
 		if event is InputEventMouseButton and event.pressed and event.button_index == 2:
 			world3d.delete_block(self)
+	elif current_mode == EDIT and world3d.current_creation_mode == World.EDIT_MODE:
+		if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1:
+			is_pressed = true
+		elif event is InputEventMouseButton and event.is_released() and event.button_index == 1 and is_pressed:
+			is_selected = true

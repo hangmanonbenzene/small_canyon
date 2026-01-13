@@ -38,7 +38,10 @@ var current_mode: bool:
 		if player_position != null:
 			player_position.reset()
 enum {BUILD_MODE, EDIT_MODE}
-var current_creation_mode: int
+var current_creation_mode: int:
+	set(value):
+		current_creation_mode = value
+		if current_creation_mode == BUILD_MODE and not Block.selected_one == null: Block.selected_one.is_selected = false
 
 enum {WHITE, BLUE, GREEN, YELLOW, PINK}
 var selected_color_type: int = WHITE
