@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://c5j4muju8a58k" path="res://app/main/menus/play_ui.gd" id="1_e4s26"]
 
 [node name="play_ui" type="Control" node_paths=PackedStringArray("play_pause", "end_screen")]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

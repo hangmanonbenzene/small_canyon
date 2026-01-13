@@ -41,7 +41,9 @@ enum {BUILD_MODE, EDIT_MODE}
 var current_creation_mode: int:
 	set(value):
 		current_creation_mode = value
-		if current_creation_mode == BUILD_MODE and not Block.selected_one == null: Block.selected_one.is_selected = false
+		if current_creation_mode == BUILD_MODE and not Block.selected_one == null: 
+			Block.selected_one.is_selected = false
+			Block.selected_one = null
 
 enum {WHITE, BLUE, GREEN, YELLOW, PINK}
 var selected_color_type: int = WHITE
@@ -278,6 +280,7 @@ func create_blocks() -> void:
 	blocks_preview.clear()
 	current_length = 0
 	current_direction = Vector3i.ZERO
+	for block in objects: block.update_side_color()
 
 func _input(event: InputEvent) -> void:
 	if current_mode and event.is_action_pressed("toggle_cam"):

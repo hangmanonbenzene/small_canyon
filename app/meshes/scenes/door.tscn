@@ -14,11 +14,12 @@ radius = 0.05
 [sub_resource type="BoxShape3D" id="BoxShape3D_cjkpb"]
 size = Vector3(1, 0.02, 1)
 
-[node name="Door" type="MeshInstance3D" node_paths=PackedStringArray("meshes", "play_mode_collider")]
+[node name="Door" type="MeshInstance3D" node_paths=PackedStringArray("meshes", "door_middle", "play_mode_collider")]
 mesh = ExtResource("1_kdqs6")
 script = ExtResource("2_cjkpb")
 meshes = [NodePath(".")]
 type = -1
+door_middle = NodePath("Middle/Middle")
 play_mode_collider = [NodePath("Area3D")]
 
 [node name="Center" type="Node3D" parent="."]

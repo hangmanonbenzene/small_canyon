@@ -7,28 +7,41 @@ var current_rotation: int
 
 @export var type: int
 
+var door_connection: Block
+var show_connected: bool:
+	set(value):
+		show_connected = value
+		update_side_color()
+
 @export var sides: Array[SideBlock]
 var material: Material
-var side_color: Color:
-	set(value):
-		material.albedo_color = value
-		side_color = value
 var base_color: Color = Color.WHITE
 @export var blocker: Array[Node3D]
 @export var connection_points: Array[ConnectionPoint]
 
-var is_entered: bool
-var is_pressed: bool
+var is_entered: bool:
+	set(value):
+		is_entered = value
+		update_side_color()
+var is_pressed: bool:
+	set(value):
+		is_pressed = value
+		update_side_color()
 static var one_is_pressed: bool
 var is_selected: bool:
 	set(value):
 		if value: 
-			if not selected_one == null: selected_one.is_selected = false
-			side_color = Color.REBECCA_PURPLE
+			if not selected_one == null or selected_one == self: selected_one.is_selected = false
 			selected_one = self
-		else: side_color = base_color
+			if type == World.DOOR and not door_connection == null:
+					door_connection.show_connected = true
+		else: 
+			if type == World.DOOR and not door_connection == null:
+					door_connection.show_connected = false
 		is_selected = value
+		update_side_color()
 static var selected_one: Block
+
 var current_camera: Camera3D
 var current_point: ConnectionPoint
 
@@ -41,8 +54,8 @@ var current_mode: int = NEW:
 		for point in connection_points:
 			point.get_parent().input_ray_pickable = value == EDIT
 			point.get_parent().process_mode = PROCESS_MODE_INHERIT if value == EDIT else PROCESS_MODE_DISABLED
-		if value == NEW: side_color = Color(1.0, 0.647, 0.0, 0.498)
-		elif value == INVALID: side_color = Color(1.0, 0.0, 0.0, 1.0)
+		if  value == PLAY: is_selected = false
+		update_side_color()
 
 func _ready() -> void:
 	material = StandardMaterial3D.new()
@@ -54,8 +67,7 @@ func _ready() -> void:
 func initialize(_mode: bool, world: World, new_color: Color) -> void:
 	material.transparency = BaseMaterial3D.TRANSPARENCY_DISABLED
 	base_color = new_color
-	if is_entered: side_color = Color.ORANGE
-	else: side_color = base_color
+	update_side_color()
 	world3d = world
 
 func get_data() -> String:
@@ -104,10 +116,7 @@ func _input(event: InputEvent) -> void:
 			is_pressed = false
 			one_is_pressed = false
 			if not is_entered:
-				side_color = base_color
 				world3d.create_blocks()
-		elif is_entered: 
-			side_color = Color.ORANGE
 
 func _process(_delta: float) -> void:
 	if current_mode == EDIT and world3d.current_creation_mode == World.BUILD_MODE and is_pressed:
@@ -129,33 +138,17 @@ func _process(_delta: float) -> void:
 			world3d.create_block_preview(direction, 0)
 
 func _on_area_3d_mouse_entered() -> void:
-	if world3d.current_creation_mode == World.BUILD_MODE:
-		if current_mode == NEW or current_mode == INVALID: 
+	if world3d.current_creation_mode == World.BUILD_MODE and not current_mode == PLAY: 
 			is_entered = true
-		elif current_mode == EDIT: 
+	elif world3d.current_creation_mode == World.EDIT_MODE and current_mode == EDIT: 
 			is_entered = true
-			if not one_is_pressed:
-				side_color = Color.ORANGE
-	elif world3d.current_creation_mode == World.EDIT_MODE:
-		if current_mode == EDIT: 
-			is_entered = true
-			if is_selected: side_color = Color.REBECCA_PURPLE
-			else: side_color = Color.ORANGE
 
 func _on_area_3d_mouse_exited() -> void:
-	if world3d.current_creation_mode == World.BUILD_MODE:
-		if current_mode == NEW or current_mode == INVALID: 
+	if world3d.current_creation_mode == World.BUILD_MODE and not current_mode == PLAY:
 			is_entered = false
-		elif current_mode == EDIT:
-			is_entered = false
-			if not one_is_pressed:
-				side_color = base_color
-	elif world3d.current_creation_mode == World.EDIT_MODE:
-		if current_mode == EDIT: 
+	elif world3d.current_creation_mode == World.EDIT_MODE and current_mode == EDIT: 
 			is_entered = false
 			is_pressed = false
-			if is_selected: side_color = Color.PURPLE
-			else: side_color = base_color
 
 func _on_area_3d_input_event(camera: Node, event: InputEvent, _event_position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
 	if current_mode == EDIT and world3d.current_creation_mode == World.BUILD_MODE:
@@ -171,4 +164,23 @@ func _on_area_3d_input_event(camera: Node, event: InputEvent, _event_position: V
 		if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1:
 			is_pressed = true
 		elif event is InputEventMouseButton and event.is_released() and event.button_index == 1 and is_pressed:
-			is_selected = true
+			if type == World.DOOR and not selected_one == null and selected_one.type == World.DOOR and not selected_one == self:
+				if not selected_one.door_connection == null:
+					selected_one.door_connection.door_connection = null
+					if not selected_one.door_connection == self: selected_one.door_connection.show_connected = false
+				if not door_connection == null:
+					door_connection.door_connection = null
+					door_connection.show_connected = false
+				selected_one.door_connection = self
+				door_connection = selected_one
+				show_connected = true
+			else: is_selected = true
+
+func update_side_color() -> void:
+	if current_mode == NEW: material.albedo_color = Color(1.0, 0.647, 0.0, 0.498)
+	elif current_mode == INVALID: material.albedo_color = Color.RED
+	elif show_connected: material.albedo_color = Color.RED
+	elif is_selected and is_entered: material.albedo_color = Color.REBECCA_PURPLE
+	elif is_selected: material.albedo_color = Color.PURPLE
+	elif (is_entered and not one_is_pressed) or is_pressed: material.albedo_color = Color.ORANGE
+	else: material.albedo_color = base_color
