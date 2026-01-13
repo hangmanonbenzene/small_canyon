@@ -17,6 +17,7 @@ connection_points = [NodePath("Area3D/CollisionShape3D"), NodePath("Area3D/Colli
 
 [node name="Door" parent="." node_paths=PackedStringArray("block") instance=ExtResource("2_1g1fv")]
 transform = Transform3D(4.371139e-08, 1, 8.742278e-08, 1, -4.371139e-08, 0, 3.821371e-15, 8.742278e-08, -1, 0.5, 0, 0)
+type = 8
 block = NodePath("..")
 
 [node name="Cube" parent="." node_paths=PackedStringArray("block") instance=ExtResource("3_5vsur")]

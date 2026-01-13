@@ -39,6 +39,14 @@ func _process(delta: float) -> void:
 		
 		if coming_from == going_to and coming_from.field.side_block.type == World.END:
 			standing_on.side_block.block.world3d.menus.level_cleared()
+		elif coming_from == going_to and coming_from.field.side_block.type == World.DOOR:
+			var other_door: Block = coming_from.field.side_block.block.door_connection
+			if other_door != null:
+				global_position = other_door.sides[0].door_middle.coordinates.global_position
+				save_look_at(other_door.connection_points[0].global_position)
+				standing_on = other_door.sides[0].door_middle.field
+				coming_from = other_door.sides[0].door_middle
+				going_to = other_door.sides[0].door_middle
 
 func move_flat(delta: float) -> void:
 	var start_position: Vector3 = global_position
