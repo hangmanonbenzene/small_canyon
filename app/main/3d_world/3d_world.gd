@@ -72,6 +72,7 @@ func open_level(level_name: String, edit_mode: bool) -> void:
 	if not FileAccess.file_exists("user://created_levels/" + level_name): return
 	var save_file: FileAccess = FileAccess.open("user://created_levels/" + level_name, FileAccess.READ)
 	var sideblocks: Dictionary[Block, Array]
+	var door_connections: Dictionary[int, Block]
 	while save_file.get_position() < save_file.get_length():
 		var json_string: String = save_file.get_line()
 		var json: JSON = JSON.new()
@@ -84,6 +85,11 @@ func open_level(level_name: String, edit_mode: bool) -> void:
 		var block_direction: Vector3i = Vector3i(node_data["dir"][0], node_data["dir"][1], node_data["dir"][2])
 		var block_color: int = 0 if not node_data.has("col") else node_data["col"]
 		var new_block: Block = create_new_block(block_prefab, block_position, block_direction, node_data["rot"], block_color)
+		if new_block.type == DOOR and node_data.has("door") and node_data["door"] as int >= 0:
+			if door_connections.has(node_data["door"] as int):
+				new_block.door_connection = door_connections.get(node_data["door"] as int)
+				door_connections.get(node_data["door"] as int). door_connection = new_block
+			else: door_connections.set(node_data["door"] as int, new_block)
 		var sides: Array = node_data["sides"]
 		if not sides.is_empty(): sideblocks.set(new_block, sides)
 	await get_tree().process_frame
@@ -159,6 +165,7 @@ func delete_block(block: Block) -> void:
 	block.queue_free()
 
 func get_data() -> Array[String]:
+	Block.id_counter = 0
 	var data: Array[String]
 	for block: Block in level.get_children():
 		data.append(block.get_data())

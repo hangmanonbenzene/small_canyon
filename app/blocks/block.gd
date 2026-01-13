@@ -7,6 +7,8 @@ var current_rotation: int
 
 @export var type: int
 
+static var id_counter: int
+var door_connection_id: int = -1
 var door_connection: Block
 var show_connected: bool:
 	set(value):
@@ -72,12 +74,18 @@ func initialize(_mode: bool, world: World, new_color: Color) -> void:
 
 func get_data() -> String:
 	var my_position: Vector3i = Main.get_position(self)
+	if type == World.DOOR and door_connection != null:
+		if door_connection_id < 0:
+			door_connection_id = id_counter
+			id_counter += 1
+			door_connection.door_connection_id = door_connection_id
 	var data_dict: Dictionary = {
 		"type" : type,
 		"pos" : [my_position.x, my_position.y, my_position.z],
 		"dir" : [current_direction.x, current_direction.y, current_direction.z],
 		"rot" : current_rotation,
-		"col" : world3d.colors.find(base_color)
+		"col" : world3d.colors.find(base_color),
+		"door" : door_connection_id
 	}
 	var sp_sides: Array
 	for i in range(connection_points.size()):
