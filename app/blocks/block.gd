@@ -90,7 +90,7 @@ func set_new_position(new_position: Vector3i, new_direction: Vector3i, new_rotat
 	rotation_degrees = Main.rotation_in_degrees(new_direction, new_rotation)
 
 func _input(event: InputEvent) -> void:
-	if current_mode == EDIT and event is InputEventMouseButton and not event.pressed and event.button_index == 1:
+	if current_mode == EDIT and world3d.current_creation_mode == World.BUILD_MODE and event is InputEventMouseButton and not event.pressed and event.button_index == 1:
 		if is_pressed:
 			is_pressed = false
 			one_is_pressed = false
@@ -101,7 +101,7 @@ func _input(event: InputEvent) -> void:
 			side_color = Color.ORANGE
 
 func _process(_delta: float) -> void:
-	if current_mode == EDIT and is_pressed:
+	if current_mode == EDIT and world3d.current_creation_mode == World.BUILD_MODE and is_pressed:
 		var mouse_vector: Vector2 = get_viewport().get_mouse_position() - current_camera.unproject_position(Main.get_position(current_point))
 		var step: float = (840 / current_camera.size)
 		var length: int = clampi(floori((mouse_vector.length() + step / 2) / step), 0, 10)
@@ -136,7 +136,7 @@ func _on_area_3d_mouse_exited() -> void:
 			side_color = base_color
 
 func _on_area_3d_input_event(camera: Node, event: InputEvent, _event_position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
-	if current_mode == EDIT:
+	if current_mode == EDIT and world3d.current_creation_mode == World.BUILD_MODE:
 		if event is InputEventMouseButton and event.pressed and event.button_index == 1:
 			is_pressed = true
 			one_is_pressed = true

@@ -4,10 +4,15 @@ extends Control
 @export var edit_pause: Control
 @export var name_text: LineEdit
 
+@export var build_ui: Control
+@export var edit_ui: Control
+
 @export var block_buttons: Array[Button]
 var selected_block_type: int
 @export var color_buttons: Array[Button]
 var selected_color_type: int
+@export var mode_buttons: Array[Button]
+var selected_mode: int
 
 var level_name: String
 
@@ -69,3 +74,11 @@ func _on_color_selection_pressed(color_type: int) -> void:
 	selected_color_type = color_type
 	color_buttons[selected_color_type].disabled = true
 	menus.change_selected_color_type(selected_color_type)
+
+func _on_change_mode(new_mode: int) -> void:
+	mode_buttons[selected_mode].disabled = false
+	selected_mode = new_mode
+	mode_buttons[selected_mode].disabled = true
+	build_ui.visible = new_mode == World.BUILD_MODE
+	edit_ui.visible = new_mode == World.EDIT_MODE
+	menus.change_creation_mode(new_mode)

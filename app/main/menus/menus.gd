@@ -44,3 +44,6 @@ func toggle_edit_menu(on: bool) -> void:
 
 func level_cleared() -> void:
 	play_ui.end_screen.visible = true
+
+func change_creation_mode(new_mode: int) -> void:
+	world_3d.current_creation_mode = new_mode

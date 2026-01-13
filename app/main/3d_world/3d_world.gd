@@ -37,6 +37,8 @@ var current_mode: bool:
 			environment.target = player_position
 		if player_position != null:
 			player_position.reset()
+enum {BUILD_MODE, EDIT_MODE}
+var current_creation_mode: int
 
 enum {WHITE, BLUE, GREEN, YELLOW, PINK}
 var selected_color_type: int = WHITE
