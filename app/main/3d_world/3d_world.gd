@@ -85,8 +85,9 @@ func open_level(level_name: String, edit_mode: bool) -> void:
 		var block_direction: Vector3i = Vector3i(node_data["dir"][0], node_data["dir"][1], node_data["dir"][2])
 		var block_color: int = 0 if not node_data.has("col") else node_data["col"]
 		var new_block: Block = create_new_block(block_prefab, block_position, block_direction, node_data["rot"], block_color)
-		if new_block.type == DOOR and node_data.has("door") and node_data["door"] as int >= 0:
-			if door_connections.has(node_data["door"] as int):
+		if new_block.type == DOOR and node_data.has("door"):
+			var door_id := node_data["door"] as int
+			if door_id >= 0 and door_connections.has(door_id):
 				new_block.door_connection = door_connections.get(node_data["door"] as int)
 				door_connections.get(node_data["door"] as int). door_connection = new_block
 			else: door_connections.set(node_data["door"] as int, new_block)
