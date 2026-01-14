@@ -48,19 +48,36 @@ func get_connections(from_middle: bool) -> Array[NavigationPoint]:
 		
 		var current_block: ConnectionPoint = field.side_block.block.world3d.connection_points.get(Main.get_position(field.side_block.block))
 		
+		var try_front: bool
 		var connection: NavigationPoint
 		if towards:
-			if up_block_first != null and up_block_first.block.base_color == current_block.block.base_color and up_block_first.depth > current_block.depth and (front_block_first == null or up_block_first.depth > front_block_first.depth): connection = get_connection(up_block_first, -up, dir, 4)
-			elif front_block_first != null and front_block_first.block.base_color == current_block.block.base_color and front_block_first.depth > current_block.depth and (up_block_first == null or up_block_first.block.base_color == current_block.block.base_color): connection = get_connection(front_block_first, up, dir, 2)
-			elif up_block != null: connection = get_connection(up_block, -up, dir, 4)
-			elif front_block != null: connection = get_connection(front_block, up, dir, 2)
-			else: connection = get_connection(this_block, up, dir, 8)
+			if up_block_first != null and up_block_first.block.base_color == current_block.block.base_color and up_block_first.depth > current_block.depth and (front_block_first == null or up_block_first.depth > front_block_first.depth): 
+				connection = get_connection(up_block_first, -up, dir, 4)
+			elif front_block_first != null and front_block_first.block.base_color == current_block.block.base_color and front_block_first.depth > current_block.depth and (up_block_first == null or up_block_first.block.base_color == current_block.block.base_color): 
+				connection = get_connection(front_block_first, up, dir, 2)
+				try_front = true
+			elif up_block != null: 
+				connection = get_connection(up_block, -up, dir, 4)
+			elif front_block != null: 
+				connection = get_connection(front_block, up, dir, 2)
+				try_front = true
+			else: 
+				connection = get_connection(this_block, up, dir, 8)
 		else:
-			if up_block != null: connection = get_connection(up_block, -up, dir, 4)
-			elif front_block != null: connection = get_connection(front_block, up, dir, 2)
-			elif up_block_first != null and up_block_first.block.base_color == current_block.block.base_color and up_block_first.depth < current_block.depth and (front_block_first == null or up_block_first.depth > front_block_first.depth): connection = get_connection(up_block_first, -up, dir, 4)
-			elif front_block_first != null and front_block_first.block.base_color == current_block.block.base_color and front_block_first.depth < current_block.depth and (up_block_first == null or up_block_first.block.base_color == current_block.block.base_color): connection = get_connection(front_block_first, up, dir, 2)
-			else: connection = get_connection(this_block, up, dir, 8)
+			if up_block != null: 
+				connection = get_connection(up_block, -up, dir, 4)
+			elif front_block != null: 
+				connection = get_connection(front_block, up, dir, 2)
+				try_front = true
+			elif up_block_first != null and up_block_first.block.base_color == current_block.block.base_color and up_block_first.depth < current_block.depth and (front_block_first == null or up_block_first.depth > front_block_first.depth): 
+				connection = get_connection(up_block_first, -up, dir, 4)
+			elif front_block_first != null and front_block_first.block.base_color == current_block.block.base_color and front_block_first.depth < current_block.depth and (up_block_first == null or up_block_first.block.base_color == current_block.block.base_color): 
+				connection = get_connection(front_block_first, up, dir, 2)
+				try_front = true
+			else: 
+				connection = get_connection(this_block, up, dir, 8)
+		
+		if connection == null and try_front: connection = get_connection(this_block, up, dir, 8)
 		
 		if connection != null: connections.append(connection)
 		
