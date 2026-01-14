@@ -26,21 +26,34 @@ func get_connections(from_middle: bool) -> Array[NavigationPoint]:
 			return connections
 		
 		var dir: Vector3i = (coordinates.global_position - direction_point.global_position).normalized()
-		var up: Vector3i = -((up_point.global_position - center.global_position).normalized())
-		var inverse_correction: Vector3i = up if inverse else Vector3i.ZERO
+		var towards: bool = dir == Vector3i.RIGHT or dir == Vector3i.UP or dir == Vector3i.BACK
+		var up: Vector3i = (up_point.global_position - center.global_position).normalized()
+		var in_front_of: bool = up == Vector3i.RIGHT or up == Vector3i.UP or up == Vector3i.BACK
+		var inverse_correction: Vector3i = -up if inverse else Vector3i.ZERO
 		
-		var next_block: ConnectionPoint = field.side_block.block.world3d.connection_points.get(Main.get_position(center) + dir - up + inverse_correction)
-		var mask: int = 4
-		if next_block == null:
-			var _debug: Vector3i = Main.get_position(center) + dir + inverse_correction
-			next_block = field.side_block.block.world3d.connection_points.get(Main.get_position(center) + dir + inverse_correction)
-			mask = 2
-			up = -up
-			if next_block == null:
-				next_block = field.side_block.block.world3d.connection_points.get(Main.get_position(center) + inverse_correction)
-				mask = 8
+		var this_block_coordinates: Vector3i = Main.get_position(center) + inverse_correction
+		var this_block_2D: Vector2i = Vector2i(this_block_coordinates.x - this_block_coordinates.z, 2 * this_block_coordinates.y - this_block_coordinates.x - this_block_coordinates.z)
+		var front_block_coordinates: Vector3i = this_block_coordinates + dir
+		var front_block_2D: Vector2i = Vector2i(front_block_coordinates.x - front_block_coordinates.z, 2 * front_block_coordinates.y - front_block_coordinates.x - front_block_coordinates.z)
+		var up_block_coordinates: Vector3i = front_block_coordinates + up
+		var up_block_2D: Vector2i = Vector2i(up_block_coordinates.x - up_block_coordinates.z, 2 * up_block_coordinates.y - up_block_coordinates.x - up_block_coordinates.z)
 		
-		var connection: NavigationPoint = get_connection(next_block, up, dir, mask)
+		var this_block: ConnectionPoint = field.side_block.block.world3d.connection_points.get(this_block_coordinates)
+		var front_block: ConnectionPoint = field.side_block.block.world3d.connection_points.get(front_block_coordinates)
+		var up_block: ConnectionPoint = field.side_block.block.world3d.connection_points.get(up_block_coordinates)
+		var this_block_first: ConnectionPoint = field.side_block.block.world3d.map2d.get(this_block_2D)
+		var front_block_first: ConnectionPoint = field.side_block.block.world3d.map2d.get(front_block_2D)
+		var up_block_first: ConnectionPoint = field.side_block.block.world3d.map2d.get(up_block_2D)
+		'
+		if towards and front_block_first != null and front_block_first != front_block:
+			var extra_connection: NavigationPoint = get_connection(front_block_first, up, dir, 2)
+			if extra_connection != null: connections.append(extra_connection)
+		'
+		var connection: NavigationPoint
+		if up_block != null: connection = get_connection(up_block, -up, dir, 4)
+		elif front_block != null: connection = get_connection(front_block, up, dir, 2)
+		else: connection = get_connection(this_block, up, dir, 8)
+		
 		if connection != null: connections.append(connection)
 		
 		return connections
