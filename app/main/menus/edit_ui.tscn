@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bsxv3vmg5nvov" path="res://app/main/menus/edit_ui.gd" id="1_ckw20"]
 
-[node name="edit_ui" type="Control" node_paths=PackedStringArray("edit_pause", "name_text", "build_ui", "edit_ui", "block_buttons", "color_buttons", "mode_buttons")]
+[node name="edit_ui" type="Control" node_paths=PackedStringArray("edit_pause", "name_text", "build_ui", "edit_ui", "block_buttons", "color_buttons", "mode_buttons", "move_options")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -16,9 +16,10 @@ edit_pause = NodePath("edit_pause")
 name_text = NodePath("edit_pause/VBoxContainer/LineEdit")
 build_ui = NodePath("build_mode")
 edit_ui = NodePath("edit_mode")
-block_buttons = [NodePath("build_mode/VBoxContainer/Button"), NodePath("build_mode/VBoxContainer/Button9"), NodePath("build_mode/VBoxContainer/Button2"), NodePath("build_mode/VBoxContainer/Button3"), NodePath("build_mode/VBoxContainer/Button4"), NodePath("build_mode/VBoxContainer/Button5"), NodePath("build_mode/VBoxContainer/Button6"), NodePath("build_mode/VBoxContainer/Button7"), NodePath("build_mode/VBoxContainer/Button8"), NodePath("build_mode/VBoxContainer/Button10"), NodePath("build_mode/VBoxContainer/Button11"), NodePath("build_mode/VBoxContainer/Button12")]
+block_buttons = [NodePath("build_mode/VBoxContainer/Button"), NodePath("build_mode/VBoxContainer/Button9"), NodePath("build_mode/VBoxContainer/Arch"), NodePath("build_mode/VBoxContainer/Button3"), NodePath("build_mode/VBoxContainer/Button4"), NodePath("build_mode/VBoxContainer/Ramp"), NodePath("build_mode/VBoxContainer/Button6"), NodePath("build_mode/VBoxContainer/Button7"), NodePath("build_mode/VBoxContainer/Button8"), NodePath("build_mode/VBoxContainer/Button10"), NodePath("build_mode/VBoxContainer/Button11"), NodePath("build_mode/VBoxContainer/Button12"), NodePath("build_mode/VBoxContainer/Button13")]
 color_buttons = [NodePath("build_mode/VBoxContainer2/Button"), NodePath("build_mode/VBoxContainer2/Button9"), NodePath("build_mode/VBoxContainer2/Button2"), NodePath("build_mode/VBoxContainer2/Button3"), NodePath("build_mode/VBoxContainer2/Button4")]
 mode_buttons = [NodePath("HBoxContainer/Button"), NodePath("HBoxContainer/Button9")]
+move_options = NodePath("edit_mode/VBoxContainer")
 
 [node name="pause" type="Button" parent="."]
 layout_mode = 1
@@ -124,7 +125,7 @@ focus_mode = 0
 theme_override_font_sizes/font_size = 50
 text = "Stairs"
 
-[node name="Button2" type="Button" parent="build_mode/VBoxContainer"]
+[node name="Arch" type="Button" parent="build_mode/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
 theme_override_font_sizes/font_size = 50
@@ -142,7 +143,7 @@ focus_mode = 0
 theme_override_font_sizes/font_size = 50
 text = "Arch 3x"
 
-[node name="Button5" type="Button" parent="build_mode/VBoxContainer"]
+[node name="Ramp" type="Button" parent="build_mode/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
 theme_override_font_sizes/font_size = 50
@@ -183,6 +184,12 @@ layout_mode = 2
 focus_mode = 0
 theme_override_font_sizes/font_size = 50
 text = "End"
+
+[node name="Button13" type="Button" parent="build_mode/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 50
+text = "Drag"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="build_mode"]
 layout_mode = 1
@@ -236,6 +243,95 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
+[node name="VBoxContainer" type="VBoxContainer" parent="edit_mode"]
+visible = false
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 10.0
+offset_top = 36.0
+offset_right = 227.0
+offset_bottom = 1004.0
+grow_vertical = 2
+alignment = 1
+
+[node name="Button" type="Button" parent="edit_mode/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 50
+text = "X"
+
+[node name="Button2" type="Button" parent="edit_mode/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 50
+text = "Y"
+
+[node name="Button3" type="Button" parent="edit_mode/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 50
+text = "Z"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="edit_mode/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Button4" type="Button" parent="edit_mode/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 50
+text = "Pos"
+
+[node name="Button" type="Button" parent="edit_mode/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 50
+text = " + "
+
+[node name="Button3" type="Button" parent="edit_mode/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 50
+disabled = true
+text = " 0 "
+
+[node name="Button2" type="Button" parent="edit_mode/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 50
+text = " - "
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="edit_mode/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Button4" type="Button" parent="edit_mode/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 50
+text = "Neg"
+
+[node name="Button" type="Button" parent="edit_mode/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 50
+text = " + "
+
+[node name="Button3" type="Button" parent="edit_mode/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 50
+disabled = true
+text = " 0 "
+
+[node name="Button2" type="Button" parent="edit_mode/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 50
+text = " - "
+
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 7
@@ -272,16 +368,17 @@ text = " Edit "
 [connection signal="pressed" from="edit_pause/VBoxContainer/Button3" to="." method="_on_edit_pause_exit_pressed"]
 [connection signal="pressed" from="build_mode/VBoxContainer/Button" to="." method="_on_block_selection_pressed" binds= [0]]
 [connection signal="pressed" from="build_mode/VBoxContainer/Button9" to="." method="_on_block_selection_pressed" binds= [1]]
-[connection signal="pressed" from="build_mode/VBoxContainer/Button2" to="." method="_on_block_selection_pressed" binds= [2]]
+[connection signal="pressed" from="build_mode/VBoxContainer/Arch" to="." method="_on_block_selection_pressed" binds= [2]]
 [connection signal="pressed" from="build_mode/VBoxContainer/Button3" to="." method="_on_block_selection_pressed" binds= [3]]
 [connection signal="pressed" from="build_mode/VBoxContainer/Button4" to="." method="_on_block_selection_pressed" binds= [4]]
-[connection signal="pressed" from="build_mode/VBoxContainer/Button5" to="." method="_on_block_selection_pressed" binds= [5]]
+[connection signal="pressed" from="build_mode/VBoxContainer/Ramp" to="." method="_on_block_selection_pressed" binds= [5]]
 [connection signal="pressed" from="build_mode/VBoxContainer/Button6" to="." method="_on_block_selection_pressed" binds= [6]]
 [connection signal="pressed" from="build_mode/VBoxContainer/Button7" to="." method="_on_block_selection_pressed" binds= [7]]
 [connection signal="pressed" from="build_mode/VBoxContainer/Button8" to="." method="_on_block_selection_pressed" binds= [8]]
 [connection signal="pressed" from="build_mode/VBoxContainer/Button10" to="." method="_on_block_selection_pressed" binds= [9]]
 [connection signal="pressed" from="build_mode/VBoxContainer/Button11" to="." method="_on_block_selection_pressed" binds= [10]]
 [connection signal="pressed" from="build_mode/VBoxContainer/Button12" to="." method="_on_block_selection_pressed" binds= [11]]
+[connection signal="pressed" from="build_mode/VBoxContainer/Button13" to="." method="_on_block_selection_pressed" binds= [12]]
 [connection signal="pressed" from="build_mode/VBoxContainer2/Button" to="." method="_on_color_selection_pressed" binds= [0]]
 [connection signal="pressed" from="build_mode/VBoxContainer2/Button9" to="." method="_on_color_selection_pressed" binds= [1]]
 [connection signal="pressed" from="build_mode/VBoxContainer2/Button2" to="." method="_on_color_selection_pressed" binds= [2]]

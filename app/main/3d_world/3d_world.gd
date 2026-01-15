@@ -18,6 +18,8 @@ const block_prefabs: Array[PackedScene] = [
 	preload("res://app/blocks/side_blocks/ladder.tscn"),
 	preload("res://app/blocks/side_blocks/start.tscn"),
 	preload("res://app/blocks/side_blocks/end.tscn"),
+	preload("res://app/blocks/side_blocks/drag.tscn"),
+	preload("res://app/blocks/side_blocks/ladder.tscn"),
 ]
 
 var objects: Array[Block]
@@ -49,9 +51,9 @@ enum {WHITE, BLUE, GREEN, YELLOW, PINK}
 var selected_color_type: int = WHITE
 var colors: Array[Color] = [Color.WHITE, Color.MEDIUM_BLUE, Color.GREEN, Color.YELLOW, Color.DEEP_PINK]
 
-enum {CUBE, STAIRS, ARCH1X, ARCH2X, ARCH3X, RAMP1X, RAMP2X, RAMP3X, DOOR, LADDER, START, END}
+enum {CUBE, STAIRS, ARCH1X, ARCH2X, ARCH3X, RAMP1X, RAMP2X, RAMP3X, DOOR, LADDER, START, END, DRAG, ROTATE}
 var selected_block_type: int = CUBE
-var block_types: Array[int] = [0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2]
+var block_types: Array[int] = [0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2]
 var blocks_preview: Array[Block]
 var sideblock_preview: SideBlock
 var current_pressed_block: ConnectionPoint
