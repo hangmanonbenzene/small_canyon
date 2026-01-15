@@ -28,12 +28,12 @@ func get_connections(from_middle: bool) -> Array[NavigationPoint]:
 		var dir: Vector3i = (coordinates.global_position - direction_point.global_position).normalized()
 		var towards: bool = dir == Vector3i.RIGHT or dir == Vector3i.UP or dir == Vector3i.BACK
 		var up: Vector3i = (up_point.global_position - center.global_position).normalized()
-		var in_front_of: bool = up == Vector3i.RIGHT or up == Vector3i.UP or up == Vector3i.BACK
+		#var in_front_of: bool = up == Vector3i.RIGHT or up == Vector3i.UP or up == Vector3i.BACK
 		var inverse_correction: Vector3i = -up if inverse else Vector3i.ZERO
-		var is_ladder: bool = field.side_block.type == World.LADDER
+		#var is_ladder: bool = field.side_block.type == World.LADDER
 		
 		var this_block_coordinates: Vector3i = Main.get_position(center) + inverse_correction
-		var this_block_2D: Vector2i = Vector2i(this_block_coordinates.x - this_block_coordinates.z, 2 * this_block_coordinates.y - this_block_coordinates.x - this_block_coordinates.z)
+		#var this_block_2D: Vector2i = Vector2i(this_block_coordinates.x - this_block_coordinates.z, 2 * this_block_coordinates.y - this_block_coordinates.x - this_block_coordinates.z)
 		var front_block_coordinates: Vector3i = this_block_coordinates + dir
 		var front_block_2D: Vector2i = Vector2i(front_block_coordinates.x - front_block_coordinates.z, 2 * front_block_coordinates.y - front_block_coordinates.x - front_block_coordinates.z)
 		var up_block_coordinates: Vector3i = front_block_coordinates + up
@@ -42,7 +42,7 @@ func get_connections(from_middle: bool) -> Array[NavigationPoint]:
 		var this_block: ConnectionPoint = field.side_block.block.world3d.connection_points.get(this_block_coordinates)
 		var front_block: ConnectionPoint = field.side_block.block.world3d.connection_points.get(front_block_coordinates)
 		var up_block: ConnectionPoint = field.side_block.block.world3d.connection_points.get(up_block_coordinates)
-		var this_block_first: ConnectionPoint = field.side_block.block.world3d.map2d.get(this_block_2D)
+		#var this_block_first: ConnectionPoint = field.side_block.block.world3d.map2d.get(this_block_2D)
 		var front_block_first: ConnectionPoint = field.side_block.block.world3d.map2d.get(front_block_2D)
 		var up_block_first: ConnectionPoint = field.side_block.block.world3d.map2d.get(up_block_2D)
 		
