@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://5130ubf2sohl"]
+[gd_scene load_steps=3 format=3 uid="uid://5130ubf2sohl"]
 
 [ext_resource type="Script" uid="uid://bsxv3vmg5nvov" path="res://app/main/menus/edit_ui.gd" id="1_ckw20"]
+[ext_resource type="Script" uid="uid://dkgxhvotpc85m" path="res://app/main/menus/more_options.gd" id="2_yyhrh"]
 
 [node name="edit_ui" type="Control" node_paths=PackedStringArray("edit_pause", "name_text", "build_ui", "edit_ui", "block_buttons", "color_buttons", "mode_buttons", "move_options")]
 visible = false
@@ -16,7 +17,7 @@ edit_pause = NodePath("edit_pause")
 name_text = NodePath("edit_pause/VBoxContainer/LineEdit")
 build_ui = NodePath("build_mode")
 edit_ui = NodePath("edit_mode")
-block_buttons = [NodePath("build_mode/VBoxContainer/Button"), NodePath("build_mode/VBoxContainer/Button9"), NodePath("build_mode/VBoxContainer/Arch"), NodePath("build_mode/VBoxContainer/Button3"), NodePath("build_mode/VBoxContainer/Button4"), NodePath("build_mode/VBoxContainer/Ramp"), NodePath("build_mode/VBoxContainer/Button6"), NodePath("build_mode/VBoxContainer/Button7"), NodePath("build_mode/VBoxContainer/Button8"), NodePath("build_mode/VBoxContainer/Button10"), NodePath("build_mode/VBoxContainer/Button11"), NodePath("build_mode/VBoxContainer/Button12"), NodePath("build_mode/VBoxContainer/Button13")]
+block_buttons = [NodePath("build_mode/VBoxContainer/Button"), NodePath("build_mode/VBoxContainer/Button9"), NodePath("build_mode/VBoxContainer/Arch/Button 2"), NodePath("build_mode/VBoxContainer/Arch/Button3"), NodePath("build_mode/VBoxContainer/Arch/Button4"), NodePath("build_mode/VBoxContainer/Ramp/Ramp"), NodePath("build_mode/VBoxContainer/Ramp/Button6"), NodePath("build_mode/VBoxContainer/Ramp/Button7"), NodePath("build_mode/VBoxContainer/Button8"), NodePath("build_mode/VBoxContainer/Button10"), NodePath("build_mode/VBoxContainer/Button11"), NodePath("build_mode/VBoxContainer/Button12"), NodePath("build_mode/VBoxContainer/Button13")]
 color_buttons = [NodePath("build_mode/VBoxContainer2/Button"), NodePath("build_mode/VBoxContainer2/Button9"), NodePath("build_mode/VBoxContainer2/Button2"), NodePath("build_mode/VBoxContainer2/Button3"), NodePath("build_mode/VBoxContainer2/Button4")]
 mode_buttons = [NodePath("HBoxContainer/Button"), NodePath("HBoxContainer/Button9")]
 move_options = NodePath("edit_mode/VBoxContainer")
@@ -125,38 +126,130 @@ focus_mode = 0
 theme_override_font_sizes/font_size = 50
 text = "Stairs"
 
-[node name="Arch" type="Button" parent="build_mode/VBoxContainer"]
+[node name="Arch" type="Button" parent="build_mode/VBoxContainer" node_paths=PackedStringArray("buttons", "other_toggles")]
 layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 50
+toggle_mode = true
+text = "Arch"
+script = ExtResource("2_yyhrh")
+buttons = [NodePath("Button 2"), NodePath("Button3"), NodePath("Button4")]
+other_toggles = [NodePath("../Ramp")]
+
+[node name="Button 2" type="Button" parent="build_mode/VBoxContainer/Arch"]
+visible = false
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 10.0
+offset_top = -125.5
+offset_right = 227.0
+offset_bottom = -48.5
+grow_horizontal = 0
+grow_vertical = 2
 focus_mode = 0
 theme_override_font_sizes/font_size = 50
 text = "Arch 1x"
 
-[node name="Button3" type="Button" parent="build_mode/VBoxContainer"]
-layout_mode = 2
+[node name="Button3" type="Button" parent="build_mode/VBoxContainer/Arch"]
+visible = false
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 10.0
+offset_top = -38.5
+offset_right = 227.0
+offset_bottom = 38.5
+grow_horizontal = 0
+grow_vertical = 2
 focus_mode = 0
 theme_override_font_sizes/font_size = 50
 text = "Arch 2x"
 
-[node name="Button4" type="Button" parent="build_mode/VBoxContainer"]
-layout_mode = 2
+[node name="Button4" type="Button" parent="build_mode/VBoxContainer/Arch"]
+visible = false
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 10.0
+offset_top = 48.5
+offset_right = 227.0
+offset_bottom = 125.5
+grow_horizontal = 0
+grow_vertical = 2
 focus_mode = 0
 theme_override_font_sizes/font_size = 50
 text = "Arch 3x"
 
-[node name="Ramp" type="Button" parent="build_mode/VBoxContainer"]
+[node name="Ramp" type="Button" parent="build_mode/VBoxContainer" node_paths=PackedStringArray("buttons", "other_toggles")]
 layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 50
+toggle_mode = true
+text = "Ramp"
+script = ExtResource("2_yyhrh")
+buttons = [NodePath("Ramp"), NodePath("Button6"), NodePath("Button7")]
+other_toggles = [NodePath("../Arch")]
+
+[node name="Ramp" type="Button" parent="build_mode/VBoxContainer/Ramp"]
+visible = false
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 10.0
+offset_top = -125.5
+offset_right = 227.0
+offset_bottom = -48.5
+grow_horizontal = 0
+grow_vertical = 2
 focus_mode = 0
 theme_override_font_sizes/font_size = 50
 text = "Ramp 1x"
 
-[node name="Button6" type="Button" parent="build_mode/VBoxContainer"]
-layout_mode = 2
+[node name="Button6" type="Button" parent="build_mode/VBoxContainer/Ramp"]
+visible = false
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 10.0
+offset_top = -38.5
+offset_right = 227.0
+offset_bottom = 38.5
+grow_horizontal = 0
+grow_vertical = 2
 focus_mode = 0
 theme_override_font_sizes/font_size = 50
 text = "Ramp 2x"
 
-[node name="Button7" type="Button" parent="build_mode/VBoxContainer"]
-layout_mode = 2
+[node name="Button7" type="Button" parent="build_mode/VBoxContainer/Ramp"]
+visible = false
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 10.0
+offset_top = 48.5
+offset_right = 227.0
+offset_bottom = 125.5
+grow_horizontal = 0
+grow_vertical = 2
 focus_mode = 0
 theme_override_font_sizes/font_size = 50
 text = "Ramp 3x"
@@ -368,12 +461,14 @@ text = " Edit "
 [connection signal="pressed" from="edit_pause/VBoxContainer/Button3" to="." method="_on_edit_pause_exit_pressed"]
 [connection signal="pressed" from="build_mode/VBoxContainer/Button" to="." method="_on_block_selection_pressed" binds= [0]]
 [connection signal="pressed" from="build_mode/VBoxContainer/Button9" to="." method="_on_block_selection_pressed" binds= [1]]
-[connection signal="pressed" from="build_mode/VBoxContainer/Arch" to="." method="_on_block_selection_pressed" binds= [2]]
-[connection signal="pressed" from="build_mode/VBoxContainer/Button3" to="." method="_on_block_selection_pressed" binds= [3]]
-[connection signal="pressed" from="build_mode/VBoxContainer/Button4" to="." method="_on_block_selection_pressed" binds= [4]]
-[connection signal="pressed" from="build_mode/VBoxContainer/Ramp" to="." method="_on_block_selection_pressed" binds= [5]]
-[connection signal="pressed" from="build_mode/VBoxContainer/Button6" to="." method="_on_block_selection_pressed" binds= [6]]
-[connection signal="pressed" from="build_mode/VBoxContainer/Button7" to="." method="_on_block_selection_pressed" binds= [7]]
+[connection signal="toggled" from="build_mode/VBoxContainer/Arch" to="build_mode/VBoxContainer/Arch" method="_on_toggled"]
+[connection signal="pressed" from="build_mode/VBoxContainer/Arch/Button 2" to="." method="_on_block_selection_pressed" binds= [2]]
+[connection signal="pressed" from="build_mode/VBoxContainer/Arch/Button3" to="." method="_on_block_selection_pressed" binds= [3]]
+[connection signal="pressed" from="build_mode/VBoxContainer/Arch/Button4" to="." method="_on_block_selection_pressed" binds= [4]]
+[connection signal="toggled" from="build_mode/VBoxContainer/Ramp" to="build_mode/VBoxContainer/Ramp" method="_on_toggled"]
+[connection signal="pressed" from="build_mode/VBoxContainer/Ramp/Ramp" to="." method="_on_block_selection_pressed" binds= [5]]
+[connection signal="pressed" from="build_mode/VBoxContainer/Ramp/Button6" to="." method="_on_block_selection_pressed" binds= [6]]
+[connection signal="pressed" from="build_mode/VBoxContainer/Ramp/Button7" to="." method="_on_block_selection_pressed" binds= [7]]
 [connection signal="pressed" from="build_mode/VBoxContainer/Button8" to="." method="_on_block_selection_pressed" binds= [8]]
 [connection signal="pressed" from="build_mode/VBoxContainer/Button10" to="." method="_on_block_selection_pressed" binds= [9]]
 [connection signal="pressed" from="build_mode/VBoxContainer/Button11" to="." method="_on_block_selection_pressed" binds= [10]]
