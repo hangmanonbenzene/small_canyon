@@ -19,7 +19,7 @@ var connection_point: ConnectionPoint
 @export var door_middle: NavigationPoint
 
 @export var player: Player
-@export var play_mode_collider: Array[NavigationField]
+@export var play_mode_collider: Array[Area3D]
 var play_mode_active: bool = false:
 	set(value):
 		for coll in play_mode_collider:

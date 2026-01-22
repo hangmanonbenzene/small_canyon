@@ -14,7 +14,7 @@ var selected_color_type: int
 @export var mode_buttons: Array[Button]
 var selected_mode: int
 
-@export var move_options: Control
+@export var move_options: MoveOptions
 
 var level_name: String
 

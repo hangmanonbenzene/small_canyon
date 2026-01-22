@@ -9,7 +9,6 @@ func _ready() -> void:
 	me = self
 	menus.call("load_levels")
 
-
 static func vector3_to_vector3i(vector: Vector3) -> Vector3i:
 	return Vector3i(roundi(vector.x), roundi(vector.y), roundi(vector.z))
 

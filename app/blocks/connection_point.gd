@@ -45,6 +45,8 @@ func activate_special_side(direction: Vector3i) -> void:
 		block.blocker.erase(blocker)
 	block.blocker.append_array(new_special_side.blocker)
 	block.update_blocked_space()
+	if current_old_side.type == World.DRAG and not new_special_side.type == World.DRAG: block.mover -= 1
+	if new_special_side.type == World.DRAG and not current_old_side.type == World.DRAG: block.mover += 1
 	block.sides.erase(current_old_side)
 	block.sides.append(new_special_side)
 	block.remove_child(current_old_side)

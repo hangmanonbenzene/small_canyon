@@ -64,6 +64,15 @@ var start_position: SideBlock
 var end_position: SideBlock
 var player_position: Player
 
+var move_configs: Array[MoveConfig]
+static var add_move_blocks: bool:
+	set(value):
+		if Block.selected_one.type == DOOR and Block.selected_one.door_connection != null:
+			Block.selected_one.door_connection.show_connected = not value
+		for block: Block in Block.selected_one.move_config.blocks:
+			if block != Block.selected_one: block.show_move = value
+		add_move_blocks = value
+
 func open_new_level() -> void:
 	main_menu_3d.visible = false
 	create_new_block(block_prefabs[CUBE].instantiate(), Vector3i.ZERO, Vector3i.UP, 0, 0)
@@ -75,8 +84,10 @@ func open_level(level_name: String, edit_mode: bool) -> void:
 	var save_file: FileAccess = FileAccess.open("user://created_levels/" + level_name, FileAccess.READ)
 	var sideblocks: Dictionary[Block, Array]
 	var door_connections: Dictionary[int, Block]
+	var id_and_blocks: Dictionary[int, Block]
 	while save_file.get_position() < save_file.get_length():
 		var json_string: String = save_file.get_line()
+		if json_string == "": break
 		var json: JSON = JSON.new()
 		var parse_result: Error = json.parse(json_string)
 		if not parse_result == OK: continue
@@ -95,6 +106,7 @@ func open_level(level_name: String, edit_mode: bool) -> void:
 			else: door_connections.set(node_data["door"] as int, new_block)
 		var sides: Array = node_data["sides"]
 		if not sides.is_empty(): sideblocks.set(new_block, sides)
+		if node_data.has("id"): id_and_blocks.set(node_data["id"] as int, new_block)
 	await get_tree().process_frame
 	for new_block: Block in sideblocks.keys():
 		var sides: Array = sideblocks.get(new_block)
@@ -106,6 +118,21 @@ func open_level(level_name: String, edit_mode: bool) -> void:
 				var direction: Vector3i = Vector3i(sides[i][j][1][0], sides[i][j][1][1], sides[i][j][1][2])
 				point.set_special_side(new_side, direction, sides[i][j][2])
 				point.activate_special_side(direction)
+	while save_file.get_position() < save_file.get_length():
+		var json_string: String = save_file.get_line()
+		var json: JSON = JSON.new()
+		var parse_result: Error = json.parse(json_string)
+		if not parse_result == OK: continue
+		var node_data: Dictionary = json.data
+		var new_config: MoveConfig = MoveConfig.new()
+		new_config.xyz = node_data["xyz"] as int
+		new_config.pos = node_data["pos"] as int
+		new_config.neg = node_data["neg"] as int
+		for id: int in (node_data["ids"] as Array[int]):
+			new_config.blocks.append(id_and_blocks.get(id as int))
+			id_and_blocks.get(id as int).move_config = new_config
+			id_and_blocks.get(id as int).movable = true
+	
 	current_mode = edit_mode
 
 func open_main_menu() -> void:
@@ -169,9 +196,15 @@ func delete_block(block: Block) -> void:
 
 func get_data() -> Array[String]:
 	Block.id_counter = 0
+	Block.door_id_counter = 0
 	var data: Array[String]
 	for block: Block in level.get_children():
 		data.append(block.get_data())
+	data.append("")
+	for move_config: MoveConfig in move_configs:
+		if not move_config.blocks.is_empty():
+			if move_config.get_data() != "":
+				data.append(move_config.get_data())
 	return data
 
 func change_selected_block_type(new_block_type: int) -> void:

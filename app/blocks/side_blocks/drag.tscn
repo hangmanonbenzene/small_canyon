@@ -1,12 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://56q3skh6q4er"]
+[gd_scene load_steps=9 format=3 uid="uid://56q3skh6q4er"]
 
 [ext_resource type="ArrayMesh" uid="uid://ctoa5osm25at1" path="res://app/meshes/cubic/cube_side.obj" id="1_85k02"]
 [ext_resource type="Script" uid="uid://6uvdpe1t1uwl" path="res://app/blocks/side_blocks/side_block.gd" id="1_yhnla"]
 [ext_resource type="ArrayMesh" uid="uid://fb3r2wfr5g1c" path="res://app/meshes/cubic/drag.obj" id="3_4movq"]
 [ext_resource type="Script" uid="uid://bt10m15n3aehi" path="res://app/meshes/scenes/navigation_field.gd" id="4_4movq"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4movq"]
-albedo_color = Color(0.28627452, 0.28235295, 0.2, 1)
+[ext_resource type="Script" uid="uid://br3budsdur7dv" path="res://app/blocks/side_blocks/drag.gd" id="5_dc53b"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_85k02"]
 size = Vector3(0.5, 0.01, 0.5)
@@ -14,16 +12,20 @@ size = Vector3(0.5, 0.01, 0.5)
 [sub_resource type="BoxShape3D" id="BoxShape3D_dc53b"]
 size = Vector3(1, 0.02, 1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_4movq"]
+size = Vector3(0.6, 0.1, 0.6)
+
 [node name="Drag" type="MeshInstance3D" node_paths=PackedStringArray("meshes", "play_mode_collider")]
 mesh = ExtResource("1_85k02")
 script = ExtResource("1_yhnla")
 meshes = [NodePath("."), NodePath("MeshInstance3D")]
 type = 12
-play_mode_collider = [NodePath("Area3D")]
+play_mode_collider = [NodePath("Area3D"), NodePath("Area3D2")]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." node_paths=PackedStringArray("sideblock")]
 mesh = ExtResource("3_4movq")
-surface_material_override/0 = SubResource("StandardMaterial3D_4movq")
+script = ExtResource("5_dc53b")
+sideblock = NodePath("..")
 
 [node name="Col1" type="Area3D" parent="."]
 input_ray_pickable = false
@@ -32,13 +34,23 @@ input_ray_pickable = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 shape = SubResource("BoxShape3D_85k02")
 
-[node name="Area3D" type="Area3D" parent="." node_paths=PackedStringArray("side_block", "middle")]
+[node name="Area3D" type="Area3D" parent="." node_paths=PackedStringArray("side_block")]
 process_mode = 4
 input_ray_pickable = false
 script = ExtResource("4_4movq")
 side_block = NodePath("..")
-middle = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
 shape = SubResource("BoxShape3D_dc53b")
+
+[node name="Area3D2" type="Area3D" parent="."]
+process_mode = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+shape = SubResource("BoxShape3D_4movq")
+
+[connection signal="input_event" from="Area3D2" to="MeshInstance3D" method="_on_area_3d_2_input_event"]
+[connection signal="mouse_entered" from="Area3D2" to="MeshInstance3D" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Area3D2" to="MeshInstance3D" method="_on_mouse_exited"]

@@ -4,15 +4,38 @@ var world3d: World
 
 var current_direction: Vector3i
 var current_rotation: int
+var start_position: Vector3i
 
 @export var type: int
 
+var movable: bool:
+	set(value):
+		if value and move_config == null: 
+			move_config = MoveConfig.new()
+			move_config.blocks.append(self)
+			world3d.move_configs.append(move_config)
+		elif movable and not value: 
+			move_config.blocks.erase(self)
+			move_config = null
+		movable = value
+var mover: int:
+	set(value):
+		mover = value
+		movable = mover > 0
+var move_config: MoveConfig
+
 static var id_counter: int
+var block_id: int
+static var door_id_counter: int
 var door_connection_id: int = -1
 var door_connection: Block
 var show_connected: bool:
 	set(value):
 		show_connected = value
+		update_side_color()
+var show_move: bool:
+	set(value):
+		show_move = value
 		update_side_color()
 
 @export var sides: Array[SideBlock]
@@ -37,9 +60,13 @@ var is_selected: bool:
 			selected_one = self
 			if type == World.DOOR and not door_connection == null:
 					door_connection.show_connected = true
+			if movable == true:
+				world3d.menus.edit_ui.move_options.set_options(move_config)
 		else: 
 			if type == World.DOOR and not door_connection == null:
 					door_connection.show_connected = false
+			if movable == true:
+				world3d.menus.edit_ui.move_options.disable()
 		is_selected = value
 		update_side_color()
 static var selected_one: Block
@@ -71,13 +98,14 @@ func initialize(_mode: bool, world: World, new_color: Color) -> void:
 	base_color = new_color
 	update_side_color()
 	world3d = world
+	start_position = Main.get_position(self)
 
 func get_data() -> String:
 	var my_position: Vector3i = Main.get_position(self)
 	if type == World.DOOR and door_connection != null:
 		if door_connection_id < 0:
-			door_connection_id = id_counter
-			id_counter += 1
+			door_connection_id = door_id_counter
+			door_id_counter += 1
 			door_connection.door_connection_id = door_connection_id
 	var data_dict: Dictionary = {
 		"type" : type,
@@ -85,8 +113,11 @@ func get_data() -> String:
 		"dir" : [current_direction.x, current_direction.y, current_direction.z],
 		"rot" : current_rotation,
 		"col" : world3d.colors.find(base_color),
-		"door" : door_connection_id
+		"door" : door_connection_id,
+		"id" : id_counter,
 	}
+	block_id = id_counter
+	id_counter += 1
 	var sp_sides: Array
 	for i in range(connection_points.size()):
 		var point: Array
@@ -172,7 +203,23 @@ func _on_area_3d_input_event(camera: Node, event: InputEvent, _event_position: V
 		if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1:
 			is_pressed = true
 		elif event is InputEventMouseButton and event.is_released() and event.button_index == 1 and is_pressed:
-			if type == World.DOOR and not selected_one == null and selected_one.type == World.DOOR and not selected_one == self:
+			if world3d.add_move_blocks: 
+				if not movable:
+					move_config = selected_one.move_config
+					move_config.blocks.append(self)
+					movable = true
+				elif selected_one.move_config.blocks.has(self):
+					if selected_one == self:
+						world3d.menus.edit_ui.move_options.disable()
+					movable = false
+				else:
+					movable = false
+					move_config = selected_one.move_config
+					move_config.blocks.append(self)
+					movable = true
+				show_move = movable
+				update_side_color()
+			elif type == World.DOOR and not selected_one == null and selected_one.type == World.DOOR and not selected_one == self:
 				if not selected_one.door_connection == null:
 					selected_one.door_connection.door_connection = null
 					if not selected_one.door_connection == self: selected_one.door_connection.show_connected = false
@@ -187,7 +234,7 @@ func _on_area_3d_input_event(camera: Node, event: InputEvent, _event_position: V
 func update_side_color() -> void:
 	if current_mode == NEW: material.albedo_color = Color(1.0, 0.647, 0.0, 0.498)
 	elif current_mode == INVALID: material.albedo_color = Color.RED
-	elif show_connected: material.albedo_color = Color.RED
+	elif show_connected or show_move: material.albedo_color = Color.RED
 	elif is_selected and is_entered: material.albedo_color = Color.REBECCA_PURPLE
 	elif is_selected: material.albedo_color = Color.PURPLE
 	elif (is_entered and not one_is_pressed) or is_pressed: material.albedo_color = Color.ORANGE
